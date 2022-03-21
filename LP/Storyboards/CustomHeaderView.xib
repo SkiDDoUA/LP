@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" restorationIdentifier="CustomHeaderView" id="iN0-l3-epB" customClass="CustomHeaderView" customModule="LP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="360" height="45"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5od-lf-thd">
+                    <rect key="frame" x="0.0" y="0.0" width="360" height="45"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ТЕКСТ" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gzS-az-Ggi">
+                            <rect key="frame" x="0.0" y="0.0" width="46" height="22"/>
+                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                            <color key="textColor" name="BlackLP"/>
+                            <color key="highlightedColor" name="BlackLP"/>
+                            <size key="shadowOffset" width="0.0" height="0.0"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="top" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zp0-hD-vCe">
+                            <rect key="frame" x="0.0" y="0.0" width="360" height="45"/>
+                            <color key="tintColor" name="BlackLP"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" image="Arrow">
+                                <color key="titleColor" name="WhiteLP"/>
+                            </state>
+                            <connections>
+                                <action selector="tapHeaderWithSender:" destination="iN0-l3-epB" eventType="touchUpInside" id="IfT-D2-3Ew"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o4L-iM-g4s">
+                            <rect key="frame" x="0.0" y="44.5" width="360" height="0.5"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="0.5" id="F8q-rJ-hgK"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="o4L-iM-g4s" secondAttribute="bottom" id="ArN-1D-q3q"/>
+                        <constraint firstItem="o4L-iM-g4s" firstAttribute="leading" secondItem="5od-lf-thd" secondAttribute="leading" id="DsP-wQ-feW"/>
+                        <constraint firstItem="gzS-az-Ggi" firstAttribute="top" secondItem="5od-lf-thd" secondAttribute="top" id="KN4-PG-iZw"/>
+                        <constraint firstAttribute="trailing" secondItem="o4L-iM-g4s" secondAttribute="trailing" id="Pyr-pW-K2a"/>
+                        <constraint firstAttribute="trailing" secondItem="o4L-iM-g4s" secondAttribute="trailing" id="T2k-bU-t4h"/>
+                        <constraint firstItem="gzS-az-Ggi" firstAttribute="leading" secondItem="5od-lf-thd" secondAttribute="leading" id="TIF-si-gVd"/>
+                        <constraint firstItem="zp0-hD-vCe" firstAttribute="leading" secondItem="5od-lf-thd" secondAttribute="leading" id="UOx-cd-k2a"/>
+                        <constraint firstItem="o4L-iM-g4s" firstAttribute="leading" secondItem="5od-lf-thd" secondAttribute="leading" id="apK-9r-OgR"/>
+                        <constraint firstItem="zp0-hD-vCe" firstAttribute="top" secondItem="5od-lf-thd" secondAttribute="top" id="eBO-gd-t8E"/>
+                        <constraint firstItem="o4L-iM-g4s" firstAttribute="top" secondItem="5od-lf-thd" secondAttribute="top" constant="44.5" id="fwR-Wj-B3t"/>
+                        <constraint firstAttribute="bottom" secondItem="zp0-hD-vCe" secondAttribute="bottom" id="hQk-vg-dbh"/>
+                        <constraint firstAttribute="bottom" secondItem="gzS-az-Ggi" secondAttribute="bottom" constant="23" id="qze-S7-9Jy"/>
+                        <constraint firstAttribute="trailing" secondItem="zp0-hD-vCe" secondAttribute="trailing" id="wnA-NF-mJb"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="TmA-Xc-8gp"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="TmA-Xc-8gp" firstAttribute="trailing" secondItem="5od-lf-thd" secondAttribute="trailing" id="IE9-W6-Kit"/>
+                <constraint firstItem="5od-lf-thd" firstAttribute="leading" secondItem="TmA-Xc-8gp" secondAttribute="leading" id="X13-79-0th"/>
+                <constraint firstItem="5od-lf-thd" firstAttribute="bottom" secondItem="TmA-Xc-8gp" secondAttribute="bottom" id="hmk-49-5Rh"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="bottomLineView" destination="o4L-iM-g4s" id="6Ev-yD-bQR"/>
+                <outlet property="headerButton" destination="zp0-hD-vCe" id="JND-0s-YBo"/>
+                <outlet property="titleLabel" destination="gzS-az-Ggi" id="RJK-Lm-d0j"/>
+            </connections>
+            <point key="canvasLocation" x="-355.07246376811599" y="61.272321428571423"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Arrow" width="17" height="8"/>
+        <namedColor name="BlackLP">
+            <color red="0.14900000393390656" green="0.14900000393390656" blue="0.14900000393390656" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="WhiteLP">
+            <color red="0.99599999189376831" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -1,0 +1,6 @@
+framework module Pods_LP {
+  umbrella header "Pods-LP-umbrella.h"
+
+  export *
+  module * { export * }
+}

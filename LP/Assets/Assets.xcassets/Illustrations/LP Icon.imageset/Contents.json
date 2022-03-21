@@ -1,0 +1,15 @@
+{
+  "images" : [
+    {
+      "filename" : "Снимок экрана 2021-08-27 в 11.34.29.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "template-rendering-intent" : "original"
+  }
+}

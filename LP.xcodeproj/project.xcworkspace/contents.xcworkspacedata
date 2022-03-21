@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <Group
+      location = "group:TextFieldEffects"
+      name = "TextFieldEffects">
+      <FileRef
+         location = "group:YoshikoTextField.swift">
+      </FileRef>
+      <FileRef
+         location = "group:TextFieldEffects.h">
+      </FileRef>
+      <FileRef
+         location = "group:HoshiTextField.swift">
+      </FileRef>
+      <FileRef
+         location = "group:MinoruTextField.swift">
+      </FileRef>
+      <FileRef
+         location = "group:YokoTextField.swift">
+      </FileRef>
+      <FileRef
+         location = "group:TextFieldEffects.swift">
+      </FileRef>
+      <FileRef
+         location = "group:JiroTextField.swift">
+      </FileRef>
+      <FileRef
+         location = "group:MadokaTextField.swift">
+      </FileRef>
+      <FileRef
+         location = "group:KaedeTextField.swift">
+      </FileRef>
+      <FileRef
+         location = "group:AkiraTextField.swift">
+      </FileRef>
+      <FileRef
+         location = "group:IsaoTextField.swift">
+      </FileRef>
+      <FileRef
+         location = "group:Info.plist">
+      </FileRef>
+   </Group>
+   <FileRef
+      location = "self:">
+   </FileRef>
+</Workspace>
