@@ -10,7 +10,8 @@ import UIKit
 class FilterSecondTableViewCell: UITableViewCell {
     
     @IBOutlet weak var filterParameterTextLabel: UILabel!
-
+    @IBOutlet weak var checkImageView: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

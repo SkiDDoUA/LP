@@ -1320,6 +1320,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tkY-2W-puF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="Cml-NB-Xqt" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="393.84615384615381" y="2654.5023696682465"/>
         </scene>
@@ -1541,6 +1542,8 @@
         <!--Filter Table View Controller-->
         <scene sceneID="hEe-Np-ZNy">
             <objects>
+                <exit id="efz-sC-Ky7" userLabel="Exit" sceneMemberID="exit"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hiz-4y-dHm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <tableViewController id="iHF-kg-IVt" customClass="FilterTableViewController" customModule="LP" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="CNW-RT-La7">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
@@ -1738,9 +1741,9 @@
                         <outlet property="genderCell" destination="qff-Ve-G6I" id="fsf-n2-Qzn"/>
                         <outlet property="priceCell" destination="rVu-aH-CHu" id="jxU-WY-Oe3"/>
                         <outlet property="sizeCell" destination="wNK-gI-bW9" id="wOS-o6-ff5"/>
+                        <segue destination="efz-sC-Ky7" kind="unwind" identifier="unwindToShopping" unwindAction="unwindToShopping:" id="1ac-3L-3bz"/>
                     </connections>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hiz-4y-dHm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1247.6923076923076" y="3460.6635071090045"/>
         </scene>
@@ -2014,7 +2017,7 @@
                                             <color key="textColor" name="BlackLP"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Check" translatesAutoresizingMaskIntoConstraints="NO" id="s3Y-PT-NPJ">
+                                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Check" translatesAutoresizingMaskIntoConstraints="NO" id="s3Y-PT-NPJ">
                                             <rect key="frame" x="354" y="19.666666666666668" width="16" height="11"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="11" id="NDt-xU-S74"/>
@@ -2035,6 +2038,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="checkImageView" destination="s3Y-PT-NPJ" id="G1u-ho-dce"/>
                                     <outlet property="filterParameterTextLabel" destination="0GJ-bu-V4w" id="7kZ-VK-jcd"/>
                                 </connections>
                             </tableViewCell>
@@ -2046,6 +2050,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="wm0-a5-noY"/>
+                    <connections>
+                        <segue destination="Cml-NB-Xqt" kind="unwind" identifier="unwindToShopping" unwindAction="unwindToShopping:" id="hYi-8Z-OSm"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wBM-Mj-U4I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

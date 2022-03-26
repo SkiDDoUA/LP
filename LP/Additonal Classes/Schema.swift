@@ -77,7 +77,7 @@ public struct StockProduct: Identifiable, Codable {
     let name: String
     let price: Int
     let brand: ProductBrand
-    let images: Array<String>
+    let images: [String]
     let details: ProductDetails
     let stock: Int
 }
@@ -93,7 +93,7 @@ public struct ProductDetails: Codable {
     let color: String
     let season: String
     let material: [String : String]
-    let size: Array<String>
+    let size: [String]
     let stylecode: String
     let delivery: String
     let type: String
@@ -102,13 +102,13 @@ public struct ProductDetails: Codable {
 
 // MARK: - Sizechart Structure
 public struct Sizechart: Codable {
-    var Default: Array<String>?
-    var EU: Array<String>?
-    var US: Array<String>?
-    var UK: Array<String>?
-    var IT: Array<String>?
-    var CM: Array<String>?
-    var Moncler: Array<String>?
+    let Default: [String]?
+    let EU: [String]?
+    let US: [String]?
+    let UK: [String]?
+    let IT: [String]?
+    let CM: [String]?
+    let Moncler: [String]?
 }
 
 // MARK: - Details View Cell Structure
@@ -116,6 +116,12 @@ struct ExpandedModel {
     var isExpanded: Bool
     let title: String
     let text: String
+}
+
+
+struct productFilter {
+    let filterType: FilterTableViewController.filterTypes
+    let filterData: [String]?
 }
 
 extension Encodable {

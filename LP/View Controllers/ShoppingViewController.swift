@@ -18,8 +18,19 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
     var titleString = " "
     var productCollectionType: Database.productCollectionTypes?
     var availabilityCollectionType: Database.availabilityCollectionTypes?
+    var filterType: FilterTableViewController.filterTypes?
     private var database: Database?
     private let toProductIdentifier = "toProduct"
+    var tempProducts = [StockProduct]()
+    
+    var chosenFilters = [String]() {
+       didSet {
+           DispatchQueue.main.async {
+               print("?????????")
+               self.products = self.tempProducts.filter({$0.details.size.contains(where: self.chosenFilters.contains)})
+           }
+       }
+    }
     
     var products = [StockProduct]() {
        didSet {
@@ -59,6 +70,7 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
         database = Database()
         database?.fetchData(availabilityCollection: availabilityCollectionType ?? Database.availabilityCollectionTypes.stock, productCollection: productCollectionType ?? Database.productCollectionTypes.pants) { products in
             self.allproducts = products
+            self.tempProducts = products
         }
     }
     
@@ -94,15 +106,15 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
     //MARK: - Parse Cell Data To ProductViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
-            case toProductIdentifier:
-                let destination = segue.destination as! ProductViewController
-                let cell = sender as! ProductCollectionViewCell
-                let indexPath = productCollectionView.indexPath(for: cell)!
-                destination.product = products[indexPath.item]
-            case "toFilter":
-                let destination = segue.destination as! FilterTableViewController
-                destination.products = products
-            default: break
+        case toProductIdentifier:
+            let destination = segue.destination as! ProductViewController
+            let cell = sender as! ProductCollectionViewCell
+            let indexPath = productCollectionView.indexPath(for: cell)!
+            destination.product = products[indexPath.item]
+        case "toFilter":
+            let destination = segue.destination as! FilterTableViewController
+            destination.products = tempProducts
+        default: break
         }
     }
     
@@ -115,5 +127,7 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
         loadData()
     }
-
+    
+    // MARK: - Unwind Segue From Filter
+    @IBAction func unwindToShopping(_ sender: UIStoryboardSegue) {}
 }

@@ -173,16 +173,16 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
     //MARK: - Parse Cell Data To ProductViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
-            case toProductIdentifier:
-                let destination = segue.destination as! ProductViewController
-                let cell = sender as! ProductCollectionViewCell
-                let indexPath = productCollectionView.indexPath(for: cell)!
-                destination.product = products[indexPath.item]
-            case toShoppingIdentifier:
-                let destination = segue.destination as! ShoppingViewController
-                destination.titleString = titleString
-                destination.productCollectionType = productCollectionType
-            default: break
+        case toProductIdentifier:
+            let destination = segue.destination as! ProductViewController
+            let cell = sender as! ProductCollectionViewCell
+            let indexPath = productCollectionView.indexPath(for: cell)!
+            destination.product = products[indexPath.item]
+        case toShoppingIdentifier:
+            let destination = segue.destination as! ShoppingViewController
+            destination.titleString = titleString
+            destination.productCollectionType = productCollectionType
+        default: break
         }
     }
     
