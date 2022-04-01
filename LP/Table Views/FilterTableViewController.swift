@@ -7,35 +7,18 @@
 
 import UIKit
 
-class FilterTableViewController: UITableViewController, FilterChosenDelegate {
-    
-    @IBOutlet weak var sizeCell: UITableViewCell!
-    @IBOutlet weak var priceCell: UITableViewCell!
-    @IBOutlet weak var genderCell: UITableViewCell!
-    @IBOutlet weak var colorCell: UITableViewCell!
-    @IBOutlet weak var brandCell: UITableViewCell!
+class FilterTableViewController: UITableViewController, FilterChosenDelegate {    
     
     var products = [StockProduct]()
     var filterData = [String]()
-    var filterType: filterTypes?
+    var filterType: FilterTypes?
     var chosenFilters = [String]()
     var buttonTapped = false
     var selectedIndexPath: IndexPath = IndexPath()
     private let toSecondFilterIdentifier = "toSecondFilter"
     
-    var filterSizeData = [String]()
-    var filterPriceData = [String]()
-    var filterGenderData = [String]()
-    var filterColorData = [String]()
-    var filterBrandData = [String]()
-
-    enum filterTypes: String {
-        case size = "Размер"
-        case price = "Цена"
-        case gender = "Пол"
-        case color = "Цвет"
-        case brand = "Бренд"
-    }
+    var filterStructure: ProductFilter?
+    var filterStructuresArray = [ProductFilter?](repeatElement(nil, count: FilterTypes.allFilters.count))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,31 +27,21 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
         title = "Фильтр"
     }
     
-    func userDidChoseFilters(filters: [String], type: filterTypes?) {
-        switch type {
-        case .size:
-            filterSizeData = filters
-        case .price:
-            filterPriceData = filters
-        case .gender:
-            filterGenderData = filters
-        case .color:
-            filterColorData = filters
-        default:
-            filterBrandData = filters
+    func userDidChoseFilters(filter: ProductFilter) {
+        if !(filter.filterData.isEmpty) {
+            filterStructuresArray[filter.filterType.details.index] = filter
+            let indexPath = IndexPath(item: filter.filterType.details.index, section: 0)
+            tableView.reloadRows(at: [indexPath], with: .none)
         }
     }
     
-    func addResultButtonView() {
+    public func addResultButtonView() {
         let resultButton = UIButton()
-
         resultButton.backgroundColor = UIColor(named: "BlackLP")
         resultButton.setTitle("Показать результаты", for: .normal)
         resultButton.titleLabel?.font =  UIFont(name: "Helvetica", size: 14)
         resultButton.addTarget(self, action: #selector(resultTapped), for: .touchUpInside)
         tableView.addSubview(resultButton)
-
-        // set position
         resultButton.translatesAutoresizingMaskIntoConstraints = false
         resultButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         resultButton.bottomAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.bottomAnchor, constant: -15).isActive = true
@@ -76,31 +49,43 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
         resultButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
     
-    //MARK: - Prepare Filter Data Before Segue
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.row {
-        case 1:
-            products.forEach{filterData.append($0.price.description)}
-            filterType = filterTypes.price
-        case 2:
-            products.forEach{filterData.append($0.details.gender)}
-            filterType = filterTypes.gender
-        case 3:
-            products.forEach{filterData.append($0.details.color)}
-            filterType = filterTypes.color
-        case 4:
-            products.forEach{filterData.append($0.brand.name)}
-            filterType = filterTypes.brand
-        default: break
-        }
-        
-        if indexPath.row != 0 {
-            self.performSegue(withIdentifier: toSecondFilterIdentifier, sender: Any?.self)
-        }
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        filterStructuresArray.count
     }
     
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FilterCell", for: indexPath)
+        if let cell = cell as? FilterTableViewCell {
+            cell.filterNameLabel?.text = FilterTypes.allFilters[indexPath.row].details.title
+            if filterStructuresArray[indexPath.row] != nil {
+                let filterCount = filterStructuresArray[indexPath.row]!.filterData.count
+                cell.filtersLabel?.text = "(\(filterCount)) \(filterStructuresArray[indexPath.row]!.filterData.joined(separator: ", "))"
+                cell.filtersLabel.isHidden = false
+            }
+        }
+        return cell
+    }
+    
+    //MARK: - Prepare Filter Data Before Segue
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        selectedIndexPath = indexPath
+        switch indexPath.row {
+        case 0:
+            products.forEach{filterData.append(contentsOf: $0.details.size)}
+            filterType = FilterTypes.size
+        case 1:
+            products.forEach{filterData.append($0.price.description)}
+            filterType = FilterTypes.price
+        case 2:
+            products.forEach{filterData.append($0.details.gender)}
+            filterType = FilterTypes.gender
+        case 3:
+            products.forEach{filterData.append($0.details.color)}
+            filterType = FilterTypes.color
+        case 4:
+            products.forEach{filterData.append($0.brand.name)}
+            filterType = FilterTypes.brand
+        default: break
+        }
         return indexPath
     }
     
@@ -114,20 +99,13 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case toSecondFilterIdentifier:
-            if selectedIndexPath.row == 0 {
-                products.forEach{filterData.append(contentsOf: $0.details.size)}
-                filterType = filterTypes.size
-            }
-
             let destination = segue.destination as! FilterSecondTableViewController
-            destination.filterData = Array(Set(filterData))
-            destination.filterType = filterType
+            destination.filterStructure = ProductFilter(filterType: filterType!, filterData: Array(Set(filterData)))
             destination.delegate = self
             filterData = []
         case "unwindToShopping":
             let destination = segue.destination as! ShoppingViewController
-            destination.chosenFilters = filterSizeData
-            destination.filterType = filterType
+//            destination.filterStructure = ProductFilter(filterType: filterType!, filterData: Array(Set(filterData)))
         default: break
         }
     }

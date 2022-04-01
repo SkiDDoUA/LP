@@ -9,34 +9,32 @@ import UIKit
 
 // Protocol used for sending data back
 protocol FilterChosenDelegate: AnyObject {
-    func userDidChoseFilters(filters: [String], type: FilterTableViewController.filterTypes?)
+    func userDidChoseFilters(filter: ProductFilter)
 }
 
 class FilterSecondTableViewController: UITableViewController {
     
-    var filterData = [Any]()
-    var filterType: FilterTableViewController.filterTypes?
+//    var filterData = [String]()
+//    var filterType: FilterTypes?
     var chosenFilters = [String]()
     var buttonTapped = false
     weak var delegate: FilterChosenDelegate?
+    var filterStructure: ProductFilter?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addResultButtonView()
         self.navigationController?.navigationBar.topItem?.title = " "
-        title = filterType?.rawValue
+        title = filterStructure?.filterType.details.title
     }
     
-    private func addResultButtonView() {
+    func addResultButtonView() {
         let resultButton = UIButton()
-
         resultButton.backgroundColor = UIColor(named: "BlackLP")
         resultButton.setTitle("Показать результаты", for: .normal)
         resultButton.titleLabel?.font =  UIFont(name: "Helvetica", size: 14)
         resultButton.addTarget(self, action: #selector(resultTapped), for: .touchUpInside)
         tableView.addSubview(resultButton)
-
-        // set position
         resultButton.translatesAutoresizingMaskIntoConstraints = false
         resultButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         resultButton.bottomAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.bottomAnchor, constant: -15).isActive = true
@@ -45,13 +43,13 @@ class FilterSecondTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        filterData.count
+        (filterStructure?.filterData.count)!
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FilterSecondCell", for: indexPath)
         if let cell = cell as? FilterSecondTableViewCell {
-            cell.filterParameterTextLabel?.text = filterData[indexPath.row] as? String
+            cell.filterParameterTextLabel?.text = filterStructure?.filterData[indexPath.row]
         }
         return cell
     }
@@ -73,7 +71,9 @@ class FilterSecondTableViewController: UITableViewController {
     override func willMove(toParent parent: UIViewController?) {
         if parent == nil {
             if buttonTapped == false {
-                delegate?.userDidChoseFilters(filters: chosenFilters, type: filterType)
+                let filterType = filterStructure?.filterType
+                let filterStructure = ProductFilter(filterType: filterType!, filterData: chosenFilters)
+                delegate?.userDidChoseFilters(filter: filterStructure)
             }
         }
     }
@@ -89,8 +89,9 @@ class FilterSecondTableViewController: UITableViewController {
         switch segue.identifier {
         case "unwindToShopping":
             let destination = segue.destination as! ShoppingViewController
-            destination.chosenFilters = chosenFilters
-            destination.filterType = filterType
+            let filterType = filterStructure?.filterType
+            let filterStructure = ProductFilter(filterType: filterType!, filterData: chosenFilters)
+//            destination.filterStructureArray.append(filterStructure)
         default: break
         }
     }

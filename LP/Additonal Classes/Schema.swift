@@ -118,10 +118,35 @@ struct ExpandedModel {
     let text: String
 }
 
+public enum FilterTypes {
+    case size
+    case price
+    case gender
+    case color
+    case brand
+    
+    var details: (title: String, index: Int) {
+        switch self {
+        case .size:
+            return (title: "Размер", index: 0)
+        case .price:
+            return (title: "Цена", index: 1)
+        case .gender:
+            return (title: "Пол", index: 2)
+        case .color:
+            return (title: "Цвет", index: 3)
+        case .brand:
+            return (title: "Бренд", index: 4)
+        }
+    }
+    
+    static let allFilters = [size, price, gender, color, brand]
+}
 
-struct productFilter {
-    let filterType: FilterTableViewController.filterTypes
-    let filterData: [String]?
+public struct ProductFilter {
+    var filterType: FilterTypes
+    var filterData: [String]
+//    var chosenFilters: [String]?
 }
 
 extension Encodable {
