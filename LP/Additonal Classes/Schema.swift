@@ -143,10 +143,15 @@ public enum FilterTypes {
     static let allFilters = [size, price, gender, color, brand]
 }
 
+public struct Filter {
+    var filterString: String
+    var isChosen: Bool = false
+}
+
 public struct ProductFilter {
     var filterType: FilterTypes
-    var filterData: [String]
-//    var chosenFilters: [String]?
+    var filterData: [Filter]
+    var isUsed: Bool = false
 }
 
 extension Encodable {

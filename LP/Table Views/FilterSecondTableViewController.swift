@@ -49,21 +49,22 @@ class FilterSecondTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FilterSecondCell", for: indexPath)
         if let cell = cell as? FilterSecondTableViewCell {
-            cell.filterParameterTextLabel?.text = filterStructure?.filterData[indexPath.row]
+            cell.filterParameterTextLabel?.text = filterStructure?.filterData[indexPath.row].filterString
+            if filterStructure?.filterData[indexPath.row].isChosen == true {
+                cell.checkImageView.isHidden = false
+            }
         }
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! FilterSecondTableViewCell
-        let filter = cell.filterParameterTextLabel.text!
-        
         if cell.checkImageView.isHidden {
-            chosenFilters.append(filter)
+            filterStructure?.filterData[indexPath.row].isChosen = true
             cell.checkImageView.isHidden = false
         }
         else {
-            chosenFilters.remove(at: chosenFilters.firstIndex(of: filter)!)
+            filterStructure?.filterData[indexPath.row].isChosen = false
             cell.checkImageView.isHidden = true
         }
     }
@@ -72,8 +73,8 @@ class FilterSecondTableViewController: UITableViewController {
         if parent == nil {
             if buttonTapped == false {
                 let filterType = filterStructure?.filterType
-                let filterStructure = ProductFilter(filterType: filterType!, filterData: chosenFilters)
-                delegate?.userDidChoseFilters(filter: filterStructure)
+                let returnFilterStructure = ProductFilter(filterType: filterType!, filterData: filterStructure!.filterData)
+                delegate?.userDidChoseFilters(filter: returnFilterStructure)
             }
         }
     }
@@ -90,7 +91,7 @@ class FilterSecondTableViewController: UITableViewController {
         case "unwindToShopping":
             let destination = segue.destination as! ShoppingViewController
             let filterType = filterStructure?.filterType
-            let filterStructure = ProductFilter(filterType: filterType!, filterData: chosenFilters)
+            let returnFilterStructure = ProductFilter(filterType: filterType!, filterData: filterStructure!.filterData)
 //            destination.filterStructureArray.append(filterStructure)
         default: break
         }
