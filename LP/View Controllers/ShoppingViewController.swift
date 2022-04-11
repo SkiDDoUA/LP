@@ -71,22 +71,22 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
 //       }
 //    }
     
-    var SSS = [["S", "M"], ["1000", "4000"], ["Женский", "Мужской"], ["Белый", "Черный"], ["Heron Preston", "Calvin Klein"]]
-    
-    var filterStructureArray = [ProductFilter]() {
-       didSet {
-           DispatchQueue.main.async {
-               print("?????????")
-               self.products = self.tempProducts.filter {
-                   $0.details.size.contains(where: self.SSS[0].contains) &&
-                   (Int(self.SSS[1][0]) ?? 0 <= $0.price && $0.price <= Int(self.SSS[1][1]) ?? 0) &&
-                   self.SSS[2].contains($0.details.gender) &&
-                   self.SSS[3].contains($0.details.color) &&
-                   self.SSS[4].contains($0.brand.name)
-               }
-           }
-       }
-    }
+//    var SSS = [["S", "M"], ["1000", "4000"], ["Женский", "Мужской"], ["Белый", "Черный"], ["Heron Preston", "Calvin Klein"]]
+//
+//    var filterStructureArray = [ProductFilter]() {
+//       didSet {
+//           DispatchQueue.main.async {
+//               print("?????????")
+//               self.products = self.tempProducts.filter {
+//                   $0.details.size.contains(where: self.SSS[0].contains) &&
+//                   (Int(self.SSS[1][0]) ?? 0 <= $0.price && $0.price <= Int(self.SSS[1][1]) ?? 0) &&
+//                   self.SSS[2].contains($0.details.gender) &&
+//                   self.SSS[3].contains($0.details.color) &&
+//                   self.SSS[4].contains($0.brand.name)
+//               }
+//           }
+//       }
+//    }
     
     var products = [StockProduct]() {
        didSet {
