@@ -14,8 +14,6 @@ protocol FilterChosenDelegate: AnyObject {
 
 class FilterSecondTableViewController: UITableViewController {
     
-//    var filterData = [String]()
-//    var filterType: FilterTypes?
     var chosenFilters = [String]()
     var buttonTapped = false
     weak var delegate: FilterChosenDelegate?
@@ -23,8 +21,8 @@ class FilterSecondTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addResultButtonView()
         self.navigationController?.navigationBar.topItem?.title = " "
+        addResultButtonView()
         title = filterStructure?.filterType.details.title
     }
     
@@ -92,7 +90,6 @@ class FilterSecondTableViewController: UITableViewController {
             let destination = segue.destination as! ShoppingViewController
             let filterType = filterStructure?.filterType
             let returnFilterStructure = ProductFilter(filterType: filterType!, filterData: filterStructure!.filterData)
-//            destination.filterStructureArray.append(filterStructure)
         default: break
         }
     }

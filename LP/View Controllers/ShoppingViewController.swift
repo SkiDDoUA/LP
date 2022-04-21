@@ -22,72 +22,7 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
     private var database: Database?
     private let toProductIdentifier = "toProduct"
     var tempProducts = [StockProduct]()
-//    var SSS = [[], [], [], [], []]
-    //            var brands = ["Heron Preston", "Calvin Klein"]
-    //            print(products.filter({brands.contains($0.brand.name)}))
-                
-    //            var sizes = ["S", "M"]
-    //            print(products.filter({$0.details.size.contains(where: sizes.contains)}))
-                
-    //            var colors = ["белый", "черный"]
-    //            print(products.filter({colors.contains($0.details.color)}))
-                
-    //            var gender = ["men"]
-    //            print(products.filter({gender.contains($0.details.gender)}))
-                
-    //            var fromPrice = 1000
-    //            var toPrice = 4000
-    //            print(products.filter({fromPrice <= $0.price && $0.price <= toPrice}))
-    
-//    var SSS = [["S", "M"], ["1000", "4000"], ["Женский", "Мужской"], ["Белый", "Черный"], ["Heron Preston", "Calvin Klein"]]
-//
-//    var filterStructureArray = [ProductFilter]() {
-//       didSet {
-//           DispatchQueue.main.async {
-////               for filter in self.filterStructureArray {
-////                   switch filter.filterType {
-////                   case .size:
-////                       <#code#>
-////                   case .price:
-////                       <#code#>
-////                   case .gender:
-////                       <#code#>
-////                   case .color:
-////                       <#code#>
-////                   default:
-////                       <#code#>
-////                   }
-////               }
-//               print("?????????")
-//               self.products = self.tempProducts.filter {
-//                   $0.details.size.contains(where: self.SSS[0].contains) &&
-//                   (Int(self.SSS[1][0]) ?? 0 <= $0.price && $0.price <= Int(self.SSS[1][1]) ?? 0) &&
-//                   self.SSS[2].contains($0.details.gender) &&
-//                   self.SSS[3].contains($0.details.color) &&
-//                   self.SSS[4].contains($0.brand.name)
-//               }
-////               self.products = self.tempProducts.filter({$0.details.size.contains(where: self.chosenFilters.contains)})
-//           }
-//       }
-//    }
-    
-//    var SSS = [["S", "M"], ["1000", "4000"], ["Женский", "Мужской"], ["Белый", "Черный"], ["Heron Preston", "Calvin Klein"]]
-//
-//    var filterStructureArray = [ProductFilter]() {
-//       didSet {
-//           DispatchQueue.main.async {
-//               print("?????????")
-//               self.products = self.tempProducts.filter {
-//                   $0.details.size.contains(where: self.SSS[0].contains) &&
-//                   (Int(self.SSS[1][0]) ?? 0 <= $0.price && $0.price <= Int(self.SSS[1][1]) ?? 0) &&
-//                   self.SSS[2].contains($0.details.gender) &&
-//                   self.SSS[3].contains($0.details.color) &&
-//                   self.SSS[4].contains($0.brand.name)
-//               }
-//           }
-//       }
-//    }
-    
+    var filterStructuresArray = [ProductFilter?]()
     var products = [StockProduct]() {
        didSet {
            DispatchQueue.main.async {
@@ -103,6 +38,10 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
        }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationItem.title = titleString
+    }
+    
     //MARK: - Setup Product Collection View Constraints
     override func viewDidAppear(_ animated: Bool) {
         productCollectionViewHeightConstraint.constant = productCollectionView.contentSize.height
@@ -112,11 +51,9 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.topItem?.title = " "
-        title = titleString
         availabilitySegmentedControl.selectorType = .bottomBar
         availabilitySegmentedControl.SelectedFont = UIFont(name: "Helvetica", size: 14)!
         availabilitySegmentedControl.normalFont = UIFont(name: "Helvetica", size: 14)!
-        
         loadData()
     }
     
@@ -168,7 +105,10 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
             destination.product = products[indexPath.item]
         case "toFilter":
             let destination = segue.destination as! FilterTableViewController
-            destination.products = tempProducts
+            if !filterStructuresArray.isEmpty {
+                destination.filterStructuresArray = filterStructuresArray
+            }
+            destination.allProducts = tempProducts
         default: break
         }
     }

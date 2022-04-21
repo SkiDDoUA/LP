@@ -14,7 +14,7 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
     var buttonTapped = false
     var selectedIndexPath: IndexPath = IndexPath()
     private let toSecondFilterIdentifier = "toSecondFilter"
-    var filterStructure: ProductFilter?    
+    var filterStructure: ProductFilter?
     var filterStructuresArray = [ProductFilter?](repeatElement(nil, count: FilterTypes.allFilters.count)) {
        didSet {
            DispatchQueue.main.async {
@@ -23,7 +23,12 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
            }
        }
     }
-    
+    var allProducts = [StockProduct]() {
+        didSet {
+            products = self.allProducts
+            tempProducts = self.allProducts
+        }
+    }
     
     // MARK: FILTER FUNCTION
     public func filterProducts(productsP: [StockProduct], filters: [ProductFilter]) -> [StockProduct] {
@@ -50,12 +55,14 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
         return productFiltered
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationItem.title = "Фильтр"
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        addResultButtonView()
         self.navigationController?.navigationBar.topItem?.title = " "
-        title = "Фильтр"
-        tempProducts = products
+        addResultButtonView()
     }
     
     func userDidChoseFilters(filter: ProductFilter) {
@@ -149,7 +156,8 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
             destination.delegate = self
         case "unwindToShopping":
             let destination = segue.destination as! ShoppingViewController
-//            destination.filterStructure = ProductFilter(filterType: filterType!, filterData: Array(Set(filterData)))
+            destination.products = products
+            destination.filterStructuresArray = filterStructuresArray
         default: break
         }
     }
