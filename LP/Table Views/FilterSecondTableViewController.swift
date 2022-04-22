@@ -7,7 +7,7 @@
 
 import UIKit
 
-// Protocol used for sending data back
+// MARK: - Protocol used for sending data back from FilterSecondTableViewController to FilterTableViewController
 protocol FilterChosenDelegate: AnyObject {
     func userDidChoseFilters(filter: ProductFilter)
 }
@@ -88,8 +88,10 @@ class FilterSecondTableViewController: UITableViewController {
         switch segue.identifier {
         case "unwindToShopping":
             let destination = segue.destination as! ShoppingViewController
-            let filterType = filterStructure?.filterType
-            let returnFilterStructure = ProductFilter(filterType: filterType!, filterData: filterStructure!.filterData)
+            destination.products = products
+            destination.filterStructuresArray = filterStructuresArray
+//            let filterType = filterStructure?.filterType
+//            let returnFilterStructure = ProductFilter(filterType: filterType!, filterData: filterStructure!.filterData)
         default: break
         }
     }

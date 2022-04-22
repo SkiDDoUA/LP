@@ -8,8 +8,8 @@
 import UIKit
 import WMSegmentControl
 
-class ShoppingViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
+class ShoppingViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, FilterDataDelegate {
+
     @IBOutlet weak var productCollectionView: UICollectionView!
     @IBOutlet weak var availabilitySegmentedControl: WMSegment!
     @IBOutlet weak var productCollectionViewHeightConstraint: NSLayoutConstraint!
@@ -20,6 +20,7 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
     var availabilityCollectionType: Database.availabilityCollectionTypes?
     var filterType: FilterTypes?
     private var database: Database?
+    weak var delegate: FilterDataDelegate?
     private let toProductIdentifier = "toProduct"
     var tempProducts = [StockProduct]()
     var filterStructuresArray = [ProductFilter?]()
@@ -36,6 +37,11 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
                self.products = self.allproducts
            }
        }
+    }
+    
+    func returnFilterData(filterArray: [ProductFilter?], filteredProducts: [StockProduct]) {
+        products = filteredProducts
+        filterStructuresArray = filterArray
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -105,6 +111,7 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
             destination.product = products[indexPath.item]
         case "toFilter":
             let destination = segue.destination as! FilterTableViewController
+            destination.delegate = self
             if !filterStructuresArray.isEmpty {
                 destination.filterStructuresArray = filterStructuresArray
             }

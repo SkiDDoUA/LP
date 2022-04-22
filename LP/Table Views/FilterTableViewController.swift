@@ -7,12 +7,18 @@
 
 import UIKit
 
+// MARK: - Protocol used for sending data back from FilterTableViewController to ShoppingViewController
+protocol FilterDataDelegate: AnyObject {
+    func returnFilterData(filterArray: [ProductFilter?], filteredProducts: [StockProduct])
+}
+
 class FilterTableViewController: UITableViewController, FilterChosenDelegate {    
     
     var products = [StockProduct]()
     var tempProducts = [StockProduct]()
     var buttonTapped = false
     var selectedIndexPath: IndexPath = IndexPath()
+    weak var delegate: FilterDataDelegate?
     private let toSecondFilterIdentifier = "toSecondFilter"
     var filterStructure: ProductFilter?
     var filterStructuresArray = [ProductFilter?](repeatElement(nil, count: FilterTypes.allFilters.count)) {
@@ -30,7 +36,7 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
         }
     }
     
-    // MARK: FILTER FUNCTION
+    // MARK: Products Filter Function
     public func filterProducts(productsP: [StockProduct], filters: [ProductFilter]) -> [StockProduct] {
         var productFiltered = productsP
 
@@ -139,6 +145,14 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
             filterStructure = filterStructuresArray[indexPath.row]
         }
         return indexPath
+    }
+    
+    override func willMove(toParent parent: UIViewController?) {
+        if parent == nil {
+            if buttonTapped == false {
+                delegate?.returnFilterData(filterArray: filterStructuresArray, filteredProducts: products)
+            }
+        }
     }
     
     // MARK: - Parse Chosen Filters
