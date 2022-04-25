@@ -167,6 +167,8 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
         case toSecondFilterIdentifier:
             let destination = segue.destination as! FilterSecondTableViewController
             destination.filterStructure = filterStructure
+            destination.products = tempProducts
+            destination.filterStructuresArray = filterStructuresArray
             destination.delegate = self
         case "unwindToShopping":
             let destination = segue.destination as! ShoppingViewController

@@ -18,6 +18,8 @@ class FilterSecondTableViewController: UITableViewController {
     var buttonTapped = false
     weak var delegate: FilterChosenDelegate?
     var filterStructure: ProductFilter?
+    var filterStructuresArray = [ProductFilter?]()
+    var products = [StockProduct]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,10 +90,12 @@ class FilterSecondTableViewController: UITableViewController {
         switch segue.identifier {
         case "unwindToShopping":
             let destination = segue.destination as! ShoppingViewController
-            destination.products = products
+            let filterType = filterStructure?.filterType
+            let returnFilterStructure = ProductFilter(filterType: filterType!, filterData: filterStructure!.filterData)
+            filterStructuresArray[returnFilterStructure.filterType.details.index] = returnFilterStructure
+            let goodFilters = self.filterStructuresArray.compactMap{$0}
+            destination.products = FilterTableViewController().filterProducts(productsP: products, filters: goodFilters)
             destination.filterStructuresArray = filterStructuresArray
-//            let filterType = filterStructure?.filterType
-//            let returnFilterStructure = ProductFilter(filterType: filterType!, filterData: filterStructure!.filterData)
         default: break
         }
     }
