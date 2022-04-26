@@ -150,6 +150,8 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
     override func willMove(toParent parent: UIViewController?) {
         if parent == nil {
             if buttonTapped == false {
+                print("11111111")
+//                print(filterStructuresArray)
                 delegate?.returnFilterData(filterArray: filterStructuresArray, filteredProducts: products)
             }
         }

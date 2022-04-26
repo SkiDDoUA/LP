@@ -46,8 +46,6 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationItem.title = titleString
-//        print(filterStructuresArray)
-//        print(tempProducts)
     }
     
     //MARK: - Setup Product Collection View Constraints
