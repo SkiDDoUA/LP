@@ -16,8 +16,8 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
     
     var products = [StockProduct]()
     var tempProducts = [StockProduct]()
-    var buttonTapped = false
     var selectedIndexPath: IndexPath = IndexPath()
+    var barButtonItem = UIBarButtonItem()
     weak var delegate: FilterDataDelegate?
     private let toSecondFilterIdentifier = "toSecondFilter"
     var filterStructure: ProductFilter?
@@ -63,6 +63,7 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationItem.title = "Фильтр"
+        print(filterStructuresArray)
     }
     
     override func viewDidLoad() {
@@ -71,24 +72,17 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
         addResultButtonView()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if self.isMovingFromParent {
+            delegate?.returnFilterData(filterArray: filterStructuresArray, filteredProducts: products)
+        }
+    }
+    
     func userDidChoseFilters(filter: ProductFilter) {
         filterStructuresArray[filter.filterType.details.index] = filter
         let indexPath = IndexPath(item: filter.filterType.details.index, section: 0)
         tableView.reloadRows(at: [indexPath], with: .none)
-    }
-    
-    public func addResultButtonView() {
-        let resultButton = UIButton()
-        resultButton.backgroundColor = UIColor(named: "BlackLP")
-        resultButton.setTitle("Показать результаты", for: .normal)
-        resultButton.titleLabel?.font =  UIFont(name: "Helvetica", size: 14)
-        resultButton.addTarget(self, action: #selector(resultTapped), for: .touchUpInside)
-        tableView.addSubview(resultButton)
-        resultButton.translatesAutoresizingMaskIntoConstraints = false
-        resultButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        resultButton.bottomAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.bottomAnchor, constant: -15).isActive = true
-        resultButton.widthAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.widthAnchor, constant: -30).isActive = true
-        resultButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -107,8 +101,20 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
                 } else {
                     cell.filtersLabel.isHidden = true
                 }
+            } else {
+                cell.filtersLabel.isHidden = true
             }
         }
+        
+        for filter in filterStructuresArray {
+            if filter?.filterData.filter({$0.isChosen == true}).count ?? 0 > 0 {
+                addClearButton()
+                break
+            } else {
+                self.navigationItem.rightBarButtonItem = nil
+            }
+        }
+        
         return cell
     }
     
@@ -118,6 +124,7 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
             var filterArray = [Filter]()
             var filterData = [String]()
             var filterType: FilterTypes?
+            let sizeOrder = ["No Size", "One Size", "XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL", "XXXXL"]
             
             switch indexPath.row {
             case 0:
@@ -137,8 +144,16 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
                 filterType = FilterTypes.brand
             default: break
             }
-            for string in Array(Set(filterData)) {
-                filterArray.append(Filter(filterString: string))
+            
+            if filterType == .size {
+                for string in sizeOrder.filter({Array(Set(filterData)).contains($0)}) {
+                    filterArray.append(Filter(filterString: string))
+                }
+            } else {
+                for string in Array(Set(filterData)) {
+                    filterArray.append(Filter(filterString: string))
+                }
+                filterArray = filterArray.sorted(by: {$0.filterString.lowercased() < $1.filterString.lowercased()})
             }
             filterStructure = ProductFilter(filterType: filterType!, filterData: filterArray)
         } else {
@@ -147,19 +162,14 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
         return indexPath
     }
     
-    override func willMove(toParent parent: UIViewController?) {
-        if parent == nil {
-            if buttonTapped == false {
-                print("11111111")
-//                print(filterStructuresArray)
-                delegate?.returnFilterData(filterArray: filterStructuresArray, filteredProducts: products)
-            }
-        }
+    // MARK: - Clear Chosen Filters
+    @IBAction func clearTapped(_ sender: Any) {
+        filterStructuresArray = [ProductFilter?](repeatElement(nil, count: FilterTypes.allFilters.count))
+        tableView.reloadRows(at: self.tableView.indexPathsForVisibleRows!, with: .none)
     }
     
     // MARK: - Parse Chosen Filters
     @IBAction func resultTapped(_ sender: Any) {
-        buttonTapped = true
         self.performSegue(withIdentifier: "unwindToShopping", sender: Any?.self)
     }
     
@@ -186,5 +196,28 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
 
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return CGFloat.leastNormalMagnitude
+    }
+    
+    public func addResultButtonView() {
+        let resultButton = UIButton()
+        resultButton.backgroundColor = UIColor(named: "BlackLP")
+        resultButton.setTitle("Показать результаты", for: .normal)
+        resultButton.titleLabel?.font =  UIFont(name: "Helvetica", size: 14)
+        resultButton.addTarget(self, action: #selector(resultTapped), for: .touchUpInside)
+        tableView.addSubview(resultButton)
+        resultButton.translatesAutoresizingMaskIntoConstraints = false
+        resultButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        resultButton.bottomAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.bottomAnchor, constant: -15).isActive = true
+        resultButton.widthAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.widthAnchor, constant: -30).isActive = true
+        resultButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+    
+    public func addClearButton() {
+        barButtonItem = UIBarButtonItem(title: "Очистить", style: .plain, target: self, action: #selector(clearTapped))
+        let font = UIFont(name: "Helvetica", size: 14) ?? UIFont()
+        let textAttributes: [NSAttributedString.Key: Any] = [.font: font]
+        barButtonItem.setTitleTextAttributes(textAttributes, for: .normal)
+        barButtonItem.setTitleTextAttributes(textAttributes, for: .selected)
+        navigationItem.rightBarButtonItem = barButtonItem
     }
 }

@@ -15,31 +15,25 @@ protocol FilterChosenDelegate: AnyObject {
 class FilterSecondTableViewController: UITableViewController {
     
     var chosenFilters = [String]()
-    var buttonTapped = false
     weak var delegate: FilterChosenDelegate?
     var filterStructure: ProductFilter?
     var filterStructuresArray = [ProductFilter?]()
     var products = [StockProduct]()
+    var barButtonItem = UIBarButtonItem()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if filterStructure?.filterData.filter({$0.isChosen == true}).count != 0 {
+            addClearButton()
+        } else {
+            self.navigationItem.rightBarButtonItem = nil
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.topItem?.title = " "
         addResultButtonView()
         title = filterStructure?.filterType.details.title
-    }
-    
-    func addResultButtonView() {
-        let resultButton = UIButton()
-        resultButton.backgroundColor = UIColor(named: "BlackLP")
-        resultButton.setTitle("Показать результаты", for: .normal)
-        resultButton.titleLabel?.font =  UIFont(name: "Helvetica", size: 14)
-        resultButton.addTarget(self, action: #selector(resultTapped), for: .touchUpInside)
-        tableView.addSubview(resultButton)
-        resultButton.translatesAutoresizingMaskIntoConstraints = false
-        resultButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        resultButton.bottomAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.bottomAnchor, constant: -15).isActive = true
-        resultButton.widthAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.widthAnchor, constant: -30).isActive = true
-        resultButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -66,22 +60,36 @@ class FilterSecondTableViewController: UITableViewController {
         else {
             filterStructure?.filterData[indexPath.row].isChosen = false
             cell.checkImageView.isHidden = true
+            self.navigationItem.rightBarButtonItem = nil
+        }
+
+        if filterStructure?.filterData.filter({$0.isChosen == true}).count != 0 {
+            addClearButton()
+        } else {
+            self.navigationItem.rightBarButtonItem = nil
         }
     }
     
-    override func willMove(toParent parent: UIViewController?) {
-        if parent == nil {
-            if buttonTapped == false {
-                let filterType = filterStructure?.filterType
-                let returnFilterStructure = ProductFilter(filterType: filterType!, filterData: filterStructure!.filterData)
-                delegate?.userDidChoseFilters(filter: returnFilterStructure)
-            }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if self.isMovingFromParent {
+            let filterType = filterStructure?.filterType
+            let returnFilterStructure = ProductFilter(filterType: filterType!, filterData: filterStructure!.filterData)
+            delegate?.userDidChoseFilters(filter: returnFilterStructure)
         }
+    }
+    
+    // MARK: - Clear Chosen Filters
+    @IBAction func clearTapped(_ sender: Any) {
+        filterStructure?.filterData.mutateEach {filter in
+            filter.isChosen = false
+        }
+        self.navigationItem.rightBarButtonItem = nil
+        tableView.reloadRows(at: self.tableView.indexPathsForVisibleRows!, with: .none) // FIX
     }
     
     // MARK: - Parse Chosen Filters
     @IBAction func resultTapped(_ sender: Any) {
-        buttonTapped = true
         self.performSegue(withIdentifier: "unwindToShopping", sender: Any?.self)
     }
     
@@ -107,4 +115,37 @@ class FilterSecondTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return CGFloat.leastNormalMagnitude
     }
+    
+    public func addResultButtonView() {
+        let resultButton = UIButton()
+        resultButton.backgroundColor = UIColor(named: "BlackLP")
+        resultButton.setTitle("Показать результаты", for: .normal)
+        resultButton.titleLabel?.font =  UIFont(name: "Helvetica", size: 14)
+        resultButton.addTarget(self, action: #selector(resultTapped), for: .touchUpInside)
+        tableView.addSubview(resultButton)
+        resultButton.translatesAutoresizingMaskIntoConstraints = false
+        resultButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        resultButton.bottomAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.bottomAnchor, constant: -15).isActive = true
+        resultButton.widthAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.widthAnchor, constant: -30).isActive = true
+        resultButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+    
+    public func addClearButton() {
+        barButtonItem = UIBarButtonItem(title: "Очистить", style: .plain, target: self, action: #selector(clearTapped))
+        let font = UIFont(name: "Helvetica", size: 14) ?? UIFont()
+        let textAttributes: [NSAttributedString.Key: Any] = [.font: font]
+        barButtonItem.setTitleTextAttributes(textAttributes, for: .normal)
+        barButtonItem.setTitleTextAttributes(textAttributes, for: .selected)
+        navigationItem.rightBarButtonItem = barButtonItem
+    }
+}
+
+extension Array {
+    mutating func mutateEach(by transform: (inout Element) throws -> Void) rethrows {
+        self = try map { el in
+            var el = el
+            try transform(&el)
+            return el
+        }
+     }
 }
