@@ -12,17 +12,13 @@ import FirebaseFirestore
 
 class SMSViewController: UIViewController, AEOTPTextFieldDelegate {
     
-//    let testVerificationCode = "111111"
-
     @IBOutlet weak var otpTextField: AEOTPTextField!
     @IBOutlet weak var wrongCodeLabel: UILabel!
     @IBOutlet weak var rulesLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-    
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         
@@ -52,11 +48,10 @@ class SMSViewController: UIViewController, AEOTPTextFieldDelegate {
             
             db.collection("users").document(userID).getDocument { (document, error) in
                 if let document = document, document.exists {
-                    let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
                     self.performSegue(withIdentifier: "toMainViewController", sender: Any?.self)
                 } else {
                     do {
-                        try db.collection("users").document(userID).setData(["createdAt": Date(), "userSettings": userSettings])
+                        try db.collection("users").document(userID).setData(["createdAt": Date(), "userSettings": userSettings as Any])
                     } catch let error {
                         print("Error writing user to Firestore: \(error)")
                     }

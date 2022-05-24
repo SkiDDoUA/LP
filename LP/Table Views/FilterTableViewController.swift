@@ -35,26 +35,33 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
             tempProducts = self.allProducts
         }
     }
-    
+
     // MARK: Products Filter Function
     public func filterProducts(productsP: [StockProduct], filters: [ProductFilter]) -> [StockProduct] {
         var productFiltered = productsP
 
         for filterP in filters {
             let chosenFilters = filterP.filterData.filter({$0.isChosen == true})
-            if chosenFilters.count != 0 {
+            if filterP.isUsed {
                 switch filterP.filterType {
                 case .size:
                     productFiltered.removeAll(where: {!$0.details.size.contains(where: chosenFilters.map{$0.filterString}.contains)})
-                case .price: // FIX THIS
-                    productFiltered.removeAll(where: {!chosenFilters.map{$0.filterString}.contains($0.details.gender)})
                 case .gender:
                     productFiltered.removeAll(where: {!chosenFilters.map{$0.filterString}.contains($0.details.gender)})
                 case .color:
                     productFiltered.removeAll(where: {!chosenFilters.map{$0.filterString}.contains($0.details.color)})
-                default:
+                case .brand:
                     productFiltered.removeAll(where: {!chosenFilters.map{$0.filterString}.contains($0.brand.name)})
+                default:
+                    break
                 }
+            }
+            if filterP.filterType == .price {
+                print(filterP.filterData)
+//                let fromPrice =
+//                productFiltered.filter({fromPrice <= $0.price && $0.price <= toPrice}))
+//                productFiltered.filter
+//                productFiltered.removeAll(where: {!(fromPrice <= chosenFilters.map{$0.filterString}})
             }
         }
         
@@ -63,7 +70,6 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationItem.title = "Фильтр"
-        print(filterStructuresArray)
     }
     
     override func viewDidLoad() {
@@ -96,8 +102,28 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
             if filterStructuresArray[indexPath.row] != nil {
                 let returnedChosenFilters = filterStructuresArray[indexPath.row]!.filterData.filter{$0.isChosen == true}
                 if returnedChosenFilters.count > 0 {
-                    cell.filtersLabel?.text = "(\(returnedChosenFilters.count)) \(returnedChosenFilters.map{$0.filterString}.joined(separator: ", "))"
-                    cell.filtersLabel.isHidden = false
+                    if filterStructuresArray[indexPath.row]?.filterType == .price {
+                        var min = String()
+                        var max = String()
+                        let minAndMax = returnedChosenFilters[0].filterString.components(separatedBy: " - ")
+                        if Int(minAndMax[0]) ?? 0 > 0 {
+                            min = minAndMax[0]
+                        } else {
+                            min = "0"
+                        }
+                        if Int(minAndMax[1]) ?? 0 > 0 {
+                            max = minAndMax[1]
+                        } else {
+                            max = "..."
+                        }
+                        cell.filtersLabel?.text = "₴\(min) - ₴\(max)"
+                        cell.filtersLabel.isHidden = false
+                    } else {
+                        if returnedChosenFilters.count > 0 {
+                            cell.filtersLabel?.text = "(\(returnedChosenFilters.count)) \(returnedChosenFilters.map{$0.filterString}.joined(separator: ", "))"
+                            cell.filtersLabel.isHidden = false
+                        }
+                    }
                 } else {
                     cell.filtersLabel.isHidden = true
                 }
@@ -107,14 +133,13 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
         }
         
         for filter in filterStructuresArray {
-            if filter?.filterData.filter({$0.isChosen == true}).count ?? 0 > 0 {
+            if filter?.isUsed ?? false {
                 addClearButton()
                 break
             } else {
                 self.navigationItem.rightBarButtonItem = nil
             }
         }
-        
         return cell
     }
     
@@ -131,7 +156,9 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
                 products.forEach{filterData.append(contentsOf: $0.details.size)}
                 filterType = FilterTypes.size
             case 1:
-                products.forEach{filterData.append($0.price.description)}
+//                products.forEach{filterData.append($0.price.description)}
+//                filterData.append(" ")
+                filterData.append(" - ")
                 filterType = FilterTypes.price
             case 2:
                 products.forEach{filterData.append($0.details.gender)}

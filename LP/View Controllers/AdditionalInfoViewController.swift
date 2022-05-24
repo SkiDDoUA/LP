@@ -32,15 +32,12 @@ class AdditionalInfoViewController: UIViewController, UITextFieldDelegate, UIPic
         
         genderSegmentedControl.SelectedFont = UIFont(name: "Helvetica", size: 12)!
         genderSegmentedControl.normalFont = UIFont(name: "Helvetica", size: 12)!
-        
         viewPicker.dataSource = self
         viewPicker.delegate = self
         viewPicker.backgroundColor = UIColor.systemBackground
         brandPickerTextField.inputView = viewPicker
-        
         brandPickerTextField.setEditActions(only: [])
         birthdayDatePickerTextField.setEditActions(only: [])
-        
         self.brandPickerTextField.setInputViewPicker(target: self, selector: #selector(tapDoneViewPicker))
         self.birthdayDatePickerTextField.setInputViewPicker(target: self, selector: #selector(tapDoneDatePicker), type: "date")
         
@@ -59,9 +56,8 @@ class AdditionalInfoViewController: UIViewController, UITextFieldDelegate, UIPic
             let db = Firestore.firestore()
             guard let userID = Auth.auth().currentUser?.uid else { return }
             let userAdditionalInfo = UserAdditionalInfo(name: name, gender: genderText, birthdayDate: pickerDateText, favoriteBrand: brand).toDictionary
-            
             do {
-                try db.collection("users").document(userID).setData(["userAdditionalInfo": userAdditionalInfo], merge: true)
+                try db.collection("users").document(userID).setData(["userAdditionalInfo": userAdditionalInfo as Any], merge: true)
                 self.performSegue(withIdentifier: "toMainViewController", sender: Any?.self)
             } catch let error {
                 print("Error writing city to Firestore: \(error)")

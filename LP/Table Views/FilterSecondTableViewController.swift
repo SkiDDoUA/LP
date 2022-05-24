@@ -20,9 +20,12 @@ class FilterSecondTableViewController: UITableViewController {
     var filterStructuresArray = [ProductFilter?]()
     var products = [StockProduct]()
     var barButtonItem = UIBarButtonItem()
+    var minPrice = String()
+    var maxPrice = String()
     
     override func viewWillAppear(_ animated: Bool) {
-        if filterStructure?.filterData.filter({$0.isChosen == true}).count != 0 {
+        print(filterStructure?.filterData)
+        if filterStructure?.isUsed ?? false {
             addClearButton()
         } else {
             self.navigationItem.rightBarButtonItem = nil
@@ -34,36 +37,65 @@ class FilterSecondTableViewController: UITableViewController {
         self.navigationController?.navigationBar.topItem?.title = " "
         addResultButtonView()
         title = filterStructure?.filterType.details.title
+        self.tableView.register(CustomFilterTableViewCell.nib(), forCellReuseIdentifier: "PriceFilterCell")
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        (filterStructure?.filterData.count)!
+        if filterStructure?.filterType == .price {
+            return 1
+        } else {
+            return (filterStructure?.filterData.count)!
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FilterSecondCell", for: indexPath)
-        if let cell = cell as? FilterSecondTableViewCell {
-            cell.filterParameterTextLabel?.text = filterStructure?.filterData[indexPath.row].filterString
-            if filterStructure?.filterData[indexPath.row].isChosen == true {
-                cell.checkImageView.isHidden = false
+        if filterStructure?.filterType == .price {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PriceFilterCell", for: indexPath) as! CustomFilterTableViewCell
+            cell.minPriceTextField.tag = 0
+            cell.maxPriceTextField.tag = 1
+            cell.minPriceTextField.addTarget(self, action: #selector(self.changeText(sender:)), for: UIControl.Event.editingChanged)
+            cell.maxPriceTextField.addTarget(self, action: #selector(self.changeText(sender:)), for: UIControl.Event.editingChanged)
+            tableView.separatorStyle = .none
+            self.tableView.rowHeight = UITableView.automaticDimension
+            configureTapGesture()
+            let minAndMax = filterStructure!.filterData[0].filterString.components(separatedBy: " - ")
+            if Int(minAndMax[0]) ?? 0 > 0 {
+                cell.minPriceTextField.text = minAndMax[0]
             }
+            if Int(minAndMax[1]) ?? 0 > 0 {
+                cell.maxPriceTextField.text = minAndMax[1]
+            }
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "FilterSecondCell", for: indexPath)
+            if let cell = cell as? FilterSecondTableViewCell {
+                cell.filterParameterTextLabel?.text = filterStructure?.filterData[indexPath.row].filterString
+                if filterStructure?.filterData[indexPath.row].isChosen == true {
+                    cell.checkImageView.isHidden = false
+                }
+            }
+            return cell
         }
-        return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! FilterSecondTableViewCell
-        if cell.checkImageView.isHidden {
-            filterStructure?.filterData[indexPath.row].isChosen = true
-            cell.checkImageView.isHidden = false
-        }
-        else {
-            filterStructure?.filterData[indexPath.row].isChosen = false
-            cell.checkImageView.isHidden = true
-            self.navigationItem.rightBarButtonItem = nil
+        if filterStructure?.filterType == .price {
+            let cell = tableView.cellForRow(at: indexPath) as! CustomFilterTableViewCell
+            cell.selectionStyle = .none
+        } else {
+            let cell = tableView.cellForRow(at: indexPath) as! FilterSecondTableViewCell
+            if cell.checkImageView.isHidden {
+                filterStructure?.filterData[indexPath.row].isChosen = true
+                cell.checkImageView.isHidden = false
+            }
+            else {
+                filterStructure?.filterData[indexPath.row].isChosen = false
+                cell.checkImageView.isHidden = true
+                self.navigationItem.rightBarButtonItem = nil
+            }
         }
 
-        if filterStructure?.filterData.filter({$0.isChosen == true}).count != 0 {
+        if filterStructure?.isUsed ?? false {
             addClearButton()
         } else {
             self.navigationItem.rightBarButtonItem = nil
@@ -81,8 +113,13 @@ class FilterSecondTableViewController: UITableViewController {
     
     // MARK: - Clear Chosen Filters
     @IBAction func clearTapped(_ sender: Any) {
-        filterStructure?.filterData.mutateEach {filter in
-            filter.isChosen = false
+        if filterStructure?.filterType == .price {
+            filterStructure!.filterData[0].filterString = " - "
+            filterStructure?.filterData[0].isChosen = false
+        } else {
+            filterStructure?.filterData.mutateEach {filter in
+                filter.isChosen = false
+            }
         }
         self.navigationItem.rightBarButtonItem = nil
         tableView.reloadRows(at: self.tableView.indexPathsForVisibleRows!, with: .none) // FIX
@@ -137,6 +174,28 @@ class FilterSecondTableViewController: UITableViewController {
         barButtonItem.setTitleTextAttributes(textAttributes, for: .normal)
         barButtonItem.setTitleTextAttributes(textAttributes, for: .selected)
         navigationItem.rightBarButtonItem = barButtonItem
+    }
+    
+    // MARK: TextField Input Handler
+    @objc func changeText(sender: UITextField) {
+        if sender.tag == 0 {
+            minPrice = sender.text!
+        } else {
+            maxPrice = sender.text!
+        }
+        filterStructure!.filterData[0].filterString = "\(minPrice) - \(maxPrice)"
+        filterStructure?.filterData[0].isChosen = true
+        addClearButton()
+    }
+    
+    // MARK: TapGesture
+    private func configureTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(FilterSecondTableViewController.handleTap))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func handleTap() {
+        view.endEditing(true)
     }
 }
 
