@@ -103,19 +103,9 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
                 let returnedChosenFilters = filterStructuresArray[indexPath.row]!.filterData.filter{$0.isChosen == true}
                 if returnedChosenFilters.count > 0 {
                     if filterStructuresArray[indexPath.row]?.filterType == .price {
-                        var min = String()
-                        var max = String()
                         let minAndMax = returnedChosenFilters[0].filterString.components(separatedBy: " - ")
-                        if Int(minAndMax[0]) ?? 0 > 0 {
-                            min = minAndMax[0]
-                        } else {
-                            min = "0"
-                        }
-                        if Int(minAndMax[1]) ?? 0 > 0 {
-                            max = minAndMax[1]
-                        } else {
-                            max = "..."
-                        }
+                        let min = Int(Double(minAndMax[0]) ?? 0)
+                        let max = Int(Double(minAndMax[1]) ?? 0)
                         cell.filtersLabel?.text = "₴\(min) - ₴\(max)"
                         cell.filtersLabel.isHidden = false
                     } else {
@@ -156,9 +146,11 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
                 products.forEach{filterData.append(contentsOf: $0.details.size)}
                 filterType = FilterTypes.size
             case 1:
-//                products.forEach{filterData.append($0.price.description)}
-//                filterData.append(" ")
+                var filterDataPrice = [String]()
+                products.forEach{filterDataPrice.append($0.price.description)}
                 filterData.append(" - ")
+                filterData.append(filterDataPrice.min()!)
+                filterData.append(filterDataPrice.max()!)
                 filterType = FilterTypes.price
             case 2:
                 products.forEach{filterData.append($0.details.gender)}

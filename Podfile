@@ -14,6 +14,7 @@ pod 'AEOTPTextField'
 pod 'WMSegmentControl'
 pod 'DLRadioButton', '~> 1.4'
 pod 'Kingfisher', '~> 7.0'
+pod 'RangeSeekSlider'
 
 pod 'Firebase/Analytics'
 pod 'Firebase/Auth'

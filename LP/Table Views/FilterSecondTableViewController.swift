@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RangeSeekSlider
 
 // MARK: - Protocol used for sending data back from FilterSecondTableViewController to FilterTableViewController
 protocol FilterChosenDelegate: AnyObject {
@@ -24,7 +25,6 @@ class FilterSecondTableViewController: UITableViewController {
     var maxPrice = String()
     
     override func viewWillAppear(_ animated: Bool) {
-        print(filterStructure?.filterData)
         if filterStructure?.isUsed ?? false {
             addClearButton()
         } else {
@@ -51,20 +51,24 @@ class FilterSecondTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if filterStructure?.filterType == .price {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PriceFilterCell", for: indexPath) as! CustomFilterTableViewCell
-            cell.minPriceTextField.tag = 0
-            cell.maxPriceTextField.tag = 1
-            cell.minPriceTextField.addTarget(self, action: #selector(self.changeText(sender:)), for: UIControl.Event.editingChanged)
-            cell.maxPriceTextField.addTarget(self, action: #selector(self.changeText(sender:)), for: UIControl.Event.editingChanged)
+            var min = CGFloat()
+            var max = CGFloat()
+            if filterStructure!.isUsed {
+                let minAndMax = filterStructure?.filterData[0].filterString.components(separatedBy: " - ")
+                min = CGFloat(Double(minAndMax![0]) ?? 0)
+                max = CGFloat(Double(minAndMax![1]) ?? 0)
+            } else {
+                min = CGFloat(Double((filterStructure?.filterData[1].filterString)!) ?? 0)
+                max = CGFloat(Double((filterStructure?.filterData[2].filterString)!) ?? 0)
+            }
+            cell.priceSlider.minValue = CGFloat(Double((filterStructure?.filterData[1].filterString)!) ?? 0)
+            cell.priceSlider.maxValue = CGFloat(Double((filterStructure?.filterData[2].filterString)!) ?? 0)
+            cell.priceSlider.selectedMinValue = min
+            cell.priceSlider.selectedMaxValue = max
+            cell.priceSlider.maxDistance = max
+            cell.priceSlider.delegate = self
             tableView.separatorStyle = .none
             self.tableView.rowHeight = UITableView.automaticDimension
-            configureTapGesture()
-            let minAndMax = filterStructure!.filterData[0].filterString.components(separatedBy: " - ")
-            if Int(minAndMax[0]) ?? 0 > 0 {
-                cell.minPriceTextField.text = minAndMax[0]
-            }
-            if Int(minAndMax[1]) ?? 0 > 0 {
-                cell.maxPriceTextField.text = minAndMax[1]
-            }
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "FilterSecondCell", for: indexPath)
@@ -175,28 +179,6 @@ class FilterSecondTableViewController: UITableViewController {
         barButtonItem.setTitleTextAttributes(textAttributes, for: .selected)
         navigationItem.rightBarButtonItem = barButtonItem
     }
-    
-    // MARK: TextField Input Handler
-    @objc func changeText(sender: UITextField) {
-        if sender.tag == 0 {
-            minPrice = sender.text!
-        } else {
-            maxPrice = sender.text!
-        }
-        filterStructure!.filterData[0].filterString = "\(minPrice) - \(maxPrice)"
-        filterStructure?.filterData[0].isChosen = true
-        addClearButton()
-    }
-    
-    // MARK: TapGesture
-    private func configureTapGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(FilterSecondTableViewController.handleTap))
-        view.addGestureRecognizer(tapGesture)
-    }
-    
-    @objc func handleTap() {
-        view.endEditing(true)
-    }
 }
 
 extension Array {
@@ -207,4 +189,13 @@ extension Array {
             return el
         }
      }
+}
+
+// MARK: - RangeSeekSliderDelegate
+extension FilterSecondTableViewController: RangeSeekSliderDelegate {
+    public func rangeSeekSlider(_ slider: RangeSeekSlider, didChange minValue: CGFloat, maxValue: CGFloat) {
+        filterStructure!.filterData[0].filterString = "\(minValue) - \(maxValue)"
+        filterStructure?.filterData[0].isChosen = true
+        addClearButton()
+    }
 }

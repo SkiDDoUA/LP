@@ -144,26 +144,33 @@
 			<key>orderHint</key>
 			<integer>25</integer>
 		</dict>
-		<key>ValidationComponents.xcscheme</key>
+		<key>RangeSeekSlider.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>26</integer>
 		</dict>
-		<key>ValidationToolkit.xcscheme</key>
+		<key>ValidationComponents.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>27</integer>
 		</dict>
-		<key>WMSegmentControl.xcscheme</key>
+		<key>ValidationToolkit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>28</integer>
+		</dict>
+		<key>WMSegmentControl.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>29</integer>
 		</dict>
 		<key>abseil.xcscheme</key>
 		<dict>

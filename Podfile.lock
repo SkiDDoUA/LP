@@ -337,6 +337,7 @@ PODS:
   - nanopb/decode (1.30906.0)
   - nanopb/encode (1.30906.0)
   - PromisesObjC (1.2.12)
+  - RangeSeekSlider (1.8.0)
   - ValidationComponents (0.3.0):
     - ValidationToolkit (~> 0.4.1)
   - ValidationToolkit (0.4.1)
@@ -352,6 +353,7 @@ DEPENDENCIES:
   - FirebaseFirestoreSwift
   - InputMask
   - Kingfisher (~> 7.0)
+  - RangeSeekSlider
   - ValidationComponents
   - WMSegmentControl
 
@@ -381,6 +383,7 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - PromisesObjC
+    - RangeSeekSlider
     - ValidationComponents
     - ValidationToolkit
     - WMSegmentControl
@@ -410,10 +413,11 @@ SPEC CHECKSUMS:
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
+  RangeSeekSlider: 650b11fa1edcb92e1e0ede797669d98622570fb5
   ValidationComponents: fad1f9e9d7fbf3e10c893c880ef9d27627e90382
   ValidationToolkit: ce8e9c1a5d49eddc3266a009d46df5ea22042dbc
   WMSegmentControl: 4bb3a61e28cd0a0fcfcf932bec1f5795835b9f3f
 
-PODFILE CHECKSUM: 2079535604668339ecd27f37d537b62e5c13d240
+PODFILE CHECKSUM: 82b35937a535612b9121ce8fbda0ba015b029433
 
 COCOAPODS: 1.11.2
