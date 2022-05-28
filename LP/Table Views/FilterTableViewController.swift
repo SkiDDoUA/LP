@@ -39,7 +39,6 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
     // MARK: Products Filter Function
     public func filterProducts(productsP: [StockProduct], filters: [ProductFilter]) -> [StockProduct] {
         var productFiltered = productsP
-
         for filterP in filters {
             let chosenFilters = filterP.filterData.filter({$0.isChosen == true})
             if filterP.isUsed {
@@ -55,16 +54,15 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
                 default:
                     break
                 }
-            }
-            if filterP.filterType == .price {
-                print(filterP.filterData)
-//                let fromPrice =
-//                productFiltered.filter({fromPrice <= $0.price && $0.price <= toPrice}))
-//                productFiltered.filter
-//                productFiltered.removeAll(where: {!(fromPrice <= chosenFilters.map{$0.filterString}})
+                
+                if filterP.filterType == .price {
+                    let minAndMax = filterP.priceRange!.components(separatedBy: " - ")
+                    let min = Int(Double(minAndMax[0]) ?? 0)
+                    let max = Int(Double(minAndMax[1]) ?? 0)
+                    productFiltered.removeAll(where: {!(min <= $0.price && $0.price <= max)})
+                }
             }
         }
-        
         return productFiltered
     }
     
@@ -99,13 +97,14 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FilterCell", for: indexPath)
         if let cell = cell as? FilterTableViewCell {
             cell.filterNameLabel?.text = FilterTypes.allFilters[indexPath.row].details.title
-            if filterStructuresArray[indexPath.row] != nil {
-                let returnedChosenFilters = filterStructuresArray[indexPath.row]!.filterData.filter{$0.isChosen == true}
+            let currentStructure = filterStructuresArray[indexPath.row]
+            if currentStructure != nil {
+                let returnedChosenFilters = currentStructure!.filterData.filter{$0.isChosen == true}
                 if returnedChosenFilters.count > 0 {
-                    if filterStructuresArray[indexPath.row]?.filterType == .price {
-                        let minAndMax = returnedChosenFilters[0].filterString.components(separatedBy: " - ")
-                        let min = Int(Double(minAndMax[0]) ?? 0)
-                        let max = Int(Double(minAndMax[1]) ?? 0)
+                    if currentStructure?.filterType == .price {
+                        let minAndMax = currentStructure?.priceRange!.components(separatedBy: " - ")
+                        let min = Int(Double(minAndMax![0]) ?? 0)
+                        let max = Int(Double(minAndMax![1]) ?? 0)
                         cell.filtersLabel?.text = "₴\(min) - ₴\(max)"
                         cell.filtersLabel.isHidden = false
                     } else {
@@ -146,11 +145,7 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
                 products.forEach{filterData.append(contentsOf: $0.details.size)}
                 filterType = FilterTypes.size
             case 1:
-                var filterDataPrice = [String]()
-                products.forEach{filterDataPrice.append($0.price.description)}
-                filterData.append(" - ")
-                filterData.append(filterDataPrice.min()!)
-                filterData.append(filterDataPrice.max()!)
+                products.forEach{filterData.append($0.price.description)}
                 filterType = FilterTypes.price
             case 2:
                 products.forEach{filterData.append($0.details.gender)}
@@ -174,7 +169,11 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
                 }
                 filterArray = filterArray.sorted(by: {$0.filterString.lowercased() < $1.filterString.lowercased()})
             }
-            filterStructure = ProductFilter(filterType: filterType!, filterData: filterArray)
+            if filterType == .price {
+                filterStructure = ProductFilter(filterType: filterType!, filterData: filterArray, priceRange: " - ")
+            } else {
+                filterStructure = ProductFilter(filterType: filterType!, filterData: filterArray)
+            }
         } else {
             filterStructure = filterStructuresArray[indexPath.row]
         }

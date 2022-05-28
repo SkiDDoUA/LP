@@ -151,6 +151,7 @@ public struct Filter {
 public struct ProductFilter {
     var filterType: FilterTypes
     var filterData: [Filter]
+    var priceRange: String?
     var isUsed: Bool {
         get {
             if filterData.filter({$0.isChosen == true}).count != 0 {

@@ -53,22 +53,25 @@ class FilterSecondTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PriceFilterCell", for: indexPath) as! CustomFilterTableViewCell
             var min = CGFloat()
             var max = CGFloat()
+            var priceArray = [String]()
+            filterStructure?.filterData.forEach{priceArray.append($0.filterString)}
+
             if filterStructure!.isUsed {
-                let minAndMax = filterStructure?.filterData[0].filterString.components(separatedBy: " - ")
+                let minAndMax = filterStructure?.priceRange!.components(separatedBy: " - ")
                 min = CGFloat(Double(minAndMax![0]) ?? 0)
                 max = CGFloat(Double(minAndMax![1]) ?? 0)
             } else {
-                min = CGFloat(Double((filterStructure?.filterData[1].filterString)!) ?? 0)
-                max = CGFloat(Double((filterStructure?.filterData[2].filterString)!) ?? 0)
+                min = CGFloat(Double(priceArray.min()!) ?? 0)
+                max = CGFloat(Double(priceArray.max()!) ?? 0)
             }
-            cell.priceSlider.minValue = CGFloat(Double((filterStructure?.filterData[1].filterString)!) ?? 0)
-            cell.priceSlider.maxValue = CGFloat(Double((filterStructure?.filterData[2].filterString)!) ?? 0)
+            cell.priceSlider.minValue = CGFloat(Double(priceArray.min()!) ?? 0)
+            cell.priceSlider.maxValue = CGFloat(Double(priceArray.max()!) ?? 0)
             cell.priceSlider.selectedMinValue = min
             cell.priceSlider.selectedMaxValue = max
             cell.priceSlider.maxDistance = max
             cell.priceSlider.delegate = self
             tableView.separatorStyle = .none
-            self.tableView.rowHeight = UITableView.automaticDimension
+            self.tableView.rowHeight = 75.0
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "FilterSecondCell", for: indexPath)
@@ -110,15 +113,20 @@ class FilterSecondTableViewController: UITableViewController {
         super.viewWillDisappear(animated)
         if self.isMovingFromParent {
             let filterType = filterStructure?.filterType
-            let returnFilterStructure = ProductFilter(filterType: filterType!, filterData: filterStructure!.filterData)
-            delegate?.userDidChoseFilters(filter: returnFilterStructure)
+            if filterType == .price {
+                let returnFilterStructure = ProductFilter(filterType: filterType!, filterData: filterStructure!.filterData, priceRange: filterStructure!.priceRange)
+                delegate?.userDidChoseFilters(filter: returnFilterStructure)
+            } else {
+                let returnFilterStructure = ProductFilter(filterType: filterType!, filterData: filterStructure!.filterData)
+                delegate?.userDidChoseFilters(filter: returnFilterStructure)
+            }
         }
     }
     
     // MARK: - Clear Chosen Filters
     @IBAction func clearTapped(_ sender: Any) {
         if filterStructure?.filterType == .price {
-            filterStructure!.filterData[0].filterString = " - "
+            filterStructure!.priceRange = " - "
             filterStructure?.filterData[0].isChosen = false
         } else {
             filterStructure?.filterData.mutateEach {filter in
@@ -140,8 +148,13 @@ class FilterSecondTableViewController: UITableViewController {
         case "unwindToShopping":
             let destination = segue.destination as! ShoppingViewController
             let filterType = filterStructure?.filterType
-            let returnFilterStructure = ProductFilter(filterType: filterType!, filterData: filterStructure!.filterData)
-            filterStructuresArray[returnFilterStructure.filterType.details.index] = returnFilterStructure
+            if filterType == .price {
+                let returnFilterStructure = ProductFilter(filterType: filterType!, filterData: filterStructure!.filterData, priceRange: filterStructure!.priceRange)
+                filterStructuresArray[returnFilterStructure.filterType.details.index] = returnFilterStructure
+            } else {
+                let returnFilterStructure = ProductFilter(filterType: filterType!, filterData: filterStructure!.filterData)
+                filterStructuresArray[returnFilterStructure.filterType.details.index] = returnFilterStructure
+            }
             let goodFilters = self.filterStructuresArray.compactMap{$0}
             destination.products = FilterTableViewController().filterProducts(productsP: products, filters: goodFilters)
             destination.filterStructuresArray = filterStructuresArray
@@ -194,7 +207,7 @@ extension Array {
 // MARK: - RangeSeekSliderDelegate
 extension FilterSecondTableViewController: RangeSeekSliderDelegate {
     public func rangeSeekSlider(_ slider: RangeSeekSlider, didChange minValue: CGFloat, maxValue: CGFloat) {
-        filterStructure!.filterData[0].filterString = "\(minValue) - \(maxValue)"
+        filterStructure!.priceRange = "\(minValue) - \(maxValue)"
         filterStructure?.filterData[0].isChosen = true
         addClearButton()
     }
