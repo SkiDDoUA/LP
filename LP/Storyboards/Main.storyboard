@@ -1095,7 +1095,7 @@
                                                     </attributedString>
                                                 </buttonConfiguration>
                                                 <connections>
-                                                    <segue destination="Pji-6J-ed8" kind="show" id="gUH-w0-Qhx"/>
+                                                    <segue destination="Pji-6J-ed8" kind="show" identifier="toSort" id="gUH-w0-Qhx"/>
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qxe-rH-ZyJ">
@@ -1533,9 +1533,11 @@
                         <outlet property="lowpriceButton" destination="yah-CI-NKA" id="WjW-Yt-X17"/>
                         <outlet property="newButton" destination="GQD-SK-LM8" id="gZX-Fr-yc2"/>
                         <outlet property="recommendationButton" destination="37w-0p-bKg" id="DJV-sS-XJP"/>
+                        <segue destination="cVK-Ul-AbG" kind="unwind" identifier="unwindToShopping" unwindAction="unwindToShopping:" id="1LE-Ke-Awh"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NLg-lM-kMC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="cVK-Ul-AbG" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="392" y="3461"/>
         </scene>

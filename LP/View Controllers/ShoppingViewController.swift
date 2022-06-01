@@ -8,8 +8,8 @@
 import UIKit
 import WMSegmentControl
 
-class ShoppingViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, FilterDataDelegate {
-
+class ShoppingViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, FilterDataDelegate, SortDataDelegate {
+    
     @IBOutlet weak var productCollectionView: UICollectionView!
     @IBOutlet weak var availabilitySegmentedControl: WMSegment!
     @IBOutlet weak var productCollectionViewHeightConstraint: NSLayoutConstraint!
@@ -38,7 +38,31 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
            }
        }
     }
+    var sortStructure: Sort? {
+       didSet {
+           DispatchQueue.main.async {
+               self.products = self.sortProducts(productsP: self.tempProducts)
+           }
+       }
+    }
     
+    public func sortProducts(productsP: [StockProduct]) -> [StockProduct] {
+        switch self.sortStructure?.sortType {
+        case .recommendation:
+            return productsP.sorted(by: {$0.details.size.count > $1.details.size.count})
+        case .lowprice:
+            return productsP.sorted(by: {$0.price < $1.price})
+        case .highprice:
+            return productsP.sorted(by: {$0.price > $1.price})
+        default:
+            return productsP
+        }
+    }
+    
+    func returnSortData(sort: Sort) {
+        sortStructure = sort
+    }
+
     func returnFilterData(filterArray: [ProductFilter?], filteredProducts: [StockProduct]) {
         products = filteredProducts
         filterStructuresArray = filterArray
@@ -116,6 +140,13 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
                 destination.filterStructuresArray = filterStructuresArray
             }
             destination.allProducts = tempProducts
+        case "toSort":
+            let destination = segue.destination as! SortTableViewController
+            destination.delegate = self
+            if sortStructure != nil {
+                print(sortStructure)
+                destination.sortStructure = sortStructure!
+            }
         default: break
         }
     }
@@ -130,6 +161,6 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
         loadData()
     }
     
-    // MARK: - Unwind Segue From Filter
+    // MARK: - Unwind Segue From Filter And Sort
     @IBAction func unwindToShopping(_ sender: UIStoryboardSegue) {}
 }

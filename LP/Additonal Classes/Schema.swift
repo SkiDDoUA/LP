@@ -162,6 +162,17 @@ public struct ProductFilter {
     }
 }
 
+public struct Sort {
+    var sortType: SortTypes
+}
+
+public enum SortTypes {
+    case recommendation
+    case new
+    case lowprice
+    case highprice
+}
+
 extension Encodable {
     var toDictionary: [String : Any]? {
         guard let data =  try? JSONEncoder().encode(self) else {

@@ -12,8 +12,7 @@ protocol FilterDataDelegate: AnyObject {
     func returnFilterData(filterArray: [ProductFilter?], filteredProducts: [StockProduct])
 }
 
-class FilterTableViewController: UITableViewController, FilterChosenDelegate {    
-    
+class FilterTableViewController: UITableViewController, FilterChosenDelegate {
     var products = [StockProduct]()
     var tempProducts = [StockProduct]()
     var selectedIndexPath: IndexPath = IndexPath()
@@ -143,19 +142,19 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
             switch indexPath.row {
             case 0:
                 products.forEach{filterData.append(contentsOf: $0.details.size)}
-                filterType = FilterTypes.size
+                filterType = .size
             case 1:
                 products.forEach{filterData.append($0.price.description)}
-                filterType = FilterTypes.price
+                filterType = .price
             case 2:
                 products.forEach{filterData.append($0.details.gender)}
-                filterType = FilterTypes.gender
+                filterType = .gender
             case 3:
                 products.forEach{filterData.append($0.details.color)}
-                filterType = FilterTypes.color
+                filterType = .color
             case 4:
                 products.forEach{filterData.append($0.brand.name)}
-                filterType = FilterTypes.brand
+                filterType = .brand
             default: break
             }
             
@@ -191,7 +190,7 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
         self.performSegue(withIdentifier: "unwindToShopping", sender: Any?.self)
     }
     
-    //MARK: - Parse Filter Data To FilterSecondTableViewController
+    //MARK: - Parse Filter Data To FilterSecondTableViewController And ShoppingViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case toSecondFilterIdentifier:
