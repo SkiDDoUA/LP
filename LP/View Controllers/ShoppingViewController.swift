@@ -22,31 +22,26 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
     private var database: Database?
     weak var delegate: FilterDataDelegate?
     private let toProductIdentifier = "toProduct"
-    var tempProducts = [StockProduct]()
+    var tempProducts = [Product]()
     var filterStructuresArray = [ProductFilter?]()
-    var products = [StockProduct]() {
+    var sortStructure: Sort?
+    var products = [Product]() {
        didSet {
            DispatchQueue.main.async {
+               self.products = self.sortProducts(productsP: self.products)
                self.productCollectionView.reloadData()
            }
        }
     }
-    private var allproducts = [StockProduct]() {
+    private var allproducts = [Product]() {
        didSet {
            DispatchQueue.main.async {
                self.products = self.allproducts
            }
        }
     }
-    var sortStructure: Sort? {
-       didSet {
-           DispatchQueue.main.async {
-               self.products = self.sortProducts(productsP: self.tempProducts)
-           }
-       }
-    }
     
-    public func sortProducts(productsP: [StockProduct]) -> [StockProduct] {
+    public func sortProducts(productsP: [Product]) -> [Product] {
         switch self.sortStructure?.sortType {
         case .recommendation:
             return productsP.sorted(by: {$0.details.size.count > $1.details.size.count})
@@ -63,7 +58,7 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
         sortStructure = sort
     }
 
-    func returnFilterData(filterArray: [ProductFilter?], filteredProducts: [StockProduct]) {
+    func returnFilterData(filterArray: [ProductFilter?], filteredProducts: [Product]) {
         products = filteredProducts
         filterStructuresArray = filterArray
     }
@@ -144,7 +139,6 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
             let destination = segue.destination as! SortTableViewController
             destination.delegate = self
             if sortStructure != nil {
-                print(sortStructure)
                 destination.sortStructure = sortStructure!
             }
         default: break

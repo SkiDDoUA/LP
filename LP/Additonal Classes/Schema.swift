@@ -72,14 +72,13 @@ public struct UserAdditionalInfo: Codable {
 }
 
 // MARK: - Instock Structure
-public struct StockProduct: Identifiable, Codable {
+public struct Product: Identifiable, Codable {
     @DocumentID public var id: String? = UUID().uuidString
     let name: String
     let price: Int
     let brand: ProductBrand
     let images: [String]
     let details: ProductDetails
-    let stock: Int
 }
 
 // MARK: - ProductBrand Structure
@@ -93,7 +92,7 @@ public struct ProductDetails: Codable {
     let color: String
     let season: String
     let material: [String : String]
-    let size: [String]
+    let size: [String : Int]
     let stylecode: String
     let delivery: String
     let type: String

@@ -9,12 +9,12 @@ import UIKit
 
 // MARK: - Protocol used for sending data back from FilterTableViewController to ShoppingViewController
 protocol FilterDataDelegate: AnyObject {
-    func returnFilterData(filterArray: [ProductFilter?], filteredProducts: [StockProduct])
+    func returnFilterData(filterArray: [ProductFilter?], filteredProducts: [Product])
 }
 
 class FilterTableViewController: UITableViewController, FilterChosenDelegate {
-    var products = [StockProduct]()
-    var tempProducts = [StockProduct]()
+    var products = [Product]()
+    var tempProducts = [Product]()
     var selectedIndexPath: IndexPath = IndexPath()
     var barButtonItem = UIBarButtonItem()
     weak var delegate: FilterDataDelegate?
@@ -28,7 +28,7 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
            }
        }
     }
-    var allProducts = [StockProduct]() {
+    var allProducts = [Product]() {
         didSet {
             products = self.allProducts
             tempProducts = self.allProducts
@@ -36,14 +36,14 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
     }
 
     // MARK: Products Filter Function
-    public func filterProducts(productsP: [StockProduct], filters: [ProductFilter]) -> [StockProduct] {
+    public func filterProducts(productsP: [Product], filters: [ProductFilter]) -> [Product] {
         var productFiltered = productsP
         for filterP in filters {
             let chosenFilters = filterP.filterData.filter({$0.isChosen == true})
             if filterP.isUsed {
                 switch filterP.filterType {
                 case .size:
-                    productFiltered.removeAll(where: {!$0.details.size.contains(where: chosenFilters.map{$0.filterString}.contains)})
+                    productFiltered.removeAll(where: {!$0.details.size.keys.contains(where: chosenFilters.map{$0.filterString}.contains)})
                 case .gender:
                     productFiltered.removeAll(where: {!chosenFilters.map{$0.filterString}.contains($0.details.gender)})
                 case .color:
@@ -141,7 +141,7 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
             
             switch indexPath.row {
             case 0:
-                products.forEach{filterData.append(contentsOf: $0.details.size)}
+                products.forEach{filterData.append(contentsOf: $0.details.size.keys)}
                 filterType = .size
             case 1:
                 products.forEach{filterData.append($0.price.description)}

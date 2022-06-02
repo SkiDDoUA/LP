@@ -19,7 +19,7 @@ class FilterSecondTableViewController: UITableViewController {
     weak var delegate: FilterChosenDelegate?
     var filterStructure: ProductFilter?
     var filterStructuresArray = [ProductFilter?]()
-    var products = [StockProduct]()
+    var products = [Product]()
     var barButtonItem = UIBarButtonItem()
     var minPrice = String()
     var maxPrice = String()

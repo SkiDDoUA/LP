@@ -30,12 +30,12 @@ class Database {
         case maincollection
     }
 
-    func fetchData(availabilityCollection: availabilityCollectionTypes, productCollection: productCollectionTypes, handler: @escaping ([StockProduct]) -> Void) {
+    func fetchData(availabilityCollection: availabilityCollectionTypes, productCollection: productCollectionTypes, handler: @escaping ([Product]) -> Void) {
         db.collection("/men/\(availabilityCollection)/\(productCollection)").addSnapshotListener { querySnapshot, err in
             guard let data = querySnapshot?.documents else {
                 return
             }
-            handler(StockProduct.build(from: data))
+            handler(Product.build(from: data))
         }
     }
         
@@ -50,11 +50,11 @@ class Database {
     }
 }
 
-extension StockProduct {
-    static func build(from documents: [QueryDocumentSnapshot]) -> [StockProduct] {
-        var products = [StockProduct]()
+extension Product {
+    static func build(from documents: [QueryDocumentSnapshot]) -> [Product] {
+        var products = [Product]()
         for document in documents {
-            try? products.append(document.data(as: StockProduct.self)!)
+            try? products.append(document.data(as: Product.self)!)
         }
         return products
     }

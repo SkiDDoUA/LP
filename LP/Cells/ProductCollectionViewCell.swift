@@ -15,7 +15,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var productImageView: UIImageView!
     
-    func configure(for product: StockProduct) {
+    func configure(for product: Product) {
         self.productBrandLabel.text = product.brand.name.uppercased()
         self.productNameLabel.text = product.name
         self.productPriceLabel.text = "₴\(product.price.description)"

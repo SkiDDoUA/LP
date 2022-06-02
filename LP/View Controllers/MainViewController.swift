@@ -39,7 +39,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
     private let toShoppingIdentifier = "toShopping"
     private var database: Database?
     
-    var products = [StockProduct]() {
+    var products = [Product]() {
        didSet {
            DispatchQueue.main.async {
                self.productCollectionView.reloadData()
@@ -47,7 +47,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
        }
     }
     
-    private var allproducts = [StockProduct]() {
+    private var allproducts = [Product]() {
        didSet {
            DispatchQueue.main.async {
                self.products = self.allproducts

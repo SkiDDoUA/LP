@@ -20,7 +20,7 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UIPickerView
     @IBOutlet weak var productCollectionView: UICollectionView!
     @IBOutlet weak var pageViewControl: UIPageControl!
 
-    var product: StockProduct!
+    var product: Product!
     var viewPicker = UIPickerView()
     let headerID = String(describing: CustomHeaderView.self)
     var arrayOfData = [ExpandedModel]()
@@ -112,11 +112,13 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UIPickerView
     }
 
     func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return product.details.size[row]
+        let sizeKeys = [String](product.details.size.keys)
+        return sizeKeys[row]
     }
 
     func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        sizePickerTextField.text = product.details.size[row]
+        let sizeKeys = [String](product.details.size.keys)
+        sizePickerTextField.text = sizeKeys[row]
     }
     
     // MARK: - TableView Delegation
