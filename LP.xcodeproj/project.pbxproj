@@ -11,6 +11,7 @@
 		3A02128527C3E3F80069D447 /* SMSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A02128427C3E3F80069D447 /* SMSViewController.swift */; };
 		3A02128727C3E40F0069D447 /* AdditionalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A02128627C3E40F0069D447 /* AdditionalInfoViewController.swift */; };
 		3A067B3A26EF66A6008488EB /* Structures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A067B3926EF66A6008488EB /* Structures.swift */; };
+		3A0D2B80284A291400EA1FF3 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0D2B7F284A291400EA1FF3 /* SettingsTableViewController.swift */; };
 		3A10220127B9C08A007F8067 /* TwoColumnsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1021FF27B9C08A007F8067 /* TwoColumnsTableViewCell.swift */; };
 		3A10220227B9C08A007F8067 /* TwoColumnsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A10220027B9C08A007F8067 /* TwoColumnsTableViewCell.xib */; };
 		3A10220727BBE453007F8067 /* SortTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A10220627BBE453007F8067 /* SortTableViewController.swift */; };
@@ -67,6 +68,7 @@
 		3A02128427C3E3F80069D447 /* SMSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSViewController.swift; sourceTree = "<group>"; };
 		3A02128627C3E40F0069D447 /* AdditionalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalInfoViewController.swift; sourceTree = "<group>"; };
 		3A067B3926EF66A6008488EB /* Structures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structures.swift; sourceTree = "<group>"; };
+		3A0D2B7F284A291400EA1FF3 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		3A1021FF27B9C08A007F8067 /* TwoColumnsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoColumnsTableViewCell.swift; sourceTree = "<group>"; };
 		3A10220027B9C08A007F8067 /* TwoColumnsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TwoColumnsTableViewCell.xib; sourceTree = "<group>"; };
 		3A10220627BBE453007F8067 /* SortTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortTableViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				3A10220627BBE453007F8067 /* SortTableViewController.swift */,
 				3A20675C27BFC2D800D88038 /* FilterTableViewController.swift */,
 				3A55DD2027E52141000A7298 /* FilterSecondTableViewController.swift */,
+				3A0D2B7F284A291400EA1FF3 /* SettingsTableViewController.swift */,
 			);
 			path = "Table Views";
 			sourceTree = "<group>";
@@ -494,6 +497,7 @@
 				3AEB09F426E62D3E00F500F8 /* Validations.swift in Sources */,
 				3A067B3A26EF66A6008488EB /* Structures.swift in Sources */,
 				3A10220727BBE453007F8067 /* SortTableViewController.swift in Sources */,
+				3A0D2B80284A291400EA1FF3 /* SettingsTableViewController.swift in Sources */,
 				3AF80FB8271DF5FE0003F7CA /* Keychain.swift in Sources */,
 				3A82E59226C55526001762DC /* SceneDelegate.swift in Sources */,
 				3A55DD2127E52141000A7298 /* FilterSecondTableViewController.swift in Sources */,
