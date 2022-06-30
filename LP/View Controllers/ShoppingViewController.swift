@@ -85,7 +85,7 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
     //MARK: - Load Data From Database
     func loadData() {
         database = Database()
-        database?.fetchData(availabilityCollection: availabilityCollectionType ?? Database.availabilityCollectionTypes.stock, productCollection: productCollectionType ?? Database.productCollectionTypes.pants) { products in
+        database?.getProducts(availabilityCollection: availabilityCollectionType ?? Database.availabilityCollectionTypes.stock, productCollection: productCollectionType ?? Database.productCollectionTypes.pants) { products in
             self.allproducts = products
             self.tempProducts = products
         }

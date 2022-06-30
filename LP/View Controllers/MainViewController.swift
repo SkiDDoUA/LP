@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseFirestore
 
-class MainViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
+class MainViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITabBarControllerDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var sliderCollectionView: UICollectionView!
     @IBOutlet weak var productCollectionView: UICollectionView!
@@ -38,7 +39,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
     private let toProductIdentifier = "toProduct"
     private let toShoppingIdentifier = "toShopping"
     private var database: Database?
-    
+    var user: User?
     var products = [Product]() {
        didSet {
            DispatchQueue.main.async {
@@ -46,7 +47,6 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
            }
        }
     }
-    
     private var allproducts = [Product]() {
        didSet {
            DispatchQueue.main.async {
@@ -57,13 +57,19 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tabBarController?.delegate = self
         
+        database = Database()
+        database?.getUser(userID: Auth.auth().currentUser!.uid) {
+            handler in self.user = handler
+        }
+
         //MARK: - Setup View
-        self.navigationItem.setHidesBackButton(true, animated: true)
-        self.navigationItem.titleView = searchBar
-        searchBar.searchTextField.layer.cornerRadius = 15
-        searchBar.searchTextField.layer.masksToBounds = true
-        searchBar.backgroundImage = UIImage()
+//        self.navigationItem.setHidesBackButton(true, animated: true)
+//        self.navigationItem.titleView = searchBar
+//        searchBar.searchTextField.layer.cornerRadius = 15
+//        searchBar.searchTextField.layer.masksToBounds = true
+//        searchBar.backgroundImage = UIImage()
         
         //MARK: - Setup Slider
         pageViewControl.numberOfPages = imageArray.count
@@ -84,24 +90,8 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
     //MARK: - Load Data From Database
     func loadData() {
         database = Database()
-        database?.fetchData(availabilityCollection: availabilityCollectionType ?? Database.availabilityCollectionTypes.stock, productCollection: productCollectionType ?? Database.productCollectionTypes.pants) { products in
-            self.allproducts = products
-//            var brands = ["Heron Preston", "Calvin Klein"]
-//            print(products.filter({brands.contains($0.brand.name)}))
-            
-//            var sizes = ["S", "M"]
-//            print(products.filter({$0.details.size.contains(where: sizes.contains)}))
-            
-//            var colors = ["белый", "черный"]
-//            print(products.filter({colors.contains($0.details.color)}))
-            
-//            var gender = ["men"]
-//            print(products.filter({gender.contains($0.details.gender)}))
-            
-//            var fromPrice = 1000
-//            var toPrice = 4000
-//            print(products.filter({fromPrice <= $0.price && $0.price <= toPrice}))
-            
+        database?.getProducts(availabilityCollection: availabilityCollectionType ?? Database.availabilityCollectionTypes.stock, productCollection: productCollectionType ?? Database.productCollectionTypes.pants) { products in
+            self.allproducts = products            
         }
     }
     
@@ -183,6 +173,22 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
             destination.titleString = titleString
             destination.productCollectionType = productCollectionType
         default: break
+        }
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        switch tabBarController.selectedIndex {
+        case 0:
+            print("0")
+        case 1:
+            print("1")
+        case 2:
+            print("2")
+        default:
+            let destination = self.tabBarController?.viewControllers![3] as! FavoritesTableViewController
+            dismiss(animated: true, completion: {
+                destination.setUser(self.user!)
+            })
         }
     }
     

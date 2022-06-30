@@ -30,7 +30,7 @@ class Database {
         case maincollection
     }
 
-    func fetchData(availabilityCollection: availabilityCollectionTypes, productCollection: productCollectionTypes, handler: @escaping ([Product]) -> Void) {
+    func getProducts(availabilityCollection: availabilityCollectionTypes, productCollection: productCollectionTypes, handler: @escaping ([Product]) -> Void) {
         db.collection("/men/\(availabilityCollection)/\(productCollection)").addSnapshotListener { querySnapshot, err in
             guard let data = querySnapshot?.documents else {
                 return
@@ -38,9 +38,35 @@ class Database {
             handler(Product.build(from: data))
         }
     }
+    
+    func getUser(userID: String, handler: @escaping (User) -> Void) {
+        let docRef = db.collection("users").document(userID)
+        docRef.addSnapshotListener { documentSnapshot, err in
+            guard let data = documentSnapshot else {
+                return
+            }
+            handler(User.build(from: data))
+        }
+    }
+    
+    func getUserFavorites(docReference: [DocumentReference], handler: @escaping ([Product], [DocumentReference]) -> Void) {
+        var dataArray = [DocumentSnapshot]()
+        for document in docReference {
+            let docRef = db.document(document.path)
+            docRef.addSnapshotListener { documentSnapshot, err in
+                guard let data = documentSnapshot else {
+                    return
+                }
+                dataArray.append(data)
+                if dataArray.count == docReference.count {
+                    handler(Product.buildFavorites(from: dataArray), docReference)
+                }
+            }
+        }
+    }
         
-    func getSizechart(docReference: DocumentReference, docCollection: String, handler: @escaping (Sizechart) -> Void) {
-        let docRef = Firestore.firestore().collection(docCollection).document(docReference.documentID)
+    func getSizechart(docReference: DocumentReference, handler: @escaping (Sizechart) -> Void) {
+        let docRef = db.document(docReference.path)
         docRef.getDocument { documentSnapshot, err in
             guard let data = documentSnapshot else {
                 return
@@ -48,10 +74,23 @@ class Database {
             handler(Sizechart.build(from: data))
         }
     }
+    
+    func removeFavoriteProduct(userID: String, productReference: DocumentReference) {
+        let docRef = db.collection("users").document(userID)
+        docRef.updateData(["userFavorites": FieldValue.arrayRemove([productReference])])
+    }
 }
 
 extension Product {
     static func build(from documents: [QueryDocumentSnapshot]) -> [Product] {
+        var products = [Product]()
+        for document in documents {
+            try? products.append(document.data(as: Product.self)!)
+        }
+        return products
+    }
+    
+    static func buildFavorites(from documents: [DocumentSnapshot]) -> [Product] {
         var products = [Product]()
         for document in documents {
             try? products.append(document.data(as: Product.self)!)
@@ -67,3 +106,25 @@ extension Sizechart {
         return sizecharts
     }
 }
+
+extension User {
+    static func build(from documents: DocumentSnapshot) -> User {
+        var user: User!
+        try? user = documents.data(as: User.self)!
+        return user
+    }
+}
+
+//    func getUserFavorites(docReference: DocumentReference, docCollection: String, handler: @escaping ([Product]) -> Void) {
+//        print(docReference.parent)
+//        print(docReference.path)
+//        print(docReference.firestore)
+////        let docRef = Firestore.firestore().collection(docCollection).document(docReference.documentID)
+//        let docRef = Firestore.firestore().document(docReference.path)
+//        docRef.getDocument { documentSnapshot, err in
+//            guard let data = documentSnapshot else {
+//                return
+//            }
+//            handler(Product.buildFavorites(from: data))
+//        }
+//    }

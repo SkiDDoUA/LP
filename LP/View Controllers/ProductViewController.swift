@@ -62,7 +62,7 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UIPickerView
     //MARK: - Load Data From Database
     func loadSizechart() {
         database = Database()
-        database?.getSizechart(docReference: product.brand.sizechart!, docCollection: "sizecharts/\(product.brand.name)/\(product.details.type)/") {
+        database?.getSizechart(docReference: product.brand.sizechart!) {
             handler in self.sizechart = handler
         }
     }

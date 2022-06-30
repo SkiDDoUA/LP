@@ -9,6 +9,14 @@ import Foundation
 import Firebase
 import FirebaseFirestoreSwift
 
+
+// MARK: - User Structure
+public struct User: Codable {
+//    let createdAt: Timestamp
+    let userFavorites: [DocumentReference]
+//    let userSettings: UserSettings?
+}
+
 // MARK: - Postal Office Structure
 public struct NpPostalOffice: Codable {
     let city: String

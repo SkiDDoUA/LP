@@ -37,9 +37,12 @@
 		3A8C1AEE279D7734008BCBCF /* ShoppingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C1AED279D7734008BCBCF /* ShoppingViewController.swift */; };
 		3A95A71E2754E1EC009017FE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A95A71D2754E1EC009017FE /* GoogleService-Info.plist */; };
 		3AACC3BC27F4E3BD000A0A3B /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AACC3BB27F4E3BD000A0A3B /* FilterTableViewCell.swift */; };
+		3AAF8FB82854B8ED0042C89B /* FavoriteProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF8FB72854B8ED0042C89B /* FavoriteProductTableViewCell.swift */; };
+		3AAF8FBA2854BA4E0042C89B /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF8FB92854BA4E0042C89B /* FavoritesTableViewController.swift */; };
 		3AB31C0527C4403E006D1965 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AB31C0427C4403E006D1965 /* Main.storyboard */; };
 		3AC7ADB32795DFF20075187A /* CustomHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC7ADB22795DFF20075187A /* CustomHeaderView.swift */; };
 		3ACD92C5278076DC009CB427 /* ProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACD92C4278076DC009CB427 /* ProductCollectionViewCell.swift */; };
+		3AD64E922853574700C28A56 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD64E912853574700C28A56 /* TabBarViewController.swift */; };
 		3AE0CB5A27E7603300B406ED /* FilterSecondTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CB5927E7603300B406ED /* FilterSecondTableViewCell.swift */; };
 		3AEA10EA27A94B1200B2CEC0 /* DetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEA10E927A94B1200B2CEC0 /* DetailsTableViewCell.swift */; };
 		3AEB09F426E62D3E00F500F8 /* Validations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEB09F326E62D3E00F500F8 /* Validations.swift */; };
@@ -102,9 +105,12 @@
 		3A95A71D2754E1EC009017FE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3AA5DE8026DCE34800B78DC0 /* LP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LP.entitlements; sourceTree = "<group>"; };
 		3AACC3BB27F4E3BD000A0A3B /* FilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewCell.swift; sourceTree = "<group>"; };
+		3AAF8FB72854B8ED0042C89B /* FavoriteProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteProductTableViewCell.swift; sourceTree = "<group>"; };
+		3AAF8FB92854BA4E0042C89B /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
 		3AB31C0427C4403E006D1965 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		3AC7ADB22795DFF20075187A /* CustomHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeaderView.swift; sourceTree = "<group>"; };
 		3ACD92C4278076DC009CB427 /* ProductCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCollectionViewCell.swift; sourceTree = "<group>"; };
+		3AD64E912853574700C28A56 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		3AE0CB5927E7603300B406ED /* FilterSecondTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSecondTableViewCell.swift; sourceTree = "<group>"; };
 		3AEA10E927A94B1200B2CEC0 /* DetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsTableViewCell.swift; sourceTree = "<group>"; };
 		3AEB09F326E62D3E00F500F8 /* Validations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validations.swift; sourceTree = "<group>"; };
@@ -146,6 +152,7 @@
 				3A20675C27BFC2D800D88038 /* FilterTableViewController.swift */,
 				3A55DD2027E52141000A7298 /* FilterSecondTableViewController.swift */,
 				3A0D2B7F284A291400EA1FF3 /* SettingsTableViewController.swift */,
+				3AAF8FB92854BA4E0042C89B /* FavoritesTableViewController.swift */,
 			);
 			path = "Table Views";
 			sourceTree = "<group>";
@@ -263,6 +270,7 @@
 		3AE61ECF2790551B00706111 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3AD64E912853574700C28A56 /* TabBarViewController.swift */,
 				3A82E59326C55526001762DC /* FirstScreenViewController.swift */,
 				3A02128427C3E3F80069D447 /* SMSViewController.swift */,
 				3A81F39D2775CEF100ADA9E5 /* MainViewController.swift */,
@@ -283,6 +291,7 @@
 				3A1021FF27B9C08A007F8067 /* TwoColumnsTableViewCell.swift */,
 				3AE0CB5927E7603300B406ED /* FilterSecondTableViewCell.swift */,
 				3AACC3BB27F4E3BD000A0A3B /* FilterTableViewCell.swift */,
+				3AAF8FB72854B8ED0042C89B /* FavoriteProductTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -499,11 +508,14 @@
 				3A10220727BBE453007F8067 /* SortTableViewController.swift in Sources */,
 				3A0D2B80284A291400EA1FF3 /* SettingsTableViewController.swift in Sources */,
 				3AF80FB8271DF5FE0003F7CA /* Keychain.swift in Sources */,
+				3AAF8FBA2854BA4E0042C89B /* FavoritesTableViewController.swift in Sources */,
 				3A82E59226C55526001762DC /* SceneDelegate.swift in Sources */,
+				3AAF8FB82854B8ED0042C89B /* FavoriteProductTableViewCell.swift in Sources */,
 				3A55DD2127E52141000A7298 /* FilterSecondTableViewController.swift in Sources */,
 				3A311E00278B26910016C5F4 /* ProductViewController.swift in Sources */,
 				3ACD92C5278076DC009CB427 /* ProductCollectionViewCell.swift in Sources */,
 				3AE0CB5A27E7603300B406ED /* FilterSecondTableViewCell.swift in Sources */,
+				3AD64E922853574700C28A56 /* TabBarViewController.swift in Sources */,
 				3A19BE3E278862320051F6DD /* Database.swift in Sources */,
 				3A10220127B9C08A007F8067 /* TwoColumnsTableViewCell.swift in Sources */,
 				3AACC3BC27F4E3BD000A0A3B /* FilterTableViewCell.swift in Sources */,

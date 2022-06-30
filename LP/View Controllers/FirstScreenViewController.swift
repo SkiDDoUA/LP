@@ -39,8 +39,8 @@ class FirstScreenViewController: UIViewController, MaskedTextFieldDelegateListen
     @IBAction func registrationTapped(_ sender: Any) {
         view.endEditing(true)
                 
-        let phone = phoneTextField.fieldValidation(label: labelPhoneError, ValidatorStructure: .phone)
-//        let phone = "+380985568365"
+//        let phone = phoneTextField.fieldValidation(label: labelPhoneError, ValidatorStructure: .phone)
+        let phone = "+380985568365"
 
         Auth.auth().settings?.isAppVerificationDisabledForTesting = true
         PhoneAuthProvider.provider().verifyPhoneNumber(phone, uiDelegate: nil) { (verificationID, error) in
