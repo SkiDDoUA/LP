@@ -8,7 +8,7 @@
 import UIKit
 import WMSegmentControl
 
-class ShoppingViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, FilterDataDelegate, SortDataDelegate {
+class ShoppingViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var productCollectionView: UICollectionView!
     @IBOutlet weak var availabilitySegmentedControl: WMSegment!
@@ -21,7 +21,6 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
     var filterType: FilterTypes?
     private var database: Database?
     weak var delegate: FilterDataDelegate?
-    private let toProductIdentifier = "toProduct"
     var tempProducts = [Product]()
     var filterStructuresArray = [ProductFilter?]()
     var sortStructure: Sort?
@@ -54,15 +53,6 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
     }
     
-    func returnSortData(sort: Sort) {
-        sortStructure = sort
-    }
-
-    func returnFilterData(filterArray: [ProductFilter?], filteredProducts: [Product]) {
-        products = filteredProducts
-        filterStructuresArray = filterArray
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         self.navigationItem.title = titleString
     }
@@ -91,39 +81,10 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
     }
     
-    //MARK: - Extensions For Slider Collection View Cells
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return products.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productCell", for: indexPath) as! ProductCollectionViewCell
-        cell.configure(for: self.products[indexPath.row])
-        return cell
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = productCollectionView.frame.size
-        let value = (size.width-20)/2
-        return CGSize(width: value, height: value*1.5)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 10.0
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0.0
-    }
-    
     //MARK: - Parse Cell Data To ProductViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
-        case toProductIdentifier:
+        case "toProduct":
             let destination = segue.destination as! ProductViewController
             let cell = sender as! ProductCollectionViewCell
             let indexPath = productCollectionView.indexPath(for: cell)!
@@ -157,4 +118,54 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     // MARK: - Unwind Segue From Filter And Sort
     @IBAction func unwindToShopping(_ sender: UIStoryboardSegue) {}
+}
+
+
+// MARK: - UICollectionViewDelegate
+extension ShoppingViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return products.count
+    }
+}
+
+// MARK: - UICollectionViewDataSource
+extension ShoppingViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productCell", for: indexPath) as! ProductCollectionViewCell
+        cell.configure(for: self.products[indexPath.row])
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let size = productCollectionView.frame.size
+        let value = (size.width-20)/2
+        return CGSize(width: value, height: value*1.5)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 10.0
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.0
+    }
+}
+
+// MARK: - FilterDataDelegate
+extension ShoppingViewController: FilterDataDelegate {
+    func returnFilterData(filterArray: [ProductFilter?], filteredProducts: [Product]) {
+        products = filteredProducts
+        filterStructuresArray = filterArray
+    }
+}
+
+// MARK: - SortDataDelegate
+extension ShoppingViewController: SortDataDelegate {
+    func returnSortData(sort: Sort) {
+        sortStructure = sort
+    }
 }

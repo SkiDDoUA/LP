@@ -10,7 +10,7 @@ import WMSegmentControl
 import FirebaseAuth
 import FirebaseFirestore
 
-class AdditionalInfoViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class AdditionalInfoViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var genderSegmentedControl: WMSegment!
     @IBOutlet weak var birthdayDatePickerTextField: СustomUITextField!
     @IBOutlet weak var brandPickerTextField: СustomUITextField!
@@ -70,23 +70,6 @@ class AdditionalInfoViewController: UIViewController, UITextFieldDelegate, UIPic
     @IBAction func skipTapped(_ sender: Any) {
         self.performSegue(withIdentifier: "toMainViewController", sender: Any?.self)
     }
-    
-    // MARK: - PickerView Delegation
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-
-    func pickerView( _ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return brandData.count
-    }
-
-    func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return brandData[row]
-    }
-
-    func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        brandPickerTextField.text = brandData[row]
-    }
 
     // MARK: - Keyboard
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -138,4 +121,26 @@ class AdditionalInfoViewController: UIViewController, UITextFieldDelegate, UIPic
         }
     }
 
+}
+
+// MARK: - UIPickerViewDelegate
+extension AdditionalInfoViewController: UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+}
+
+// MARK: - UIPickerViewDataSource
+extension AdditionalInfoViewController: UIPickerViewDataSource {
+    func pickerView( _ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return brandData.count
+    }
+
+    func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return brandData[row]
+    }
+
+    func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        brandPickerTextField.text = brandData[row]
+    }
 }

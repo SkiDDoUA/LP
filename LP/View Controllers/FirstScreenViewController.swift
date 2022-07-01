@@ -13,7 +13,7 @@ import FirebaseAuth
 import FirebaseCore
 import FirebaseFirestore
 
-class FirstScreenViewController: UIViewController, MaskedTextFieldDelegateListener  {
+class FirstScreenViewController: UIViewController, MaskedTextFieldDelegateListener {
     
     @IBOutlet var listener: MaskedTextFieldDelegate!
     @IBOutlet weak var labelPhoneError: UILabel!

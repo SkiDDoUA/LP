@@ -2513,9 +2513,9 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="95z-Rl-qRT">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="WhiteLP"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="favoriteCell" rowHeight="160" id="JQI-a2-ckp" customClass="FavoriteProductTableViewCell" customModule="LP" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="favoriteCell" rowHeight="160" id="JQI-a2-ckp" customClass="FavoriteProductTableViewCell" customModule="LP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44.666666030883789" width="390" height="160"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JQI-a2-ckp" id="Cm6-l7-PeF">
@@ -2564,10 +2564,10 @@
                                                     </constraints>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="6lx-h6-7ma">
-                                                    <rect key="frame" x="0.0" y="70" width="180" height="25"/>
+                                                    <rect key="frame" x="0.0" y="70" width="100" height="25"/>
                                                     <subviews>
-                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="S" adjustsFontSizeToFit="NO" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="i42-uY-0pg" customClass="СustomUITextField" customModule="LP" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="80" height="25"/>
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Размер" adjustsFontSizeToFit="NO" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="i42-uY-0pg" customClass="СustomUITextField" customModule="LP" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="100" height="25"/>
                                                             <color key="backgroundColor" name="Light GreyLP"/>
                                                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <color key="textColor" name="BlackLP"/>
@@ -2583,26 +2583,9 @@
                                                                 <outlet property="delegate" destination="6RL-E5-N7O" id="siM-Oc-JjR"/>
                                                             </connections>
                                                         </textField>
-                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="1" adjustsFontSizeToFit="NO" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="GSj-mR-eyq" customClass="СustomUITextField" customModule="LP" customModuleProvider="target">
-                                                            <rect key="frame" x="100" y="0.0" width="80" height="25"/>
-                                                            <color key="backgroundColor" name="Light GreyLP"/>
-                                                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <color key="textColor" name="BlackLP"/>
-                                                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
-                                                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="image" keyPath="rightImage" value="Arrow"/>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="rightPadding">
-                                                                    <real key="value" value="15"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                            </userDefinedRuntimeAttributes>
-                                                            <connections>
-                                                                <outlet property="delegate" destination="6RL-E5-N7O" id="5MM-OI-xOX"/>
-                                                            </connections>
-                                                        </textField>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="180" id="n23-pn-yqk"/>
+                                                        <constraint firstAttribute="width" constant="100" id="n23-pn-yqk"/>
                                                         <constraint firstAttribute="height" constant="25" id="uUJ-xh-xGb"/>
                                                     </constraints>
                                                 </stackView>
@@ -2640,12 +2623,12 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="addToBagButton" destination="LDF-ar-YKm" id="aOz-dl-oVp"/>
-                                    <outlet property="amountTextField" destination="GSj-mR-eyq" id="Bef-2Z-4D9"/>
                                     <outlet property="productBrandLabel" destination="Cfd-j7-fqH" id="T91-US-Vmc"/>
                                     <outlet property="productImageView" destination="uRK-Jv-n0C" id="ira-aQ-vDT"/>
                                     <outlet property="productNameLabel" destination="NNo-dh-3om" id="cqo-gh-W9y"/>
                                     <outlet property="productPriceLabel" destination="9qu-BK-Z5v" id="lS1-qt-o4m"/>
-                                    <outlet property="sizeTextField" destination="i42-uY-0pg" id="xr5-Pn-06X"/>
+                                    <outlet property="sizePickerTextField" destination="i42-uY-0pg" id="xr5-Pn-06X"/>
+                                    <segue destination="UJP-CD-4Dg" kind="show" identifier="toProduct" id="AaZ-Cf-Jf6"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -2693,9 +2676,23 @@
             <point key="canvasLocation" x="-478" y="2633"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="37w-0p-bKg">
+            <size key="intrinsicContentSize" width="16" height="22"/>
+        </designable>
+        <designable name="GQD-SK-LM8">
+            <size key="intrinsicContentSize" width="16" height="22"/>
+        </designable>
+        <designable name="b9K-w8-7og">
+            <size key="intrinsicContentSize" width="16" height="22"/>
+        </designable>
+        <designable name="yah-CI-NKA">
+            <size key="intrinsicContentSize" width="16" height="22"/>
+        </designable>
+    </designables>
     <inferredMetricsTieBreakers>
         <segue reference="i82-LU-UUz"/>
-        <segue reference="KyF-WQ-O98"/>
+        <segue reference="AaZ-Cf-Jf6"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Arrow" width="17" height="8"/>

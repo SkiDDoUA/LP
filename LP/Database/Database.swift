@@ -114,17 +114,3 @@ extension User {
         return user
     }
 }
-
-//    func getUserFavorites(docReference: DocumentReference, docCollection: String, handler: @escaping ([Product]) -> Void) {
-//        print(docReference.parent)
-//        print(docReference.path)
-//        print(docReference.firestore)
-////        let docRef = Firestore.firestore().collection(docCollection).document(docReference.documentID)
-//        let docRef = Firestore.firestore().document(docReference.path)
-//        docRef.getDocument { documentSnapshot, err in
-//            guard let data = documentSnapshot else {
-//                return
-//            }
-//            handler(Product.buildFavorites(from: data))
-//        }
-//    }

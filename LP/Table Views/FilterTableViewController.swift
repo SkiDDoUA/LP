@@ -12,7 +12,7 @@ protocol FilterDataDelegate: AnyObject {
     func returnFilterData(filterArray: [ProductFilter?], filteredProducts: [Product])
 }
 
-class FilterTableViewController: UITableViewController, FilterChosenDelegate {
+class FilterTableViewController: UITableViewController {
     var products = [Product]()
     var tempProducts = [Product]()
     var selectedIndexPath: IndexPath = IndexPath()
@@ -80,12 +80,6 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
         if self.isMovingFromParent {
             delegate?.returnFilterData(filterArray: filterStructuresArray, filteredProducts: products)
         }
-    }
-    
-    func userDidChoseFilters(filter: ProductFilter) {
-        filterStructuresArray[filter.filterType.details.index] = filter
-        let indexPath = IndexPath(item: filter.filterType.details.index, section: 0)
-        tableView.reloadRows(at: [indexPath], with: .none)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -236,5 +230,15 @@ class FilterTableViewController: UITableViewController, FilterChosenDelegate {
         barButtonItem.setTitleTextAttributes(textAttributes, for: .normal)
         barButtonItem.setTitleTextAttributes(textAttributes, for: .selected)
         navigationItem.rightBarButtonItem = barButtonItem
+    }
+}
+
+
+// MARK: - SortDataDelegate
+extension FilterTableViewController: FilterChosenDelegate {
+    func userDidChoseFilters(filter: ProductFilter) {
+        filterStructuresArray[filter.filterType.details.index] = filter
+        let indexPath = IndexPath(item: filter.filterType.details.index, section: 0)
+        tableView.reloadRows(at: [indexPath], with: .none)
     }
 }

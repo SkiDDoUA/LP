@@ -9,7 +9,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
-class MainViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITabBarControllerDelegate {
+class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var sliderCollectionView: UICollectionView!
     @IBOutlet weak var productCollectionView: UICollectionView!
@@ -110,55 +110,6 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
          counter = 1
      }
     }
-        
-    //MARK: - Extensions For Slider Collection View Cells
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == self.sliderCollectionView {
-            return imageArray.count
-        }
-        return products.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == self.sliderCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "sliderCell", for: indexPath)
-            if let vc = cell.viewWithTag(111) as? UIImageView {
-                vc.image = imageArray[indexPath.row]
-            }
-            return cell
-        } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productCell", for: indexPath) as! ProductCollectionViewCell
-            cell.configure(for: self.products[indexPath.row])
-            return cell
-        }
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView == self.sliderCollectionView {
-            let size = sliderCollectionView.frame.size
-            return CGSize(width: size.width, height: size.height)
-        } else {
-            let size = productCollectionView.frame.size
-            let value = (size.width-20)/2
-            return CGSize(width: value, height: value*1.5)
-        }
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        if collectionView == self.sliderCollectionView {
-            return 0.0
-        } else {
-            return 10.0
-        }
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0.0
-    }
     
     //MARK: - Parse Cell Data To ProductViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -173,22 +124,6 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
             destination.titleString = titleString
             destination.productCollectionType = productCollectionType
         default: break
-        }
-    }
-    
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        switch tabBarController.selectedIndex {
-        case 0:
-            print("0")
-        case 1:
-            print("1")
-        case 2:
-            print("2")
-        default:
-            let destination = self.tabBarController?.viewControllers![3] as! FavoritesTableViewController
-            dismiss(animated: true, completion: {
-                destination.setUser(self.user!)
-            })
         }
     }
     
@@ -264,3 +199,77 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
     }
 }
+
+// MARK: - UICollectionViewDelegate
+extension MainViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if collectionView == self.sliderCollectionView {
+            return imageArray.count
+        }
+        return products.count
+    }
+}
+
+// MARK: - UICollectionViewDataSource
+extension MainViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if collectionView == self.sliderCollectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "sliderCell", for: indexPath)
+            if let vc = cell.viewWithTag(111) as? UIImageView {
+                vc.image = imageArray[indexPath.row]
+            }
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productCell", for: indexPath) as! ProductCollectionViewCell
+            cell.configure(for: self.products[indexPath.row])
+            return cell
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == self.sliderCollectionView {
+            let size = sliderCollectionView.frame.size
+            return CGSize(width: size.width, height: size.height)
+        } else {
+            let size = productCollectionView.frame.size
+            let value = (size.width-20)/2
+            return CGSize(width: value, height: value*1.5)
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        if collectionView == self.sliderCollectionView {
+            return 0.0
+        } else {
+            return 10.0
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.0
+    }
+}
+
+// MARK: - UITabBarControllerDelegate
+extension MainViewController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        switch tabBarController.selectedIndex {
+        case 0:
+            print("0")
+        case 1:
+            print("1")
+        case 2:
+            print("2")
+        default:
+            let destination = self.tabBarController?.viewControllers![3] as! FavoritesTableViewController
+            dismiss(animated: true, completion: {
+                destination.setUser(self.user!)
+            })
+        }
+    }
+}
+
