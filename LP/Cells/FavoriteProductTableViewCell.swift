@@ -18,6 +18,7 @@ class FavoriteProductTableViewCell: UITableViewCell {
     
     var viewPicker = UIPickerView()
     var sizeKeys = [String : Int]()
+    var sortedKeys = [String]()
     
     func configure(for product: Product) {
         self.productBrandLabel.text = product.brand.name.uppercased()
@@ -63,12 +64,13 @@ extension FavoriteProductTableViewCell: UIPickerViewDataSource {
     }
     
     func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        let sizeOrder = ["One size", "XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL", "XXXXL"]
         let pickerKeys = [String](sizeKeys.keys)
-        return pickerKeys[row]
+        sortedKeys = sizeOrder.filter({pickerKeys.contains($0)})
+        return sortedKeys[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let pickerKeys = [String](sizeKeys.keys)
-        sizePickerTextField.text = pickerKeys[row]
+        sizePickerTextField.text = sortedKeys[row]
     }
 }

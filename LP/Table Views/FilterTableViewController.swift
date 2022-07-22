@@ -131,7 +131,7 @@ class FilterTableViewController: UITableViewController {
             var filterArray = [Filter]()
             var filterData = [String]()
             var filterType: FilterTypes?
-            let sizeOrder = ["No Size", "One Size", "XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL", "XXXXL"]
+            let sizeOrder = ["Нет размера", "Один размер", "XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL", "XXXXL"]
             
             switch indexPath.row {
             case 0:

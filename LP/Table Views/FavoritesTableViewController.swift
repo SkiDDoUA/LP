@@ -25,7 +25,7 @@ class FavoritesTableViewController: UITableViewController {
     func setUser(_ userData: User) {
       //override the label with the parameter received in this method
         database = Database()
-        database?.getUserFavorites(docReference: (userData.userFavorites)) {
+        database?.getUserFavorites(docReference: (userData.favorites)) {
             products, productsReferences in self.products = products;
                                             self.productsReferences = productsReferences
         }

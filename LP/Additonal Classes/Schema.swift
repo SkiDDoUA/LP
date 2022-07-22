@@ -13,7 +13,7 @@ import FirebaseFirestoreSwift
 // MARK: - User Structure
 public struct User: Codable {
 //    let createdAt: Timestamp
-    let userFavorites: [DocumentReference]
+    let favorites: [DocumentReference]
 //    let userSettings: UserSettings?
 }
 

@@ -77,7 +77,7 @@ class Database {
     
     func removeFavoriteProduct(userID: String, productReference: DocumentReference) {
         let docRef = db.collection("users").document(userID)
-        docRef.updateData(["userFavorites": FieldValue.arrayRemove([productReference])])
+        docRef.updateData(["favorites": FieldValue.arrayRemove([productReference])])
     }
 }
 
