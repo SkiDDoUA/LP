@@ -140,7 +140,6 @@ extension ProductViewController: UITableViewDelegate {
     private func tableViewConfig() {
         let nib = UINib(nibName: headerID, bundle: nil)
         detailsTableView.register(nib, forHeaderFooterViewReuseIdentifier: headerID)
-        detailsTableView.tableFooterView = UIView()
     }
         
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

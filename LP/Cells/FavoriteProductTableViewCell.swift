@@ -15,24 +15,35 @@ class FavoriteProductTableViewCell: UITableViewCell {
     @IBOutlet weak var sizePickerTextField: СustomUITextField!
     @IBOutlet weak var addToBagButton: UIButton!
     @IBOutlet weak var productImageView: UIImageView!
+    @IBOutlet weak var detailsConstraint: NSLayoutConstraint!
+    @IBOutlet weak var stackViewHeight: NSLayoutConstraint!
     
     var viewPicker = UIPickerView()
     var sizeKeys = [String : Int]()
     var sortedKeys = [String]()
+    var pickerKeys = [String]()
     
-    func configure(for product: Product) {
+    func configure(for product: Product, size: String) {
         self.productBrandLabel.text = product.brand.name.uppercased()
         self.productNameLabel.text = product.name
         self.productPriceLabel.text = "₴\(product.price.description)"
         self.productImageView.kf.setImage(with: URL(string: product.images[0]))
         self.sizeKeys = product.details.size
-        
+        self.pickerKeys = [String](sizeKeys.keys)
         viewPicker.dataSource = self
         viewPicker.delegate = self
         viewPicker.backgroundColor = UIColor.systemBackground
         sizePickerTextField.inputView = viewPicker
         sizePickerTextField.setEditActions(only: [])
         self.sizePickerTextField.setInputViewPicker(target: self, selector: #selector(tapDoneViewPicker))
+        
+        if pickerKeys.contains(size) {
+            sizePickerTextField.text = size
+        } else {
+            addToBagButton.isHidden = true
+            detailsConstraint.constant = 55
+            stackViewHeight.constant = 95
+        }
     }
     
     // MARK: - Set ViewPicker
@@ -65,12 +76,14 @@ extension FavoriteProductTableViewCell: UIPickerViewDataSource {
     
     func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         let sizeOrder = ["One size", "XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL", "XXXXL"]
-        let pickerKeys = [String](sizeKeys.keys)
         sortedKeys = sizeOrder.filter({pickerKeys.contains($0)})
         return sortedKeys[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         sizePickerTextField.text = sortedKeys[row]
+        addToBagButton.isHidden = false
+        detailsConstraint.constant = 15
+        stackViewHeight.constant = 135
     }
 }

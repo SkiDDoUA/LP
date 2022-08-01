@@ -39,7 +39,7 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     private let toProductIdentifier = "toProduct"
     private let toShoppingIdentifier = "toShopping"
     private var database: Database?
-    var user: User?
+//    var user: User?
     var products = [Product]() {
        didSet {
            DispatchQueue.main.async {
@@ -59,10 +59,10 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
         super.viewDidLoad()
         self.tabBarController?.delegate = self
         
-        database = Database()
-        database?.getUser(userID: Auth.auth().currentUser!.uid) {
-            handler in self.user = handler
-        }
+//        database = Database()
+//        database?.getUser(userID: Auth.auth().currentUser!.uid) {
+//            handler in self.user = handler
+//        }
 
         //MARK: - Setup View
 //        self.navigationItem.setHidesBackButton(true, animated: true)
@@ -257,18 +257,22 @@ extension MainViewController: UICollectionViewDataSource {
 // MARK: - UITabBarControllerDelegate
 extension MainViewController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        let user = Auth.auth().currentUser!.uid
         switch tabBarController.selectedIndex {
         case 0:
             print("0")
         case 1:
             print("1")
         case 2:
-            print("2")
-        default:
-            let destination = self.tabBarController?.viewControllers![3] as! FavoritesTableViewController
+            let destination = self.tabBarController?.viewControllers![2] as! FavoritesTableViewController
             dismiss(animated: true, completion: {
-                destination.setUser(self.user!)
+                destination.setUser(user)
             })
+        default:
+            let destination = self.tabBarController?.viewControllers![3] as! PaymentViewController
+//            dismiss(animated: true, completion: {
+//                destination.setUser(self.user!)
+//            })
         }
     }
 }

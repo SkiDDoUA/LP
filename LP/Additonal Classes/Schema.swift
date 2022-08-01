@@ -13,7 +13,8 @@ import FirebaseFirestoreSwift
 // MARK: - User Structure
 public struct User: Codable {
 //    let createdAt: Timestamp
-    let favorites: [DocumentReference]
+//    let favorites: [[String : DocumentReference]]
+//    let cart: [[String : DocumentReference]]
 //    let userSettings: UserSettings?
 }
 
@@ -116,6 +117,13 @@ public struct Sizechart: Codable {
     let IT: [String]?
     let CM: [String]?
     let Moncler: [String]?
+}
+
+// MARK: - FavoriteProduct Structure
+public struct FavoriteProduct: Codable {
+    let reference: DocumentReference
+    let size: String
+    var product: Product?
 }
 
 // MARK: - Details View Cell Structure
