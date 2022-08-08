@@ -257,7 +257,6 @@ extension MainViewController: UICollectionViewDataSource {
 // MARK: - UITabBarControllerDelegate
 extension MainViewController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        let user = Auth.auth().currentUser!.uid
         switch tabBarController.selectedIndex {
         case 0:
             print("0")
@@ -266,13 +265,13 @@ extension MainViewController: UITabBarControllerDelegate {
         case 2:
             let destination = self.tabBarController?.viewControllers![2] as! FavoritesTableViewController
             dismiss(animated: true, completion: {
-                destination.setUser(user)
+                destination.getFavorites()
             })
         default:
-            let destination = self.tabBarController?.viewControllers![3] as! PaymentViewController
-//            dismiss(animated: true, completion: {
-//                destination.setUser(self.user!)
-//            })
+            let destination = self.tabBarController?.viewControllers![3] as! CartViewController
+            dismiss(animated: true, completion: {
+                destination.getCart()
+            })
         }
     }
 }

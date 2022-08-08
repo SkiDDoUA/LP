@@ -131,8 +131,8 @@ class FilterTableViewController: UITableViewController {
             var filterArray = [Filter]()
             var filterData = [String]()
             var filterType: FilterTypes?
-            let sizeOrder = ["Нет размера", "Один размер", "XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL", "XXXXL"]
-            
+            let sizeOrder = ["No size", "One size", "XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL", "XXXXL"]
+
             switch indexPath.row {
             case 0:
                 products.forEach{filterData.append(contentsOf: $0.details.size.keys)}
@@ -153,7 +153,10 @@ class FilterTableViewController: UITableViewController {
             }
             
             if filterType == .size {
-                for string in sizeOrder.filter({Array(Set(filterData)).contains($0)}) {
+                let stringSizeArray = sizeOrder.filter({Array(Set(filterData)).contains($0)})
+                let numberSizeArray = Array(Set(filterData).subtracting(stringSizeArray)).sorted{$0 < $1}
+                let sortedSizeArray = stringSizeArray + numberSizeArray
+                for string in sortedSizeArray {
                     filterArray.append(Filter(filterString: string))
                 }
             } else {
@@ -240,5 +243,11 @@ extension FilterTableViewController: FilterChosenDelegate {
         filterStructuresArray[filter.filterType.details.index] = filter
         let indexPath = IndexPath(item: filter.filterType.details.index, section: 0)
         tableView.reloadRows(at: [indexPath], with: .none)
+    }
+}
+
+extension String {
+    public var isNumber: Bool {
+        return !isEmpty && rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
     }
 }

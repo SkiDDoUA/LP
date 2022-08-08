@@ -23,27 +23,28 @@ class FavoriteProductTableViewCell: UITableViewCell {
     var sortedKeys = [String]()
     var pickerKeys = [String]()
     
-    func configure(for product: Product, size: String) {
-        self.productBrandLabel.text = product.brand.name.uppercased()
-        self.productNameLabel.text = product.name
-        self.productPriceLabel.text = "₴\(product.price.description)"
-        self.productImageView.kf.setImage(with: URL(string: product.images[0]))
-        self.sizeKeys = product.details.size
+    func configure(for favoriteProduct: UserProduct) {
+        self.productBrandLabel.text = favoriteProduct.product!.brand.name.uppercased()
+        self.productNameLabel.text = favoriteProduct.product!.name
+        self.productPriceLabel.text = "₴\(favoriteProduct.product!.price.description)"
+        self.productImageView.kf.setImage(with: URL(string: favoriteProduct.product!.images[0]))
+        self.sizeKeys = favoriteProduct.product!.details.size
         self.pickerKeys = [String](sizeKeys.keys)
+        
+        if pickerKeys.contains(favoriteProduct.size) {
+            sizePickerTextField.text = favoriteProduct.size
+        } else {
+            addToBagButton.isHidden = true
+            detailsConstraint.constant = 55
+            stackViewHeight.constant = 95
+        }
+        
         viewPicker.dataSource = self
         viewPicker.delegate = self
         viewPicker.backgroundColor = UIColor.systemBackground
         sizePickerTextField.inputView = viewPicker
         sizePickerTextField.setEditActions(only: [])
         self.sizePickerTextField.setInputViewPicker(target: self, selector: #selector(tapDoneViewPicker))
-        
-        if pickerKeys.contains(size) {
-            sizePickerTextField.text = size
-        } else {
-            addToBagButton.isHidden = true
-            detailsConstraint.constant = 55
-            stackViewHeight.constant = 95
-        }
     }
     
     // MARK: - Set ViewPicker
@@ -75,8 +76,10 @@ extension FavoriteProductTableViewCell: UIPickerViewDataSource {
     }
     
     func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let sizeOrder = ["One size", "XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL", "XXXXL"]
-        sortedKeys = sizeOrder.filter({pickerKeys.contains($0)})
+        let sizeOrder = ["No size", "One size", "XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL", "XXXXL"]
+        let stringSizeArray = sizeOrder.filter({pickerKeys.contains($0)})
+        let numberSizeArray = Array(Set(pickerKeys).subtracting(stringSizeArray)).sorted{$0 < $1}
+        sortedKeys = stringSizeArray + numberSizeArray
         return sortedKeys[row]
     }
     

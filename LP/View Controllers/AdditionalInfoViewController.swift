@@ -88,7 +88,7 @@ class AdditionalInfoViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - TapGesture
     private func configureTapGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(FirstScreenViewController.handleTap))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         view.addGestureRecognizer(tapGesture)
     }
     

@@ -35,7 +35,7 @@ class FirstScreenViewController: UIViewController, MaskedTextFieldDelegateListen
         self.navigationController?.navigationBar.topItem?.title = " "
     }
     
-    // MARK: User Registration (phone for test "+380985568365")
+    // MARK: - User Registration (phone for test "+380985568365")
     @IBAction func registrationTapped(_ sender: Any) {
         view.endEditing(true)
                 
@@ -53,14 +53,14 @@ class FirstScreenViewController: UIViewController, MaskedTextFieldDelegateListen
         }
     }
     
-    // MARK: Anonymous Login
+    // MARK: - Anonymous Login
     @IBAction func anonymousLoginTapped(_ sender: Any) {
         Auth.auth().signInAnonymously { authResult, error in
             self.performSegue(withIdentifier: "toMainViewController", sender: Any?.self)
         }
     }
     
-    // MARK: Keyboard
+    // MARK: - Keyboard
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {
@@ -75,9 +75,9 @@ class FirstScreenViewController: UIViewController, MaskedTextFieldDelegateListen
         }
     }
     
-    // MARK: TapGesture
+    // MARK: - TapGesture
     private func configureTapGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(FirstScreenViewController.handleTap))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         view.addGestureRecognizer(tapGesture)
     }
     

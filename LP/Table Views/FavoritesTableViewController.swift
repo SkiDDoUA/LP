@@ -12,30 +12,25 @@ import FirebaseFirestore
 class FavoritesTableViewController: UITableViewController {
     private var database: Database?
     private let toProductIdentifier = "toProduct"
-    var productsReferences = [[String : DocumentReference]]()
-    var userID = Auth.auth().currentUser!.uid
-    var sizes = [String]()
-    var products = [FavoriteProduct]() {
+    var products = [UserProduct]() {
        didSet {
            DispatchQueue.main.async {
-//               self.sizes = Array(self.productsReferences.keys)
                self.tableView.reloadData()
            }
        }
     }
     
-    func setUser(_ userData: String) {
+    func getFavorites() {
       //override the label with the parameter received in this method
         database = Database()
-//        let user = Auth.auth().currentUser!.uid
-        database?.getUserFavorites(userID: (userData)) {
+        database?.getUserProducts(collection: Database.userProductsCollectionTypes.favorites) {
             products in self.products = products;
-            print(products)
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureTapGesture()
     }
 
     // MARK: - Table view data source
@@ -49,7 +44,7 @@ class FavoritesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "favoriteCell", for: indexPath) as! FavoriteProductTableViewCell
-//        cell.configure(for: self.products[indexPath.row], size: sizes[indexPath.row])
+        cell.configure(for: self.products[indexPath.row])
         if (indexPath.row == self.products.count-1) {
             cell.separatorInset = UIEdgeInsets(top: 0.0, left: cell.bounds.size.width, bottom: 0.0, right: 0.0);
         }
@@ -58,15 +53,9 @@ class FavoritesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            if products.count == productsReferences.count {
-//                let productValuesArray =  Array(productsReferences.values)
-//                let productKeysArray =  Array(productsReferences.keys)
-//                print(productValuesArray[indexPath.row])
-//                database?.removeFavoriteProduct(userID: userID, productReference: productValuesArray[indexPath.row])
-//                products.remove(at: indexPath.row)
-//                productsReferences.removeValue(forKey: productKeysArray[indexPath.row])
-//                tableView.deleteRows(at: [indexPath], with: .fade)
-            }
+            database?.removeUserProduct(collection: Database.userProductsCollectionTypes.favorites, productReference: products[indexPath.row].reference)
+            products.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
 
@@ -77,9 +66,19 @@ class FavoritesTableViewController: UITableViewController {
             let destination = segue.destination as! ProductViewController
             let cell = sender as! FavoriteProductTableViewCell
             let indexPath = tableView.indexPath(for: cell)!
-//            destination.product = products[indexPath.item]
+            destination.product = products[indexPath.item].product
         default: break
         }
+    }
+    
+    // MARK: - TapGesture
+    private func configureTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func handleTap() {
+        view.endEditing(true)
     }
 
 }

@@ -7,9 +7,11 @@
 
 import Foundation
 import FirebaseFirestore
+import FirebaseAuth
 
 class Database {
     let db = Firestore.firestore()
+    let userID = Auth.auth().currentUser!.uid
         
     enum availabilityCollectionTypes {
         case stock
@@ -29,6 +31,11 @@ class Database {
         case underwear
         case maincollection
     }
+    
+    enum userProductsCollectionTypes {
+        case cart
+        case favorites
+    }
 
     func getProducts(availabilityCollection: availabilityCollectionTypes, productCollection: productCollectionTypes, handler: @escaping ([Product]) -> Void) {
         db.collection("men").document("\(availabilityCollection)").collection("\(productCollection)").addSnapshotListener { querySnapshot, err in
@@ -39,25 +46,15 @@ class Database {
         }
     }
     
-    func getUser(userID: String, handler: @escaping (User) -> Void) {
-        let docRef = db.collection("users").document(userID)
-        docRef.addSnapshotListener { documentSnapshot, err in
-            guard let data = documentSnapshot else {
-                return
-            }
-            handler(User.build(from: data))
-        }
-    }
-    
-    func getUserFavorites(userID: String, handler: @escaping ([FavoriteProduct]) -> Void) {
-        db.collection("users").document(userID).collection("favorites").addSnapshotListener { querySnapshot, err in
+    func getUserProducts(collection: userProductsCollectionTypes, handler: @escaping ([UserProduct]) -> Void) {
+        db.collection("users").document(userID).collection("\(collection)").addSnapshotListener { querySnapshot, err in
             guard let data = querySnapshot?.documents else {
                 return
             }
 
-            var favoriteProducts = [FavoriteProduct]()
+            var favoriteProducts = [UserProduct]()
             for document in data {
-                var dataProduct = try? document.data(as: FavoriteProduct.self)
+                var dataProduct = try? document.data(as: UserProduct.self)
                 let docRef = self.db.document(dataProduct!.reference.path)
 
                 docRef.addSnapshotListener { documentSnapshot, err in
@@ -73,15 +70,6 @@ class Database {
             }
         }
     }
-    
-//    func getUserFavorites(userID: String, handler: @escaping ([FavoriteProduct]) -> Void) {
-//        db.collection("users").document(userID).collection("favorites").addSnapshotListener { querySnapshot, err in
-//            guard let data = querySnapshot?.documents else {
-//                return
-//            }
-//            handler(FavoriteProduct.build(from: data))
-//        }
-//    }
         
     func getSizechart(docReference: DocumentReference, handler: @escaping (Sizechart) -> Void) {
         let docRef = db.document(docReference.path)
@@ -93,9 +81,9 @@ class Database {
         }
     }
     
-    func removeFavoriteProduct(userID: String, productReference: DocumentReference) {
-        let docRef = db.collection("users").document(userID).collection("favorites")
-//        docRef.whereField("refernce", isEqualTo: productReference.path)
+    func removeUserProduct(collection: userProductsCollectionTypes, productReference: DocumentReference) {
+        let docRef = db.collection("users").document(userID).collection("\(collection)")
+        docRef.document(productReference.documentID).delete()
     }
 }
 
@@ -108,33 +96,6 @@ extension Product {
         return products
     }
 }
-
-//extension FavoriteProduct {
-//    static func build(from documents: [QueryDocumentSnapshot]) -> [FavoriteProduct] {
-//        let db = Firestore.firestore()
-//        var favoriteProducts = [FavoriteProduct]()
-//
-//        for document in documents {
-//            var dataProduct = try? document.data(as: FavoriteProduct.self)
-//            let docRef = db.document(dataProduct!.reference.path)
-//
-//            docRef.addSnapshotListener { documentSnapshot, err in
-//                guard let data = documentSnapshot else {
-//                    return
-//                }
-//                dataProduct!.product = try? data.data(as: Product.self)
-//                favoriteProducts.append(dataProduct!)
-////                print(favoriteProducts)
-//                print("1")
-//            }
-//            print("2")
-//        }
-//        print("3")
-//
-////        print(favoriteProducts)
-//        return favoriteProducts
-//    }
-//}
 
 extension Sizechart {
     static func build(from documents: DocumentSnapshot) -> Sizechart {
