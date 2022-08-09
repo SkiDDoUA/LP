@@ -45,6 +45,10 @@ class CartViewController: UIViewController {
     @objc func handleTap() {
         view.endEditing(true)
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollView.contentOffset.x = 0
+    }
 }
 
 // MARK: - UITableViewDataSource
