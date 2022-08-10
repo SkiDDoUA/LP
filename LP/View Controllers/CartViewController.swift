@@ -8,12 +8,30 @@
 import UIKit
 import FirebaseAuth
 import FirebaseFirestore
+import DLRadioButton
 
 class CartViewController: UIViewController {
     @IBOutlet weak var productsTableView: UITableView!
     @IBOutlet weak var productsTableViewConstraint: NSLayoutConstraint!
+    @IBOutlet weak var expandableView: UIView!
+    @IBOutlet weak var expandableViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var streetView: UIView!
+    @IBOutlet weak var flatView: UIView!
+    @IBOutlet weak var buildingLabel: UILabel!
+    @IBOutlet weak var nameTextField: СustomUITextField!
+    @IBOutlet weak var surnameTextField: СustomUITextField!
+    @IBOutlet weak var patronymicTextField: СustomUITextField!
+    @IBOutlet weak var phoneTextField: СustomUITextField!
+    @IBOutlet weak var cityTextField: СustomUITextField!
+    @IBOutlet weak var streetTextField: СustomUITextField!
+    @IBOutlet weak var buildingTextField: СustomUITextField!
+    @IBOutlet weak var flatTextField: СustomUITextField!
+    @IBOutlet weak var orderCommentTextField: СustomUITextField!
+    @IBOutlet weak var promocodeTextField: СustomUITextField!
+    
     
     private var database: Database?
+    var viewHeightConstraint: NSLayoutConstraint?
     var products = [UserProduct]() {
        didSet {
            DispatchQueue.main.async {
@@ -34,6 +52,42 @@ class CartViewController: UIViewController {
         super.viewDidLoad()
         configureTapGesture()
         productsTableView.dataSource = self
+        viewHeightConstraint = expandableView.heightAnchor.constraint(equalToConstant: 0)
+        viewHeightConstraint?.isActive = true
+        expandableView.isHidden = true
+        expandableViewBottomConstraint.constant = 0.0
+    }
+    
+    @IBAction func departmentDeliveryButtonTapped(_ sender: Any) {
+        viewHeightConstraint?.isActive = false
+        expandableView.heightAnchor.constraint(equalToConstant: 140).isActive = true
+        expandableView.isHidden = false
+        expandableViewBottomConstraint.constant = 20.0
+        buildingTextField.placeholder = "Укажите ваше отделение Новой Почты"
+        buildingLabel.text = "НОМЕР ОТДЕЛЕНИЯ"
+        buildingTextField.text = ""
+        buildingTextField.keyboardType = .numberPad
+        streetView.isHidden = true
+        flatView.isHidden = true
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    @IBAction func courierDeliveryButtonTapped(_ sender: Any) {
+        viewHeightConstraint?.isActive = false
+        expandableView.heightAnchor.constraint(equalToConstant: 140).isActive = true
+        expandableView.isHidden = false
+        expandableViewBottomConstraint.constant = 20.0
+        buildingTextField.placeholder = "Укажите ваше здание"
+        buildingTextField.text = ""
+        buildingTextField.keyboardType = .default
+        buildingLabel.text = "ЗДАНИЕ"
+        streetView.isHidden = false
+        flatView.isHidden = false
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+        }
     }
     
     // MARK: - TapGesture

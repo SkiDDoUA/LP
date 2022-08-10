@@ -2655,11 +2655,11 @@
             <objects>
                 <viewController id="OWr-gQ-mJH" customClass="CartViewController" customModule="LP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6ag-eH-ERU">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="1146"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="1145"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mUC-F5-wXl">
-                                <rect key="frame" x="0.0" y="88" width="390" height="975"/>
+                                <rect key="frame" x="0.0" y="88" width="390" height="974"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="160" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="219-iI-2Hj">
                                         <rect key="frame" x="0.0" y="0.0" width="390" height="160"/>
@@ -3001,6 +3001,10 @@
                                                             <userDefinedRuntimeAttribute type="image" keyPath="iconSelected" value="Rec Selected"/>
                                                             <userDefinedRuntimeAttribute type="image" keyPath="icon" value="Rec"/>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="departmentDeliveryButtonTapped:" destination="OWr-gQ-mJH" eventType="touchUpInside" id="dIO-A8-EoG"/>
+                                                            <outletCollection property="otherButtons" destination="9Jy-td-98o" id="quE-sj-1qy"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Jy-td-98o" customClass="DLRadioButton">
                                                         <rect key="frame" x="0.0" y="26" width="200" height="16"/>
@@ -3023,6 +3027,9 @@
                                                             <userDefinedRuntimeAttribute type="image" keyPath="iconSelected" value="Rec Selected"/>
                                                             <userDefinedRuntimeAttribute type="image" keyPath="icon" value="Rec"/>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="courierDeliveryButtonTapped:" destination="OWr-gQ-mJH" eventType="touchUpInside" id="V8K-ri-zLA"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -3218,13 +3225,11 @@
                                                                 </subviews>
                                                             </stackView>
                                                         </subviews>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="140" id="sh5-0k-2xr"/>
-                                                        </constraints>
                                                     </stackView>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="height" constant="140" id="1Mr-Ta-Aih"/>
                                                     <constraint firstItem="olw-mN-fhR" firstAttribute="top" secondItem="f7F-2i-1hy" secondAttribute="top" id="BjD-gr-mMh"/>
                                                     <constraint firstItem="olw-mN-fhR" firstAttribute="leading" secondItem="f7F-2i-1hy" secondAttribute="leading" id="eXf-nx-ZKV"/>
                                                     <constraint firstAttribute="trailing" secondItem="olw-mN-fhR" secondAttribute="trailing" id="mTH-Vm-9dX"/>
@@ -3427,7 +3432,7 @@
                                     <constraint firstAttribute="trailing" secondItem="lGg-UA-gdA" secondAttribute="trailing" constant="15" id="USy-xb-Mye"/>
                                     <constraint firstItem="lGg-UA-gdA" firstAttribute="top" secondItem="219-iI-2Hj" secondAttribute="bottom" constant="5" id="XOJ-Al-BYf"/>
                                     <constraint firstItem="lGg-UA-gdA" firstAttribute="leading" secondItem="mUC-F5-wXl" secondAttribute="leading" constant="15" id="YdL-mK-RNP"/>
-                                    <constraint firstAttribute="bottom" secondItem="219-iI-2Hj" secondAttribute="bottom" constant="875" id="gqZ-Vc-ew6"/>
+                                    <constraint firstAttribute="bottom" secondItem="lGg-UA-gdA" secondAttribute="bottom" constant="15" id="YjJ-3e-7FW"/>
                                     <constraint firstAttribute="trailing" secondItem="219-iI-2Hj" secondAttribute="trailing" id="od8-ch-66H"/>
                                 </constraints>
                             </scrollView>
@@ -3442,10 +3447,25 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="ISP-ID-UUo"/>
-                    <size key="freeformSize" width="390" height="1146"/>
+                    <size key="freeformSize" width="390" height="1145"/>
                     <connections>
+                        <outlet property="buildingLabel" destination="FMP-2c-6cS" id="fmO-SG-6dk"/>
+                        <outlet property="buildingTextField" destination="j7X-9w-iVq" id="szp-fI-p1S"/>
+                        <outlet property="cityTextField" destination="UW4-1P-gba" id="lx3-Du-jsP"/>
+                        <outlet property="expandableView" destination="f7F-2i-1hy" id="7Ti-bU-FjN"/>
+                        <outlet property="expandableViewBottomConstraint" destination="FD8-Vg-pmF" id="8jN-K7-ls4"/>
+                        <outlet property="flatTextField" destination="asE-cA-M3C" id="hFq-8R-Wcs"/>
+                        <outlet property="flatView" destination="8y9-FQ-5p8" id="gVq-xI-42b"/>
+                        <outlet property="nameTextField" destination="0Cz-rx-toH" id="4Mt-nl-qUh"/>
+                        <outlet property="orderCommentTextField" destination="CQ7-TF-kNU" id="iDj-wO-nqe"/>
+                        <outlet property="patronymicTextField" destination="yf7-LT-Giy" id="ZxX-17-NHO"/>
+                        <outlet property="phoneTextField" destination="FCe-b2-ECC" id="0it-YA-MoL"/>
                         <outlet property="productsTableView" destination="219-iI-2Hj" id="hBL-WA-REc"/>
                         <outlet property="productsTableViewConstraint" destination="Ukv-GB-WBd" id="XeF-2c-JL1"/>
+                        <outlet property="promocodeTextField" destination="pQ1-PX-ZEZ" id="88c-Bp-5Vy"/>
+                        <outlet property="streetTextField" destination="E12-8k-euJ" id="6Oc-wP-NQK"/>
+                        <outlet property="streetView" destination="Ag3-3j-4OU" id="CDI-wq-0yE"/>
+                        <outlet property="surnameTextField" destination="5mv-Mg-rh6" id="bI5-G7-a8b"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O9O-Q2-5w4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
