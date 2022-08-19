@@ -73,7 +73,8 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
     
     //MARK: - Add To Cart
     @IBAction func addToCartButtonTapped(_ sender: Any) {
-        print(product)
+        database = Database()
+        database?.addProductToUser(collection: Database.userProductsCollectionTypes.cart, productReference: product.reference)
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -82,6 +83,8 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
         favoriteButtonChoosen = !favoriteButtonChoosen
 
         if favoriteButtonChoosen == true {
+            database = Database()
+            database?.addProductToUser(collection: Database.userProductsCollectionTypes.favorites, productReference: product.reference)
             favoriteButton.setImage(UIImage(named: "Favorite Filled"), for: .normal)
         } else {
             favoriteButton.setImage(UIImage(named: "Favorite"), for: .normal)

@@ -85,6 +85,11 @@ class Database {
         let docRef = db.collection("users").document(userID).collection("\(collection)")
         docRef.document(productReference.documentID).delete()
     }
+    
+    func addProductToUser(collection: userProductsCollectionTypes, productReference: DocumentReference) {
+        let docRef = db.collection("users").document(userID).collection("\(collection)").document(productReference.documentID)
+        docRef.setData(["reference": db.document(productReference.path), "size": "S"])
+    }
 }
 
 extension Product {

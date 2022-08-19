@@ -88,6 +88,7 @@ public struct Product: Identifiable, Codable {
     let brand: ProductBrand
     let images: [String]
     let details: ProductDetails
+    let reference: DocumentReference
 }
 
 // MARK: - ProductBrand Structure

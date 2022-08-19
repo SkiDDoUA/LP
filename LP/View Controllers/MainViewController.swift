@@ -39,7 +39,6 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     private let toProductIdentifier = "toProduct"
     private let toShoppingIdentifier = "toShopping"
     private var database: Database?
-//    var user: User?
     var products = [Product]() {
        didSet {
            DispatchQueue.main.async {
@@ -58,18 +57,6 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.delegate = self
-        
-//        database = Database()
-//        database?.getUser(userID: Auth.auth().currentUser!.uid) {
-//            handler in self.user = handler
-//        }
-
-        //MARK: - Setup View
-//        self.navigationItem.setHidesBackButton(true, animated: true)
-//        self.navigationItem.titleView = searchBar
-//        searchBar.searchTextField.layer.cornerRadius = 15
-//        searchBar.searchTextField.layer.masksToBounds = true
-//        searchBar.backgroundImage = UIImage()
         
         //MARK: - Setup Slider
         pageViewControl.numberOfPages = imageArray.count
