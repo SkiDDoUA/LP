@@ -19,7 +19,11 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
     @IBOutlet weak var detailsTableViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var productCollectionView: UICollectionView!
     @IBOutlet weak var pageViewControl: UIPageControl!
-
+    @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var cartButton: UIButton!
+    
+    var favoriteButtonChoosen = false
+    var cartButtonChoosen = false
     var product: Product!
     var viewPicker = UIPickerView()
     let headerID = String(describing: CustomHeaderView.self)
@@ -64,6 +68,23 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
         database = Database()
         database?.getSizechart(docReference: product.brand.sizechart!) {
             handler in self.sizechart = handler
+        }
+    }
+    
+    //MARK: - Add To Cart
+    @IBAction func addToCartButtonTapped(_ sender: Any) {
+        print(product)
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    //MARK: - Add To Favorite
+    @IBAction func addToFavoriteButtonTapped(_ sender: Any) {
+        favoriteButtonChoosen = !favoriteButtonChoosen
+
+        if favoriteButtonChoosen == true {
+            favoriteButton.setImage(UIImage(named: "Favorite Filled"), for: .normal)
+        } else {
+            favoriteButton.setImage(UIImage(named: "Favorite"), for: .normal)
         }
     }
     

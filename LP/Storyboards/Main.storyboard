@@ -1746,6 +1746,9 @@
                                         <state key="normal" title="В корзину">
                                             <color key="titleColor" name="WhiteLP"/>
                                         </state>
+                                        <connections>
+                                            <action selector="addToCartButtonTapped:" destination="UJP-CD-4Dg" eventType="touchUpInside" id="Tt2-tu-X3R"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ARz-05-l1h">
                                         <rect key="frame" x="335" y="510.5" width="40" height="40"/>
@@ -1767,6 +1770,9 @@
                                                 <real key="value" value="1.5"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="addToFavoriteButtonTapped:" destination="UJP-CD-4Dg" eventType="touchUpInside" id="H3N-WO-YIk"/>
+                                        </connections>
                                     </button>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="20" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="kme-Co-sW7">
                                         <rect key="frame" x="15" y="555.5" width="360" height="263"/>
@@ -1856,8 +1862,10 @@
                     <navigationItem key="navigationItem" id="lP2-Rw-BCL"/>
                     <size key="freeformSize" width="390" height="900"/>
                     <connections>
+                        <outlet property="cartButton" destination="ff2-XB-WX9" id="xGN-vb-TxJ"/>
                         <outlet property="detailsTableView" destination="kme-Co-sW7" id="BOy-hq-FyE"/>
                         <outlet property="detailsTableViewConstraint" destination="SCF-D8-8iA" id="flr-VQ-3ow"/>
+                        <outlet property="favoriteButton" destination="ARz-05-l1h" id="kSd-iv-zCF"/>
                         <outlet property="pageViewControl" destination="Zys-aF-KiB" id="ed0-EL-m4w"/>
                         <outlet property="productBrandLabel" destination="81l-qb-Ahj" id="I0B-Dx-GwM"/>
                         <outlet property="productCollectionView" destination="nAH-2N-hHF" id="nJY-Hu-dwN"/>
@@ -3454,9 +3462,10 @@
                         <outlet property="cityTextField" destination="UW4-1P-gba" id="lx3-Du-jsP"/>
                         <outlet property="expandableView" destination="f7F-2i-1hy" id="7Ti-bU-FjN"/>
                         <outlet property="expandableViewBottomConstraint" destination="FD8-Vg-pmF" id="8jN-K7-ls4"/>
+                        <outlet property="firstNameTextField" destination="0Cz-rx-toH" id="4Mt-nl-qUh"/>
                         <outlet property="flatTextField" destination="asE-cA-M3C" id="hFq-8R-Wcs"/>
                         <outlet property="flatView" destination="8y9-FQ-5p8" id="gVq-xI-42b"/>
-                        <outlet property="nameTextField" destination="0Cz-rx-toH" id="4Mt-nl-qUh"/>
+                        <outlet property="lastNameTextField" destination="5mv-Mg-rh6" id="bI5-G7-a8b"/>
                         <outlet property="orderCommentTextField" destination="CQ7-TF-kNU" id="iDj-wO-nqe"/>
                         <outlet property="patronymicTextField" destination="yf7-LT-Giy" id="ZxX-17-NHO"/>
                         <outlet property="phoneTextField" destination="FCe-b2-ECC" id="0it-YA-MoL"/>
@@ -3465,12 +3474,11 @@
                         <outlet property="promocodeTextField" destination="pQ1-PX-ZEZ" id="88c-Bp-5Vy"/>
                         <outlet property="streetTextField" destination="E12-8k-euJ" id="6Oc-wP-NQK"/>
                         <outlet property="streetView" destination="Ag3-3j-4OU" id="CDI-wq-0yE"/>
-                        <outlet property="surnameTextField" destination="5mv-Mg-rh6" id="bI5-G7-a8b"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O9O-Q2-5w4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-477" y="3641"/>
+            <point key="canvasLocation" x="-478" y="3616"/>
         </scene>
     </scenes>
     <designables>
@@ -3495,7 +3503,7 @@
     </designables>
     <inferredMetricsTieBreakers>
         <segue reference="cQ0-wo-4Se"/>
-        <segue reference="AaZ-Cf-Jf6"/>
+        <segue reference="h7J-nL-dBP"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Arrow" width="17" height="8"/>

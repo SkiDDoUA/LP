@@ -119,11 +119,23 @@ public struct Sizechart: Codable {
     let Moncler: [String]?
 }
 
-// MARK: - FavoriteProduct Structure
+// MARK: - UserProduct Structure
 public struct UserProduct: Codable {
     let reference: DocumentReference
     let size: String
     var product: Product?
+}
+
+// MARK: - UserOrder Structure
+public struct UserOrder: Codable {
+    let products: [UserProduct]
+    let contactInfo: ContactInfo?
+    let comment: String?
+    let promocode: String?
+    let clothingPrice: Int
+    let deliveryPrice: Int
+    let promocodeDiscountPrice: Int
+    let totalPrice: Int
 }
 
 // MARK: - Details View Cell Structure

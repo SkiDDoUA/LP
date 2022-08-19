@@ -18,8 +18,8 @@ class CartViewController: UIViewController {
     @IBOutlet weak var streetView: UIView!
     @IBOutlet weak var flatView: UIView!
     @IBOutlet weak var buildingLabel: UILabel!
-    @IBOutlet weak var nameTextField: СustomUITextField!
-    @IBOutlet weak var surnameTextField: СustomUITextField!
+    @IBOutlet weak var firstNameTextField: СustomUITextField!
+    @IBOutlet weak var lastNameTextField: СustomUITextField!
     @IBOutlet weak var patronymicTextField: СustomUITextField!
     @IBOutlet weak var phoneTextField: СustomUITextField!
     @IBOutlet weak var cityTextField: СustomUITextField!
@@ -98,10 +98,6 @@ class CartViewController: UIViewController {
     
     @objc func handleTap() {
         view.endEditing(true)
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        scrollView.contentOffset.x = 0
     }
 }
 
