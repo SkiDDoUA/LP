@@ -86,9 +86,9 @@ class Database {
         docRef.document(productReference.documentID).delete()
     }
     
-    func addProductToUser(collection: userProductsCollectionTypes, productReference: DocumentReference) {
+    func addUserProduct(collection: userProductsCollectionTypes, productReference: DocumentReference, size: String? = nil) {
         let docRef = db.collection("users").document(userID).collection("\(collection)").document(productReference.documentID)
-        docRef.setData(["reference": db.document(productReference.path), "size": "S"])
+        docRef.setData(["reference": db.document(productReference.path), "size": size as Any])
     }
 }
 

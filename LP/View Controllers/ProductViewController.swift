@@ -14,6 +14,7 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
     @IBOutlet weak var productBrandLabel: UILabel!
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var productPriceLabel: UILabel!
+    @IBOutlet weak var sizeErrorLabel: UILabel!
     @IBOutlet weak var detailsTableView: UITableView!
     @IBOutlet weak var sizePickerTextField: СustomUITextField!
     @IBOutlet weak var detailsTableViewConstraint: NSLayoutConstraint!
@@ -73,20 +74,25 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
     
     //MARK: - Add To Cart
     @IBAction func addToCartButtonTapped(_ sender: Any) {
-        database = Database()
-        database?.addProductToUser(collection: Database.userProductsCollectionTypes.cart, productReference: product.reference)
-        self.navigationController?.popViewController(animated: true)
+        let size = sizePickerTextField.fieldValidation(label: sizeErrorLabel, ValidatorStructure: .field)
+        
+        if size != "" {
+            database = Database()
+            database?.addUserProduct(collection: .cart, productReference: product.reference, size: size)
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     //MARK: - Add To Favorite
     @IBAction func addToFavoriteButtonTapped(_ sender: Any) {
+        database = Database()
         favoriteButtonChoosen = !favoriteButtonChoosen
 
         if favoriteButtonChoosen == true {
-            database = Database()
-            database?.addProductToUser(collection: Database.userProductsCollectionTypes.favorites, productReference: product.reference)
+            database?.addUserProduct(collection: .favorites, productReference: product.reference, size: sizePickerTextField.text)
             favoriteButton.setImage(UIImage(named: "Favorite Filled"), for: .normal)
         } else {
+            database?.removeUserProduct(collection: .favorites, productReference: product.reference)
             favoriteButton.setImage(UIImage(named: "Favorite"), for: .normal)
         }
     }
@@ -150,7 +156,11 @@ extension ProductViewController: UIPickerViewDataSource {
 
     func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         let sizeKeys = [String](product.details.size.keys)
-        return sizeKeys[row]
+        let sizeOrder = ["No size", "One size", "XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL", "XXXXL"]
+        let stringSizeArray = sizeOrder.filter({sizeKeys.contains($0)})
+        let numberSizeArray = Array(Set(sizeKeys).subtracting(stringSizeArray)).sorted{$0 < $1}
+        let sortedKeys = stringSizeArray + numberSizeArray
+        return sortedKeys[row]
     }
 
     func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {

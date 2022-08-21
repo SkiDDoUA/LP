@@ -23,7 +23,7 @@ class FavoritesTableViewController: UITableViewController {
     func getFavorites() {
       //override the label with the parameter received in this method
         database = Database()
-        database?.getUserProducts(collection: Database.userProductsCollectionTypes.favorites) {
+        database?.getUserProducts(collection: .favorites) {
             products in self.products = products;
         }
     }
@@ -53,7 +53,7 @@ class FavoritesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            database?.removeUserProduct(collection: Database.userProductsCollectionTypes.favorites, productReference: products[indexPath.row].reference)
+            database?.removeUserProduct(collection: .favorites, productReference: products[indexPath.row].reference)
             products.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }

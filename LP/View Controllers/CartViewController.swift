@@ -28,22 +28,50 @@ class CartViewController: UIViewController {
     @IBOutlet weak var flatTextField: СustomUITextField!
     @IBOutlet weak var orderCommentTextField: СustomUITextField!
     @IBOutlet weak var promocodeTextField: СustomUITextField!
+    @IBOutlet weak var firstNameErrorLabel: UILabel!
+    @IBOutlet weak var lastNameErrorLabel: UILabel!
+    @IBOutlet weak var patronymicErrorLabel: UILabel!
+    @IBOutlet weak var phoneErrorLabel: UILabel!
+    @IBOutlet weak var cityErrorLabel: UILabel!
+    @IBOutlet weak var streetErrorLabel: UILabel!
+    @IBOutlet weak var buildingErrorLabel: UILabel!
+    @IBOutlet weak var flatErrorLabel: UILabel!
+    @IBOutlet weak var orderCommentErrorLabel: UILabel!
+    @IBOutlet weak var promocodeErrorLabel: UILabel!
+    @IBOutlet weak var itemsPriceLabel: UILabel!
+    @IBOutlet weak var orderTotalPriceLabel: UILabel!
     
     
     private var database: Database?
     var viewHeightConstraint: NSLayoutConstraint?
+    var itemsPrice = 0
+    var deliveryPrice = 0
+    var promocodeDiscount = 0
+    var totalPrice: Int {
+        get {
+            itemsPrice + deliveryPrice - promocodeDiscount
+        }
+    }
     var products = [UserProduct]() {
        didSet {
            DispatchQueue.main.async {
                self.productsTableView.reloadData()
+               self.itemsPrice = 0
+               self.deliveryPrice = 0
+               self.promocodeDiscount = 0
+               
+               for product in self.products {
+                   self.itemsPrice += product.product!.price
+               }
+               self.itemsPriceLabel.text = "₴\(self.itemsPrice)\n₴0\n₴0"
+               self.orderTotalPriceLabel.text = "₴\(self.totalPrice)"
            }
        }
     }
     
     func getCart() {
-      //override the label with the parameter received in this method
         database = Database()
-        database?.getUserProducts(collection: Database.userProductsCollectionTypes.cart) {
+        database?.getUserProducts(collection: .cart) {
             products in self.products = products;
         }
     }
@@ -119,7 +147,7 @@ extension CartViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            database?.removeUserProduct(collection: Database.userProductsCollectionTypes.cart, productReference: products[indexPath.row].reference)
+            database?.removeUserProduct(collection: .cart, productReference: products[indexPath.row].reference)
             products.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }

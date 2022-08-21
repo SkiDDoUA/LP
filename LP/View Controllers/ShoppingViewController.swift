@@ -75,7 +75,7 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegateFlowLayo
     //MARK: - Load Data From Database
     func loadData() {
         database = Database()
-        database?.getProducts(availabilityCollection: availabilityCollectionType ?? Database.availabilityCollectionTypes.stock, productCollection: productCollectionType ?? Database.productCollectionTypes.pants) { products in
+        database?.getProducts(availabilityCollection: availabilityCollectionType ?? .stock, productCollection: productCollectionType ?? .pants) { products in
             self.allproducts = products
             self.tempProducts = products
         }
@@ -109,9 +109,9 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegateFlowLayo
     // MARK: - Get Index From Segment
     @IBAction func segmentValueChange(_ sender: WMSegment) {
         if sender.selectedSegmentIndex == 0 {
-            availabilityCollectionType = Database.availabilityCollectionTypes.stock
+            availabilityCollectionType = .stock
         } else {
-            availabilityCollectionType = Database.availabilityCollectionTypes.order
+            availabilityCollectionType = .order
         }
         loadData()
     }
