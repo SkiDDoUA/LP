@@ -12,10 +12,21 @@ import Firebase
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
-
+    
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
       FirebaseApp.configure()
-//      let db = Firestore.firestore()
+      
+      let navigationBarAppearance = UINavigationBarAppearance()
+      navigationBarAppearance.titleTextAttributes = [
+          NSAttributedString.Key.backgroundColor: UIColor(named: "WhiteLP"),
+          NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-Bold", size: 18)
+      ]
+      navigationBarAppearance.backgroundColor = UIColor(named: "WhiteLP")
+      navigationBarAppearance.setBackIndicatorImage(UIImage(named: "Left Arrow"), transitionMaskImage: .add)
+      navigationBarAppearance.shadowImage = UIColor(named: "Light GreyLP")?.as1ptImage()
+      UINavigationBar.appearance().standardAppearance = navigationBarAppearance
+      UINavigationBar.appearance().compactAppearance = navigationBarAppearance
+//      UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
     return true
   }
 }

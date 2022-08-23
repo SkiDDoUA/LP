@@ -19,8 +19,6 @@ class SMSViewController: UIViewController, AEOTPTextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
         
         otpTextField.becomeFirstResponder()
         otpTextField.otpDelegate = self

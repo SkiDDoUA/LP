@@ -31,6 +31,7 @@ class FavoritesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTapGesture()
+        getFavorites()
     }
 
     // MARK: - Table view data source

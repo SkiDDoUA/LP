@@ -32,7 +32,7 @@ class FirstScreenViewController: UIViewController, MaskedTextFieldDelegateListen
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        self.navigationController?.navigationBar.topItem?.title = " "
+        self.navigationController?.navigationBar.standardAppearance.shadowImage = UIImage()
     }
     
     // MARK: - User Registration (phone for test "+380985568365")

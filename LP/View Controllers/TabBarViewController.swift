@@ -7,17 +7,21 @@
 
 import UIKit
 
-class TabBarViewController: UITabBarController {
-    @IBOutlet weak var searchBar: UISearchBar!
-    
+class TabBarViewController: UITabBarController {    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.setHidesBackButton(true, animated: true)
+//        self.navigationItem.setHidesBackButton(true, animated: true)
+//        self.tabBarController?.navigationController?.navigationBar.isHidden = true
         //MARK: - Setup SearchBar
-        self.navigationItem.titleView = searchBar
-        searchBar.searchTextField.layer.cornerRadius = 4
-        searchBar.searchTextField.layer.masksToBounds = true
-        searchBar.backgroundImage = UIImage()
+//        self.navigationItem.titleView = searchBar
+//        searchBar.searchTextField.layer.cornerRadius = 4
+//        searchBar.searchTextField.layer.masksToBounds = true
+//        searchBar.backgroundImage = UIImage()
     }
     
 

@@ -10,7 +10,7 @@ import FirebaseAuth
 import FirebaseFirestore
 
 class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
-    @IBOutlet weak var searchBar: UISearchBar!
+//    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var sliderCollectionView: UICollectionView!
     @IBOutlet weak var productCollectionView: UICollectionView!
     @IBOutlet weak var pageViewControl: UIPageControl!
@@ -56,8 +56,8 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabBarController?.delegate = self
-        
+        self.navigationController?.navigationBar.standardAppearance.shadowImage = UIImage()
+
         //MARK: - Setup Slider
         pageViewControl.numberOfPages = imageArray.count
         pageViewControl.currentPage = 0
@@ -241,25 +241,27 @@ extension MainViewController: UICollectionViewDataSource {
     }
 }
 
-// MARK: - UITabBarControllerDelegate
-extension MainViewController: UITabBarControllerDelegate {
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        switch tabBarController.selectedIndex {
-        case 0:
-            print("0")
-        case 1:
-            print("1")
-        case 2:
-            let destination = self.tabBarController?.viewControllers![2] as! FavoritesTableViewController
-            dismiss(animated: true, completion: {
-                destination.getFavorites()
-            })
-        default:
-            let destination = self.tabBarController?.viewControllers![3] as! CartViewController
-            dismiss(animated: true, completion: {
-                destination.getCart()
-            })
-        }
-    }
-}
+//// MARK: - UITabBarControllerDelegate
+//extension MainViewController: UITabBarControllerDelegate {
+//    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+//        switch tabBarController.selectedIndex {
+//        case 0:
+//            print("0")
+//        case 1:
+//            print("1")
+//        case 2:
+//            print("2")
+////            let destination = self.tabBarController?.viewControllers![2] as! FavoritesTableViewController
+////            dismiss(animated: true, completion: {
+////                destination.getFavorites()
+////            })
+//        default:
+//            print("3")
+////            let destination = self.tabBarController?.viewControllers![3] as! CartViewController
+////            dismiss(animated: true, completion: {
+////                destination.getCart()
+////            })
+//        }
+//    }
+//}
 

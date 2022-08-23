@@ -41,7 +41,6 @@ class CartViewController: UIViewController {
     @IBOutlet weak var itemsPriceLabel: UILabel!
     @IBOutlet weak var orderTotalPriceLabel: UILabel!
     
-    
     private var database: Database?
     var viewHeightConstraint: NSLayoutConstraint?
     var itemsPrice = 0
@@ -69,11 +68,8 @@ class CartViewController: UIViewController {
        }
     }
     
-    func getCart() {
-        database = Database()
-        database?.getUserProducts(collection: .cart) {
-            products in self.products = products;
-        }
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationItem.title = "Корзина"
     }
 
     override func viewDidLoad() {
@@ -84,6 +80,14 @@ class CartViewController: UIViewController {
         viewHeightConstraint?.isActive = true
         expandableView.isHidden = true
         expandableViewBottomConstraint.constant = 0.0
+        getCart()
+    }
+    
+    func getCart() {
+        database = Database()
+        database?.getUserProducts(collection: .cart) {
+            products in self.products = products;
+        }
     }
     
     @IBAction func departmentDeliveryButtonTapped(_ sender: Any) {
