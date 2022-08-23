@@ -19,6 +19,7 @@ class SMSViewController: UIViewController, AEOTPTextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        self.navigationController?.navigationBar.topItem?.title = " "
         
         otpTextField.becomeFirstResponder()
         otpTextField.otpDelegate = self

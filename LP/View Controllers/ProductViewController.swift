@@ -42,6 +42,7 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
         ]
         
         self.navigationController?.navigationBar.topItem?.title = " "
+        self.navigationController?.navigationBar.standardAppearance.shadowImage = UIImage()
         detailsTableView.register(SizeChartTableViewCell.nib(), forCellReuseIdentifier: "SizeChartTableViewCell")
         detailsTableView.rowHeight = UITableView.automaticDimension
         tableViewConfig()
