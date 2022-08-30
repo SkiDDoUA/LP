@@ -37,14 +37,16 @@
 		3A82E5B226C55528001762DC /* LPUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A82E5B126C55528001762DC /* LPUITests.swift */; };
 		3A8C1AEE279D7734008BCBCF /* ShoppingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C1AED279D7734008BCBCF /* ShoppingViewController.swift */; };
 		3A95A71E2754E1EC009017FE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A95A71D2754E1EC009017FE /* GoogleService-Info.plist */; };
+		3A96492F28B8FC89008BA446 /* OrderHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A96492E28B8FC89008BA446 /* OrderHistoryTableViewCell.swift */; };
 		3AACC3BC27F4E3BD000A0A3B /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AACC3BB27F4E3BD000A0A3B /* FilterTableViewCell.swift */; };
 		3AAF8FB82854B8ED0042C89B /* CartProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF8FB72854B8ED0042C89B /* CartProductTableViewCell.swift */; };
 		3AAF8FBA2854BA4E0042C89B /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF8FB92854BA4E0042C89B /* FavoritesTableViewController.swift */; };
 		3AB31C0527C4403E006D1965 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AB31C0427C4403E006D1965 /* Main.storyboard */; };
-		3AB4AB1928B2D3040007655D /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB4AB1828B2D3040007655D /* OrderViewController.swift */; };
+		3AB4AB1928B2D3040007655D /* OrderDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB4AB1828B2D3040007655D /* OrderDetailsViewController.swift */; };
 		3AB4AB1B28B2D57B0007655D /* PersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB4AB1A28B2D57B0007655D /* PersonalInfoViewController.swift */; };
 		3AB4AB1F28B2D80D0007655D /* AddressBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB4AB1E28B2D80D0007655D /* AddressBookViewController.swift */; };
 		3AB7795E287078610017B1C5 /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB7795D287078610017B1C5 /* CartViewController.swift */; };
+		3AB94BBE28B7940E002F22CF /* OrdersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB94BBD28B7940E002F22CF /* OrdersTableViewController.swift */; };
 		3AC7ADB32795DFF20075187A /* CustomHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC7ADB22795DFF20075187A /* CustomHeaderView.swift */; };
 		3ACD92C5278076DC009CB427 /* ProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACD92C4278076DC009CB427 /* ProductCollectionViewCell.swift */; };
 		3AD64E922853574700C28A56 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD64E912853574700C28A56 /* TabBarViewController.swift */; };
@@ -111,15 +113,17 @@
 		3A82E5B326C55528001762DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A8C1AED279D7734008BCBCF /* ShoppingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingViewController.swift; sourceTree = "<group>"; };
 		3A95A71D2754E1EC009017FE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3A96492E28B8FC89008BA446 /* OrderHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		3AA5DE8026DCE34800B78DC0 /* LP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LP.entitlements; sourceTree = "<group>"; };
 		3AACC3BB27F4E3BD000A0A3B /* FilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewCell.swift; sourceTree = "<group>"; };
 		3AAF8FB72854B8ED0042C89B /* CartProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartProductTableViewCell.swift; sourceTree = "<group>"; };
 		3AAF8FB92854BA4E0042C89B /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
 		3AB31C0427C4403E006D1965 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		3AB4AB1828B2D3040007655D /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
+		3AB4AB1828B2D3040007655D /* OrderDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailsViewController.swift; sourceTree = "<group>"; };
 		3AB4AB1A28B2D57B0007655D /* PersonalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoViewController.swift; sourceTree = "<group>"; };
 		3AB4AB1E28B2D80D0007655D /* AddressBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookViewController.swift; sourceTree = "<group>"; };
 		3AB7795D287078610017B1C5 /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
+		3AB94BBD28B7940E002F22CF /* OrdersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersTableViewController.swift; sourceTree = "<group>"; };
 		3AC7ADB22795DFF20075187A /* CustomHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeaderView.swift; sourceTree = "<group>"; };
 		3ACD92C4278076DC009CB427 /* ProductCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCollectionViewCell.swift; sourceTree = "<group>"; };
 		3AD64E912853574700C28A56 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
@@ -167,6 +171,7 @@
 				3A55DD2027E52141000A7298 /* FilterSecondTableViewController.swift */,
 				3A0D2B7F284A291400EA1FF3 /* AccountTableViewController.swift */,
 				3AAF8FB92854BA4E0042C89B /* FavoritesTableViewController.swift */,
+				3AB94BBD28B7940E002F22CF /* OrdersTableViewController.swift */,
 			);
 			path = "Table Views";
 			sourceTree = "<group>";
@@ -293,7 +298,7 @@
 				3A311DFF278B26910016C5F4 /* ProductViewController.swift */,
 				3A8C1AED279D7734008BCBCF /* ShoppingViewController.swift */,
 				3AB7795D287078610017B1C5 /* CartViewController.swift */,
-				3AB4AB1828B2D3040007655D /* OrderViewController.swift */,
+				3AB4AB1828B2D3040007655D /* OrderDetailsViewController.swift */,
 				3AB4AB1A28B2D57B0007655D /* PersonalInfoViewController.swift */,
 				3AB4AB1E28B2D80D0007655D /* AddressBookViewController.swift */,
 			);
@@ -313,6 +318,7 @@
 				3AACC3BB27F4E3BD000A0A3B /* FilterTableViewCell.swift */,
 				3AAF8FB72854B8ED0042C89B /* CartProductTableViewCell.swift */,
 				3A6801CF28B2522A008A002D /* OrderProductTableViewCell.swift */,
+				3A96492E28B8FC89008BA446 /* OrderHistoryTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -523,6 +529,7 @@
 				3A20675D27BFC2D800D88038 /* FilterTableViewController.swift in Sources */,
 				3A82E59426C55526001762DC /* FirstScreenViewController.swift in Sources */,
 				3A2D300627B2BAB800F1E09E /* SizeChartTableViewCell.swift in Sources */,
+				3AB94BBE28B7940E002F22CF /* OrdersTableViewController.swift in Sources */,
 				3AB4AB1F28B2D80D0007655D /* AddressBookViewController.swift in Sources */,
 				3A82E59026C55526001762DC /* AppDelegate.swift in Sources */,
 				3AEB09F426E62D3E00F500F8 /* Validations.swift in Sources */,
@@ -535,8 +542,9 @@
 				3A82E59226C55526001762DC /* SceneDelegate.swift in Sources */,
 				3AB4AB1B28B2D57B0007655D /* PersonalInfoViewController.swift in Sources */,
 				3A6801D028B2522B008A002D /* OrderProductTableViewCell.swift in Sources */,
+				3A96492F28B8FC89008BA446 /* OrderHistoryTableViewCell.swift in Sources */,
 				3AAF8FB82854B8ED0042C89B /* CartProductTableViewCell.swift in Sources */,
-				3AB4AB1928B2D3040007655D /* OrderViewController.swift in Sources */,
+				3AB4AB1928B2D3040007655D /* OrderDetailsViewController.swift in Sources */,
 				3A55DD2127E52141000A7298 /* FilterSecondTableViewController.swift in Sources */,
 				3A311E00278B26910016C5F4 /* ProductViewController.swift in Sources */,
 				3ACD92C5278076DC009CB427 /* ProductCollectionViewCell.swift in Sources */,

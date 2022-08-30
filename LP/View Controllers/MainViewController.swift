@@ -77,7 +77,7 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     //MARK: - Load Data From Database
     func loadData() {
         database = Database()
-        database?.getProducts(availabilityCollection: availabilityCollectionType ?? Database.availabilityCollectionTypes.stock, productCollection: productCollectionType ?? Database.productCollectionTypes.pants) { products in
+        database?.getProducts(availabilityCollection: availabilityCollectionType ?? .stock, productCollection: productCollectionType ?? .pants) { products in
             self.allproducts = products            
         }
     }

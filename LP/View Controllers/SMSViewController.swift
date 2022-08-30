@@ -32,32 +32,31 @@ class SMSViewController: UIViewController, AEOTPTextFieldDelegate {
     // MARK: User SignIn (otp code for test "111111")
     func didUserFinishEnter(the code: String) {
         self.wrongCodeLabel.isHidden = true
-        
         let credential: PhoneAuthCredential = PhoneAuthProvider.provider().credential(withVerificationID: UserDefaults.standard.string(forKey: "authID")!, verificationCode: otpTextField.text!)
-
+        
         Auth.auth().signIn(with: credential) { authData, error in
             if error != nil {
                 self.wrongCodeLabel.isHidden = false
                 return
             }
             
+            let userSettings = UserSettings(language: LanguageEnum.ru.rawValue, currency: CurrencyEnum.uah.rawValue, size: SizeEnum.eu.rawValue)
+            let user = User(createdAt: Date(), userSettings: userSettings)
             let db = Firestore.firestore()
             guard let userID = Auth.auth().currentUser?.uid else { return }
-            let userSettings = UserSettings(language: LanguageEnum.ru.rawValue, currency: CurrencyEnum.uah.rawValue, size: SizeEnum.eu.rawValue).toDictionary
             
             db.collection("users").document(userID).getDocument { (document, error) in
                 if let document = document, document.exists {
                     self.performSegue(withIdentifier: "toMainViewController", sender: Any?.self)
                 } else {
                     do {
-                        try db.collection("users").document(userID).setData(["createdAt": Date(), "userSettings": userSettings as Any])
+                        try db.collection("users").document(userID).setData(from: user)
                     } catch let error {
                         print("Error writing user to Firestore: \(error)")
                     }
                     self.performSegue(withIdentifier: "toAdditionalInfoViewController", sender: Any?.self)
                 }
             }
-            
         }
     }
     

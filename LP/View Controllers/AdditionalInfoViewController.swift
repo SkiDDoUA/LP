@@ -27,9 +27,7 @@ class AdditionalInfoViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTapGesture()
-        
         brandData = ["Отсутствует", "Adidas", "Nike", "Balenciaga", "Kith"]
-        
         genderSegmentedControl.SelectedFont = UIFont(name: "Helvetica", size: 12)!
         genderSegmentedControl.normalFont = UIFont(name: "Helvetica", size: 12)!
         viewPicker.dataSource = self
@@ -89,6 +87,7 @@ class AdditionalInfoViewController: UIViewController, UITextFieldDelegate {
     // MARK: - TapGesture
     private func configureTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
     }
     

@@ -21,15 +21,19 @@ class FavoritesTableViewController: UITableViewController {
     }
     
     func getFavorites() {
-      //override the label with the parameter received in this method
         database = Database()
         database?.getUserProducts(collection: .favorites) {
             products in self.products = products;
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationItem.title = "Избранное"
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.topItem?.title = " "
         configureTapGesture()
         getFavorites()
     }
@@ -63,7 +67,7 @@ class FavoritesTableViewController: UITableViewController {
     //MARK: - Parse Cell Data To ProductViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
-        case "toProduct":
+        case toProductIdentifier:
             let destination = segue.destination as! ProductViewController
             let cell = sender as! FavoriteProductTableViewCell
             let indexPath = tableView.indexPath(for: cell)!
@@ -75,11 +79,11 @@ class FavoritesTableViewController: UITableViewController {
     // MARK: - TapGesture
     private func configureTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
     }
     
     @objc func handleTap() {
         view.endEditing(true)
     }
-
 }

@@ -38,7 +38,8 @@ class Database {
     }
 
     func getProducts(availabilityCollection: availabilityCollectionTypes, productCollection: productCollectionTypes, handler: @escaping ([Product]) -> Void) {
-        db.collection("men").document("\(availabilityCollection)").collection("\(productCollection)").addSnapshotListener { querySnapshot, err in
+        let docRef = db.collection("men").document("\(availabilityCollection)").collection("\(productCollection)")
+        docRef.addSnapshotListener { querySnapshot, err in
             guard let data = querySnapshot?.documents else {
                 return
             }
@@ -47,7 +48,8 @@ class Database {
     }
     
     func getUserProducts(collection: userProductsCollectionTypes, handler: @escaping ([UserProduct]) -> Void) {
-        db.collection("users").document(userID).collection("\(collection)").addSnapshotListener { querySnapshot, err in
+        let docRef = db.collection("users").document(userID).collection("\(collection)")
+        docRef.addSnapshotListener { querySnapshot, err in
             guard let data = querySnapshot?.documents else {
                 return
             }
@@ -90,6 +92,25 @@ class Database {
         let docRef = db.collection("users").document(userID).collection("\(collection)").document(productReference.documentID)
         docRef.setData(["reference": db.document(productReference.path), "size": size as Any])
     }
+    
+    func addUserOrder(order: Order) {
+        let docRef = db.collection("users").document(userID).collection("orders")
+        do {
+            try docRef.addDocument(from: order)
+        } catch let error {
+            print("Error writing order to Firestore: \(error)")
+        }
+    }
+    
+    func getUserOrders(handler: @escaping ([Order]) -> Void) {
+        let docRef = db.collection("users").document(userID).collection("orders")
+        docRef.addSnapshotListener { querySnapshot, err in
+            guard let data = querySnapshot?.documents else {
+                return
+            }
+            handler(Order.build(from: data))
+        }
+    }
 }
 
 extension Product {
@@ -110,6 +131,16 @@ extension Sizechart {
     }
 }
 
+extension Order {
+    static func build(from documents: [QueryDocumentSnapshot]) -> [Order] {
+        var orders = [Order]()
+        for document in documents {
+            try? orders.append(document.data(as: Order.self))
+        }
+        return orders
+    }
+}
+
 extension User {
     static func build(from documents: DocumentSnapshot) -> User {
         var user: User!
@@ -117,3 +148,20 @@ extension User {
         return user
     }
 }
+
+
+//    func createUser(user: User, userExisted: @escaping (Bool) -> Void) {
+//        db.collection("users").document(userID).getDocument { (document, error) in
+//            if let document = document, document.exists {
+//                print("22222222")
+//                userExisted(true)
+//            } else {
+//                do {
+//                    try self.db.collection("users").document(self.userID).setData(from: user)
+//                } catch let error {
+//                    print("Error writing user to Firestore: \(error)")
+//                }
+//                userExisted(false)
+//            }
+//        }
+//    }

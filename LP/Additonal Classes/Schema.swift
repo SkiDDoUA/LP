@@ -12,25 +12,23 @@ import FirebaseFirestoreSwift
 
 // MARK: - User Structure
 public struct User: Codable {
-//    let createdAt: Timestamp
-//    let favorites: [[String : DocumentReference]]
-//    let cart: [[String : DocumentReference]]
-//    let userSettings: UserSettings?
+    let createdAt: Date
+    var userAdditionalInfo: UserAdditionalInfo?
+    let userSettings: UserSettings
 }
 
 // MARK: - Postal Office Structure
 public struct NpPostalOffice: Codable {
     let city: String
-    let postralOffice: String
-    let additionalPhone: String?
+    let postalOffice: String
 }
 
 // MARK: - Courier Structure
 public struct NpCourier: Codable {
+    let city: String
     let street: String
     let building: String
     let flat: String?
-    let additionalPhone: String?
 }
 
 // MARK: - Contact Info Structure
@@ -39,8 +37,8 @@ public struct ContactInfo: Codable {
     let lastName: String
     let patronymic: String
     let phone: String
-    let npPostalOffice: NpPostalOffice?
-    let npCourier: NpCourier?
+    var npPostalOffice: NpPostalOffice?
+    var npCourier: NpCourier?
 }
 
 // MARK: - User Settings Structure
@@ -124,19 +122,37 @@ public struct Sizechart: Codable {
 public struct UserProduct: Codable {
     let reference: DocumentReference
     let size: String
+    let quantity: Int?
     var product: Product?
 }
 
-// MARK: - UserOrder Structure
-public struct UserOrder: Codable {
+// MARK: - Order Structure
+public struct Order: Identifiable, Codable {
+    @DocumentID public var id: String? = UUID().uuidString
     let products: [UserProduct]
-    let contactInfo: ContactInfo?
+    let deliveryInfo: ContactInfo?
     let comment: String?
     let promocode: String?
     let clothingPrice: Int
     let deliveryPrice: Int
     let promocodeDiscountPrice: Int
     let totalPrice: Int
+    let status: OrderStatusTypes
+    let createdAt: Date
+}
+
+// MARK: - OrderHistory Structure
+public struct OrderHistory {
+//    let products: [UserProduct]
+//    let deliveryInfo: ContactInfo?
+//    let comment: String?
+//    let promocode: String?
+//    let clothingPrice: Int
+//    let deliveryPrice: Int
+//    let promocodeDiscountPrice: Int
+//    let totalPrice: Int
+//    let status: OrderStatusTypes
+//    let createdAt: Timestamp
 }
 
 // MARK: - Details View Cell Structure
@@ -144,6 +160,23 @@ struct ExpandedModel {
     var isExpanded: Bool
     let title: String
     let text: String
+}
+
+public enum OrderStatusTypes: String, Codable {
+    case processing
+    case transit
+    case delivered
+    
+    var statusString: (String) {
+        switch self {
+        case .processing:
+            return ("В ОБРАБОТКЕ")
+        case .transit:
+            return ("В ПУТИ")
+        case .delivered:
+            return ("ДОСТАВЛЕН")
+        }
+    }
 }
 
 public enum FilterTypes {

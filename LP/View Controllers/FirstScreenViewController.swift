@@ -23,15 +23,12 @@ class FirstScreenViewController: UIViewController, MaskedTextFieldDelegateListen
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureTapGesture()
         listener.affinityCalculationStrategy = .prefix
         listener.affineFormats = ["[000000000]"]
-        
         phoneTextField.setEditActions(only: [.copy, .cut, .paste])
-        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
+        configureTapGesture()
         self.navigationController?.navigationBar.standardAppearance.shadowImage = UIImage()
     }
     

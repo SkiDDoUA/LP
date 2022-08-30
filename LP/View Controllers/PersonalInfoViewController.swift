@@ -16,24 +16,28 @@ class PersonalInfoViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var labelNameError: UILabel!
     @IBOutlet weak var labelBirthdayError: UILabel!
     @IBOutlet weak var labelBrandError: UILabel!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationItem.title = "Личная информация"
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.topItem?.title = " "
+        configureTapGesture()
         genderSegmentedControl.SelectedFont = UIFont(name: "Helvetica", size: 14)!
         genderSegmentedControl.normalFont = UIFont(name: "Helvetica", size: 14)!
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // MARK: - TapGesture
+    private func configureTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
     }
-    */
-
+    
+    @objc func handleTap() {
+        view.endEditing(true)
+    }
 }
