@@ -39,19 +39,24 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     private let toProductIdentifier = "toProduct"
     private let toShoppingIdentifier = "toShopping"
     private var database: Database?
-    var products = [Product]() {
+    var products = [UserProduct]() {
        didSet {
            DispatchQueue.main.async {
                self.productCollectionView.reloadData()
            }
        }
     }
-    private var allproducts = [Product]() {
+    private var allproducts = [UserProduct]() {
        didSet {
            DispatchQueue.main.async {
                self.products = self.allproducts
            }
        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("11111")
+        loadData()
     }
     
     override func viewDidLoad() {
@@ -64,8 +69,6 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
         DispatchQueue.main.async {
             self.timer = Timer.scheduledTimer(timeInterval: 4.0, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
         }
-        
-        loadData()
     }
     
     //MARK: - Setup Product Collection View Constraints
@@ -79,6 +82,14 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
         database = Database()
         database?.getProducts(availabilityCollection: availabilityCollectionType ?? .stock, productCollection: productCollectionType ?? .pants) { products in
             self.allproducts = products            
+        }
+        
+        database?.getUserProducts(collection: .favorites) { favorites in
+            for favorite in favorites {
+                if let index = self.products.firstIndex(where: { $0.product!.reference.documentID == favorite.reference?.documentID }) {
+                    self.products[index].isFavorite = true
+                }
+            }
         }
     }
     
@@ -119,34 +130,34 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
         switch sender {
         case outerwearButton:
             titleString = outerwearButton.titleLabel!.text!
-            productCollectionType = Database.productCollectionTypes.outerwear
+            productCollectionType = .outerwear
         case tshirtsButton:
             titleString = tshirtsButton.titleLabel!.text!
-            productCollectionType = Database.productCollectionTypes.tshirts
+            productCollectionType = .tshirts
         case pantsButton:
             titleString = pantsButton.titleLabel!.text!
-            productCollectionType = Database.productCollectionTypes.pants
+            productCollectionType = .pants
         case shoesButton:
             titleString = shoesButton.titleLabel!.text!
-            productCollectionType = Database.productCollectionTypes.shoes
+            productCollectionType = .shoes
         case hoodieButton:
             titleString = hoodieButton.titleLabel!.text!
-            productCollectionType = Database.productCollectionTypes.hoodie
+            productCollectionType = .hoodie
         case sweatshirtsButton:
             titleString = sweatshirtsButton.titleLabel!.text!
-            productCollectionType = Database.productCollectionTypes.sweatshirts
+            productCollectionType = .sweatshirts
         case hatsButton:
             titleString = hatsButton.titleLabel!.text!
-            productCollectionType = Database.productCollectionTypes.hats
+            productCollectionType = .hats
         case accessoriesButton:
             titleString = accessoriesButton.titleLabel!.text!
-            productCollectionType = Database.productCollectionTypes.accessories
+            productCollectionType = .accessories
         case bagsButton:
             titleString = bagsButton.titleLabel!.text!
-            productCollectionType = Database.productCollectionTypes.bags
+            productCollectionType = .bags
         case underwearButton:
             titleString = underwearButton.titleLabel!.text!
-            productCollectionType = Database.productCollectionTypes.underwear
+            productCollectionType = .underwear
         default: break
         }
         if sender != outerwearButton {
@@ -240,28 +251,3 @@ extension MainViewController: UICollectionViewDataSource {
         return 0.0
     }
 }
-
-//// MARK: - UITabBarControllerDelegate
-//extension MainViewController: UITabBarControllerDelegate {
-//    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-//        switch tabBarController.selectedIndex {
-//        case 0:
-//            print("0")
-//        case 1:
-//            print("1")
-//        case 2:
-//            print("2")
-////            let destination = self.tabBarController?.viewControllers![2] as! FavoritesTableViewController
-////            dismiss(animated: true, completion: {
-////                destination.getFavorites()
-////            })
-//        default:
-//            print("3")
-////            let destination = self.tabBarController?.viewControllers![3] as! CartViewController
-////            dismiss(animated: true, completion: {
-////                destination.getCart()
-////            })
-//        }
-//    }
-//}
-

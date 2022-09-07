@@ -58,7 +58,7 @@ class FavoritesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            database?.removeUserProduct(collection: .favorites, productReference: products[indexPath.row].reference)
+            database?.removeUserProduct(collection: .favorites, productReference: products[indexPath.row].reference!)
             products.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
@@ -71,7 +71,7 @@ class FavoritesTableViewController: UITableViewController {
             let destination = segue.destination as! ProductViewController
             let cell = sender as! FavoriteProductTableViewCell
             let indexPath = tableView.indexPath(for: cell)!
-            destination.product = products[indexPath.item].product
+            destination.product = products[indexPath.item]
         default: break
         }
     }

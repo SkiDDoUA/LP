@@ -9,12 +9,12 @@ import UIKit
 
 // MARK: - Protocol used for sending data back from FilterTableViewController to ShoppingViewController
 protocol FilterDataDelegate: AnyObject {
-    func returnFilterData(filterArray: [ProductFilter?], filteredProducts: [Product])
+    func returnFilterData(filterArray: [ProductFilter?], filteredProducts: [UserProduct])
 }
 
 class FilterTableViewController: UITableViewController {
-    var products = [Product]()
-    var tempProducts = [Product]()
+    var products = [UserProduct]()
+    var tempProducts = [UserProduct]()
     var selectedIndexPath: IndexPath = IndexPath()
     var barButtonItem = UIBarButtonItem()
     weak var delegate: FilterDataDelegate?
@@ -28,7 +28,7 @@ class FilterTableViewController: UITableViewController {
            }
        }
     }
-    var allProducts = [Product]() {
+    var allProducts = [UserProduct]() {
         didSet {
             products = self.allProducts
             tempProducts = self.allProducts
@@ -36,20 +36,20 @@ class FilterTableViewController: UITableViewController {
     }
 
     // MARK: Products Filter Function
-    public func filterProducts(productsP: [Product], filters: [ProductFilter]) -> [Product] {
+    public func filterProducts(productsP: [UserProduct], filters: [ProductFilter]) -> [UserProduct] {
         var productFiltered = productsP
         for filterP in filters {
             let chosenFilters = filterP.filterData.filter({$0.isChosen == true})
             if filterP.isUsed {
                 switch filterP.filterType {
                 case .size:
-                    productFiltered.removeAll(where: {!$0.details.size.keys.contains(where: chosenFilters.map{$0.filterString}.contains)})
+                    productFiltered.removeAll(where: {!$0.product!.details.size.keys.contains(where: chosenFilters.map{$0.filterString}.contains)})
                 case .gender:
-                    productFiltered.removeAll(where: {!chosenFilters.map{$0.filterString}.contains($0.details.gender)})
+                    productFiltered.removeAll(where: {!chosenFilters.map{$0.filterString}.contains($0.product!.details.gender)})
                 case .color:
-                    productFiltered.removeAll(where: {!chosenFilters.map{$0.filterString}.contains($0.details.color)})
+                    productFiltered.removeAll(where: {!chosenFilters.map{$0.filterString}.contains($0.product!.details.color)})
                 case .brand:
-                    productFiltered.removeAll(where: {!chosenFilters.map{$0.filterString}.contains($0.brand.name)})
+                    productFiltered.removeAll(where: {!chosenFilters.map{$0.filterString}.contains($0.product!.brand.name)})
                 default:
                     break
                 }
@@ -58,7 +58,7 @@ class FilterTableViewController: UITableViewController {
                     let minAndMax = filterP.priceRange!.components(separatedBy: " - ")
                     let min = Int(Double(minAndMax[0]) ?? 0)
                     let max = Int(Double(minAndMax[1]) ?? 0)
-                    productFiltered.removeAll(where: {!(min <= $0.price && $0.price <= max)})
+                    productFiltered.removeAll(where: {!(min <= $0.product!.price && $0.product!.price <= max)})
                 }
             }
         }
@@ -135,19 +135,19 @@ class FilterTableViewController: UITableViewController {
 
             switch indexPath.row {
             case 0:
-                products.forEach{filterData.append(contentsOf: $0.details.size.keys)}
+                products.forEach{filterData.append(contentsOf: $0.product!.details.size.keys)}
                 filterType = .size
             case 1:
-                products.forEach{filterData.append($0.price.description)}
+                products.forEach{filterData.append($0.product!.price.description)}
                 filterType = .price
             case 2:
-                products.forEach{filterData.append($0.details.gender)}
+                products.forEach{filterData.append($0.product!.details.gender)}
                 filterType = .gender
             case 3:
-                products.forEach{filterData.append($0.details.color)}
+                products.forEach{filterData.append($0.product!.details.color)}
                 filterType = .color
             case 4:
-                products.forEach{filterData.append($0.brand.name)}
+                products.forEach{filterData.append($0.product!.brand.name)}
                 filterType = .brand
             default: break
             }

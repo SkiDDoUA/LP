@@ -21,10 +21,10 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegateFlowLayo
     var filterType: FilterTypes?
     private var database: Database?
     weak var delegate: FilterDataDelegate?
-    var tempProducts = [Product]()
+    var tempProducts = [UserProduct]()
     var filterStructuresArray = [ProductFilter?]()
     var sortStructure: Sort?
-    var products = [Product]() {
+    var products = [UserProduct]() {
        didSet {
            DispatchQueue.main.async {
                self.products = self.sortProducts(productsP: self.products)
@@ -32,7 +32,7 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegateFlowLayo
            }
        }
     }
-    private var allproducts = [Product]() {
+    private var allproducts = [UserProduct]() {
        didSet {
            DispatchQueue.main.async {
                self.products = self.allproducts
@@ -40,14 +40,14 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegateFlowLayo
        }
     }
     
-    public func sortProducts(productsP: [Product]) -> [Product] {
+    public func sortProducts(productsP: [UserProduct]) -> [UserProduct] {
         switch self.sortStructure?.sortType {
         case .recommendation:
-            return productsP.sorted(by: {$0.details.size.count > $1.details.size.count})
+            return productsP.sorted(by: {$0.product!.details.size.count > $1.product!.details.size.count})
         case .lowprice:
-            return productsP.sorted(by: {$0.price < $1.price})
+            return productsP.sorted(by: {$0.product!.price < $1.product!.price})
         case .highprice:
-            return productsP.sorted(by: {$0.price > $1.price})
+            return productsP.sorted(by: {$0.product!.price > $1.product!.price})
         default:
             return productsP
         }
@@ -55,6 +55,7 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegateFlowLayo
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationItem.title = titleString
+        loadData()
     }
     
     //MARK: - Setup Product Collection View Constraints
@@ -69,7 +70,6 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegateFlowLayo
         availabilitySegmentedControl.selectorType = .bottomBar
         availabilitySegmentedControl.SelectedFont = UIFont(name: "Helvetica", size: 14)!
         availabilitySegmentedControl.normalFont = UIFont(name: "Helvetica", size: 14)!
-        loadData()
     }
     
     //MARK: - Load Data From Database
@@ -78,6 +78,14 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegateFlowLayo
         database?.getProducts(availabilityCollection: availabilityCollectionType ?? .stock, productCollection: productCollectionType ?? .pants) { products in
             self.allproducts = products
             self.tempProducts = products
+        }
+        
+        database?.getUserProducts(collection: .favorites) { favorites in
+            for favorite in favorites {
+                if let index = self.products.firstIndex(where: { $0.product!.reference.documentID == favorite.reference?.documentID }) {
+                    self.products[index].isFavorite = true
+                }
+            }
         }
     }
     
@@ -157,7 +165,7 @@ extension ShoppingViewController: UICollectionViewDataSource {
 
 // MARK: - FilterDataDelegate
 extension ShoppingViewController: FilterDataDelegate {
-    func returnFilterData(filterArray: [ProductFilter?], filteredProducts: [Product]) {
+    func returnFilterData(filterArray: [ProductFilter?], filteredProducts: [UserProduct]) {
         products = filteredProducts
         filterStructuresArray = filterArray
     }

@@ -31,7 +31,7 @@ class FavoriteProductTableViewCell: UITableViewCell {
         self.sizeKeys = favoriteProduct.product!.details.size
         self.pickerKeys = [String](sizeKeys.keys)
         
-        if pickerKeys.contains(favoriteProduct.size) {
+        if pickerKeys.contains(favoriteProduct.size!) {
             sizePickerTextField.text = favoriteProduct.size
         } else {
             addToBagButton.isHidden = true

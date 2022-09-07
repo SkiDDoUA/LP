@@ -175,7 +175,7 @@ class CartViewController: UIViewController, MaskedTextFieldDelegateListener {
             let destination = segue.destination as! ProductViewController
             let cell = sender as! CartProductTableViewCell
             let indexPath = productsTableView.indexPath(for: cell)!
-            destination.product = products[indexPath.item].product
+            destination.product = products[indexPath.item]
         default: break
         }
     }
@@ -210,7 +210,7 @@ extension CartViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            database?.removeUserProduct(collection: .cart, productReference: products[indexPath.row].reference)
+            database?.removeUserProduct(collection: .cart, productReference: products[indexPath.row].reference!)
             products.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }

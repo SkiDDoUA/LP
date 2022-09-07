@@ -975,7 +975,7 @@
                                                                 <color key="titleColor" name="BlackLP"/>
                                                             </state>
                                                             <connections>
-                                                                <action selector="favoriteButtonTapped:" destination="aqY-qI-LbD" eventType="touchUpInside" id="yd4-LT-8ak"/>
+                                                                <action selector="addToFavoriteButtonTapped:" destination="aqY-qI-LbD" eventType="touchUpInside" id="Hch-r1-9BK"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -1239,6 +1239,9 @@
                                                             <state key="normal" image="Favorite">
                                                                 <color key="titleColor" name="BlackLP"/>
                                                             </state>
+                                                            <connections>
+                                                                <action selector="addToFavoriteButtonTapped:" destination="TUZ-mm-3WV" eventType="touchUpInside" id="1ID-9t-QTT"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <constraints>
@@ -4826,9 +4829,29 @@
             <point key="canvasLocation" x="2745" y="2551"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="37w-0p-bKg">
+            <size key="intrinsicContentSize" width="16" height="22"/>
+        </designable>
+        <designable name="9Jy-td-98o">
+            <size key="intrinsicContentSize" width="127" height="16"/>
+        </designable>
+        <designable name="GQD-SK-LM8">
+            <size key="intrinsicContentSize" width="16" height="22"/>
+        </designable>
+        <designable name="b9K-w8-7og">
+            <size key="intrinsicContentSize" width="16" height="22"/>
+        </designable>
+        <designable name="mMP-Zs-3Bx">
+            <size key="intrinsicContentSize" width="221" height="16"/>
+        </designable>
+        <designable name="yah-CI-NKA">
+            <size key="intrinsicContentSize" width="16" height="22"/>
+        </designable>
+    </designables>
     <inferredMetricsTieBreakers>
         <segue reference="cQ0-wo-4Se"/>
-        <segue reference="KyF-WQ-O98"/>
+        <segue reference="h7J-nL-dBP"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Arrow" width="17" height="8"/>

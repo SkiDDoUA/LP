@@ -34,7 +34,7 @@ class CartProductTableViewCell: UITableViewCell {
         self.pickerKeys = [String](cartProduct.product!.details.size.keys)
         self.sizeValues = [Int](cartProduct.product!.details.size.values)
         
-        if pickerKeys.contains(cartProduct.size) {
+        if pickerKeys.contains(cartProduct.size!) {
             sizePickerTextField.text = cartProduct.size
         }
         

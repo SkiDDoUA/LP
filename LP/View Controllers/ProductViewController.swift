@@ -25,7 +25,7 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
     
     var favoriteButtonChoosen = false
     var cartButtonChoosen = false
-    var product: Product!
+    var product: UserProduct!
     var viewPicker = UIPickerView()
     let headerID = String(describing: CustomHeaderView.self)
     var arrayOfData = [ExpandedModel]()
@@ -35,9 +35,9 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
     override func viewDidLoad() {
         super.viewDidLoad()
         arrayOfData = [
-            ExpandedModel(isExpanded: false, title: "Описание", text: "ID модели: \(product.details.stylecode) \nЦвет: \(product.details.color)"),
-            ExpandedModel(isExpanded: false, title: "Доставка", text: "Сроки доставки: \(product.details.delivery)"),
-            ExpandedModel(isExpanded: false, title: "Материал", text: "\(product.details.material.map {"\($0): \($1)"}.joined(separator:"\n"))"),
+            ExpandedModel(isExpanded: false, title: "Описание", text: "ID модели: \(product.product!.details.stylecode) \nЦвет: \(product.product!.details.color)"),
+            ExpandedModel(isExpanded: false, title: "Доставка", text: "Сроки доставки: \(product.product!.details.delivery)"),
+            ExpandedModel(isExpanded: false, title: "Материал", text: "\(product.product!.details.material.map {"\($0): \($1)"}.joined(separator:"\n"))"),
             ExpandedModel(isExpanded: false, title: "Размерная сетка", text: "product.brand.sizechart")
         ]
         
@@ -48,7 +48,7 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
         tableViewConfig()
         configureTapGesture()
         
-        pageViewControl.numberOfPages = self.product.images.count
+        pageViewControl.numberOfPages = self.product.product!.images.count
         viewPicker.dataSource = self
         viewPicker.delegate = self
         viewPicker.backgroundColor = UIColor.systemBackground
@@ -57,9 +57,16 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
         self.sizePickerTextField.setInputViewPicker(target: self, selector: #selector(tapDoneViewPicker))
         
         DispatchQueue.main.async {
-            self.productBrandLabel.text = self.product.brand.name.uppercased()
-            self.productNameLabel.text = self.product.name
-            self.productPriceLabel.text = "₴\(self.product.price.description)"
+            self.productBrandLabel.text = self.product.product!.brand.name.uppercased()
+            self.productNameLabel.text = self.product.product!.name
+            self.productPriceLabel.text = "₴\(self.product.product!.price.description)"
+            self.favoriteButtonChoosen = self.product.isFavorite!
+            
+            if self.favoriteButtonChoosen == true {
+                self.favoriteButton.setImage(UIImage(named: "Favorite Filled"), for: .normal)
+            } else {
+                self.favoriteButton.setImage(UIImage(named: "Favorite"), for: .normal)
+            }
         }
         
         loadSizechart()
@@ -68,7 +75,7 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
     //MARK: - Load Data From Database
     func loadSizechart() {
         database = Database()
-        database?.getSizechart(docReference: product.brand.sizechart!) {
+        database?.getSizechart(docReference: product.product!.brand.sizechart!) {
             handler in self.sizechart = handler
         }
     }
@@ -79,7 +86,7 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
         
         if size != "" {
             database = Database()
-            database?.addUserProduct(collection: .cart, productReference: product.reference, size: size)
+            database?.addUserProduct(collection: .cart, productReference: product.product!.reference, size: size)
             self.navigationController?.popViewController(animated: true)
         }
     }
@@ -90,10 +97,10 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
         favoriteButtonChoosen = !favoriteButtonChoosen
 
         if favoriteButtonChoosen == true {
-            database?.addUserProduct(collection: .favorites, productReference: product.reference, size: sizePickerTextField.text)
+            database?.addUserProduct(collection: .favorites, productReference: product.product!.reference, size: sizePickerTextField.text)
             favoriteButton.setImage(UIImage(named: "Favorite Filled"), for: .normal)
         } else {
-            database?.removeUserProduct(collection: .favorites, productReference: product.reference)
+            database?.removeUserProduct(collection: .favorites, productReference: product.product!.reference)
             favoriteButton.setImage(UIImage(named: "Favorite"), for: .normal)
         }
     }
@@ -152,11 +159,11 @@ extension ProductViewController: UIPickerViewDataSource {
     }
     
     func pickerView( _ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return product.details.size.count
+        return product.product!.details.size.count
     }
 
     func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let sizeKeys = [String](product.details.size.keys)
+        let sizeKeys = [String](product.product!.details.size.keys)
         let sizeOrder = ["No size", "One size", "XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL", "XXXXL"]
         let stringSizeArray = sizeOrder.filter({sizeKeys.contains($0)})
         let numberSizeArray = Array(Set(sizeKeys).subtracting(stringSizeArray)).sorted{$0 < $1}
@@ -165,7 +172,7 @@ extension ProductViewController: UIPickerViewDataSource {
     }
 
     func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let sizeKeys = [String](product.details.size.keys)
+        let sizeKeys = [String](product.product!.details.size.keys)
         sizePickerTextField.text = sizeKeys[row]
     }
 }
@@ -189,8 +196,8 @@ extension ProductViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SizeChartTableViewCell", for: indexPath)
             if let cell = cell as? SizeChartTableViewCell {
                 cell.sizechart = sizechart
-                cell.productType = product.details.type
-                cell.productBrand = product.brand.name
+                cell.productType = product.product!.details.type
+                cell.productBrand = product.product!.brand.name
             }
             return cell
         }
@@ -216,7 +223,7 @@ extension ProductViewController: UITableViewDataSource {
 // MARK: - UICollectionViewDelegate
 extension ProductViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.product.images.count
+        return self.product.product!.images.count
     }
 }
 
@@ -225,7 +232,7 @@ extension ProductViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productImageCell", for: indexPath)
         if let vc = cell.viewWithTag(111) as? UIImageView {
-            vc.kf.setImage(with: URL(string: self.product.images[indexPath.row]))
+            vc.kf.setImage(with: URL(string: self.product.product!.images[indexPath.row]))
         }
         return cell
     }

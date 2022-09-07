@@ -37,13 +37,13 @@ class Database {
         case favorites
     }
 
-    func getProducts(availabilityCollection: availabilityCollectionTypes, productCollection: productCollectionTypes, handler: @escaping ([Product]) -> Void) {
+    func getProducts(availabilityCollection: availabilityCollectionTypes, productCollection: productCollectionTypes, handler: @escaping ([UserProduct]) -> Void) {
         let docRef = db.collection("men").document("\(availabilityCollection)").collection("\(productCollection)")
         docRef.addSnapshotListener { querySnapshot, err in
             guard let data = querySnapshot?.documents else {
                 return
             }
-            handler(Product.build(from: data))
+            handler(UserProduct.build(from: data))
         }
     }
     
@@ -57,7 +57,7 @@ class Database {
             var favoriteProducts = [UserProduct]()
             for document in data {
                 var dataProduct = try? document.data(as: UserProduct.self)
-                let docRef = self.db.document(dataProduct!.reference.path)
+                let docRef = self.db.document(dataProduct!.reference!.path)
 
                 docRef.addSnapshotListener { documentSnapshot, err in
                     guard let dataFav = documentSnapshot else {
@@ -110,6 +110,17 @@ class Database {
             }
             handler(Order.build(from: data))
         }
+    }
+}
+
+extension UserProduct {
+    static func build(from documents: [QueryDocumentSnapshot]) -> [UserProduct] {
+        var products = [UserProduct]()
+        for document in documents {
+            let product = try? document.data(as: Product.self)
+            products.append(UserProduct(isFavorite: false, product: product))
+        }
+        return products
     }
 }
 

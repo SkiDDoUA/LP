@@ -120,9 +120,10 @@ public struct Sizechart: Codable {
 
 // MARK: - UserProduct Structure
 public struct UserProduct: Codable {
-    let reference: DocumentReference
-    let size: String
-    let quantity: Int?
+    var reference: DocumentReference?
+    var size: String?
+    var quantity: Int?
+    var isFavorite: Bool?
     var product: Product?
 }
 
