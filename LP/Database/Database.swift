@@ -36,6 +36,21 @@ class Database {
         case cart
         case favorites
     }
+    
+    func getUserDetails(handler: @escaping (User) -> Void) {
+        let docRef = db.collection("users").document(userID)
+        docRef.getDocument { documentSnapshot, err in
+            guard let data = documentSnapshot else {
+                return
+            }
+            handler(User.build(from: data))
+        }
+    }
+    
+    func editUserDetails(userAdditionalInfo: [String: Any]) {
+        let docRef = db.collection("users").document(userID)
+        docRef.setData(["userAdditionalInfo": userAdditionalInfo], merge: true)
+    }
 
     func getProducts(availabilityCollection: availabilityCollectionTypes, productCollection: productCollectionTypes, handler: @escaping ([UserProduct]) -> Void) {
         let docRef = db.collection("men").document("\(availabilityCollection)").collection("\(productCollection)")
