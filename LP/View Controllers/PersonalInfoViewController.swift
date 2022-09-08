@@ -17,6 +17,11 @@ class PersonalInfoViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var labelBirthdayError: UILabel!
     @IBOutlet weak var labelBrandError: UILabel!
     
+    private var database: Database?
+    var brandData: [String] = [String]()
+    var viewPicker = UIPickerView()
+    var pickerDateText = Date()
+    var genderText = "m"
     var user: User! {
         didSet {
             DispatchQueue.main.async {
@@ -35,15 +40,9 @@ class PersonalInfoViewController: UIViewController, UITextFieldDelegate {
             }
         }
      }
-    private var database: Database?
-    var brandData: [String] = [String]()
-    var viewPicker = UIPickerView()
-    var pickerDateText = Date()
-    var genderText = "m"
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationItem.title = "Личная информация"
-        loadData()
     }
 
     override func viewDidLoad() {
@@ -67,12 +66,6 @@ class PersonalInfoViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    //MARK: - Load Data From Database
-    func loadData() {
-        database = Database()
-        database?.getUserDetails() { userData in self.user = userData }
-    }
-    
     @IBAction func saveChangesButtonTapped(_ sender: Any) {
         let name = nameTextField.fieldValidation(label: labelNameError, ValidatorStructure: .field)
         let birthday = birthdayDatePickerTextField.fieldValidation(label: labelBirthdayError, ValidatorStructure: .field)
@@ -80,7 +73,7 @@ class PersonalInfoViewController: UIViewController, UITextFieldDelegate {
                         
         if name != "" && birthday != "" && brand != "" {
             let userDictionary: [String: Any] = ["name": name, "gender": genderText, "favoriteBrand": brand, "birthdayDate": pickerDateText]
-            database?.editUserDetails(userAdditionalInfo: userDictionary)
+            database?.editUserDetails(userDetailsType: .userAdditionalInfo, userData: userDictionary)
             self.navigationController?.popViewController(animated: true)
         }
     }

@@ -15,6 +15,7 @@ public struct User: Codable {
     let createdAt: Date
     var userAdditionalInfo: UserAdditionalInfo?
     let userSettings: UserSettings
+    var contactInfo: ContactInfo?
 }
 
 // MARK: - Postal Office Structure

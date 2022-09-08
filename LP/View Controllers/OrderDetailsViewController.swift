@@ -26,11 +26,13 @@ class OrderDetailsViewController: UIViewController {
         self.productsTableView.delegate = self
         self.productsTableView.dataSource = self
         
-        var deliveryType = "Доставка курьером"
-        var deliveryAddress = "\(order.deliveryInfo!.npCourier!.city), \(order.deliveryInfo!.npCourier!.street) \(order.deliveryInfo!.npCourier!.building), \(order.deliveryInfo!.npCourier!.flat!)"
+        var deliveryType = "Доставка в отделение Новой почтой"
+        var deliveryAddress = ""
         if order.deliveryInfo?.npPostalOffice != nil {
-            deliveryType = "Доставка в отделение Новой почтой"
-            deliveryAddress = "\(order.deliveryInfo!.npCourier!.city), Отделение №\(order.deliveryInfo!.npCourier!.building)"
+            deliveryAddress = "\(order.deliveryInfo!.npPostalOffice!.city), Отделение №\(order.deliveryInfo!.npPostalOffice!.postalOffice)"
+        } else {
+            deliveryType = "Доставка курьером"
+            deliveryAddress = "\(order.deliveryInfo!.npCourier!.city), \(order.deliveryInfo!.npCourier!.street) \(order.deliveryInfo!.npCourier!.building), \(order.deliveryInfo!.npCourier!.flat!)"
         }
         
         orderContactInfoLabel.text = "\(deliveryType)\n\(deliveryAddress)\n\(order.deliveryInfo!.firstName) \(order.deliveryInfo!.lastName) \(order.deliveryInfo!.patronymic) \n\(order.deliveryInfo!.phone)"

@@ -18,12 +18,15 @@ class FavoriteProductTableViewCell: UITableViewCell {
     @IBOutlet weak var detailsConstraint: NSLayoutConstraint!
     @IBOutlet weak var stackViewHeight: NSLayoutConstraint!
     
+    private var database: Database?
     var viewPicker = UIPickerView()
     var sizeKeys = [String : Int]()
     var sortedKeys = [String]()
     var pickerKeys = [String]()
+    var product: UserProduct!
     
     func configure(for favoriteProduct: UserProduct) {
+        self.product = favoriteProduct
         self.productBrandLabel.text = favoriteProduct.product!.brand.name.uppercased()
         self.productNameLabel.text = favoriteProduct.product!.name
         self.productPriceLabel.text = "₴\(favoriteProduct.product!.price.description)"
@@ -45,6 +48,15 @@ class FavoriteProductTableViewCell: UITableViewCell {
         sizePickerTextField.inputView = viewPicker
         sizePickerTextField.setEditActions(only: [])
         self.sizePickerTextField.setInputViewPicker(target: self, selector: #selector(tapDoneViewPicker))
+    }
+    
+    //MARK: - Add To Cart
+    @IBAction func addToCartButtonTapped(_ sender: Any) {
+        let size = sizePickerTextField.text
+        if size != "" {
+            database = Database()
+            database?.addUserProduct(collection: .cart, productReference: product.product!.reference, size: size)
+        }
     }
     
     // MARK: - Set ViewPicker

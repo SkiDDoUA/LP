@@ -37,6 +37,11 @@ class Database {
         case favorites
     }
     
+    enum userDetailsTypes {
+        case userAdditionalInfo
+        case contactInfo
+    }
+    
     func getUserDetails(handler: @escaping (User) -> Void) {
         let docRef = db.collection("users").document(userID)
         docRef.getDocument { documentSnapshot, err in
@@ -47,9 +52,9 @@ class Database {
         }
     }
     
-    func editUserDetails(userAdditionalInfo: [String: Any]) {
+    func editUserDetails(userDetailsType: userDetailsTypes, userData: [String: Any]) {
         let docRef = db.collection("users").document(userID)
-        docRef.setData(["userAdditionalInfo": userAdditionalInfo], merge: true)
+        docRef.setData(["\(userDetailsType)": userData], merge: true)
     }
 
     func getProducts(availabilityCollection: availabilityCollectionTypes, productCollection: productCollectionTypes, handler: @escaping ([UserProduct]) -> Void) {
@@ -103,9 +108,9 @@ class Database {
         docRef.document(productReference.documentID).delete()
     }
     
-    func addUserProduct(collection: userProductsCollectionTypes, productReference: DocumentReference, size: String? = nil) {
+    func addUserProduct(collection: userProductsCollectionTypes, productReference: DocumentReference, size: String? = nil, quantity: Int? = 1) {
         let docRef = db.collection("users").document(userID).collection("\(collection)").document(productReference.documentID)
-        docRef.setData(["reference": db.document(productReference.path), "size": size as Any])
+        docRef.setData(["reference": db.document(productReference.path), "size": size as Any, "quantity": quantity as Any])
     }
     
     func addUserOrder(order: Order) {

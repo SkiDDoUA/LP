@@ -15,7 +15,9 @@ class AddressBookViewController: UIViewController {
     @IBOutlet weak var lastNameTextField: СustomUITextField!
     @IBOutlet weak var patronymicTextField: СustomUITextField!
     @IBOutlet weak var phoneTextField: СustomUITextField!
-    @IBOutlet weak var cityTextField: СustomUITextField!
+    @IBOutlet weak var cityPostalOfficeTextField: СustomUITextField!
+    @IBOutlet weak var postalOfficeTextField: СustomUITextField!
+    @IBOutlet weak var cityCourierTextField: СustomUITextField!
     @IBOutlet weak var streetTextField: СustomUITextField!
     @IBOutlet weak var buildingTextField: СustomUITextField!
     @IBOutlet weak var flatTextField: СustomUITextField!
@@ -28,6 +30,24 @@ class AddressBookViewController: UIViewController {
     @IBOutlet weak var buildingErrorLabel: UILabel!
     @IBOutlet weak var flatErrorLabel: UILabel!
     
+    private var database: Database?
+    var user: User! {
+        didSet {
+            DispatchQueue.main.async {
+                self.firstNameTextField.text = self.user.contactInfo?.firstName
+                self.lastNameTextField.text = self.user.contactInfo?.lastName
+                self.patronymicTextField.text = self.user.contactInfo?.patronymic
+                self.phoneTextField.text = self.user.contactInfo?.phone
+                self.cityPostalOfficeTextField.text = self.user.contactInfo?.npPostalOffice?.city
+                self.postalOfficeTextField.text = self.user.contactInfo?.npPostalOffice?.postalOffice
+                self.cityCourierTextField.text = self.user.contactInfo?.npCourier?.city
+                self.streetTextField.text = self.user.contactInfo?.npCourier?.street
+                self.buildingTextField.text = self.user.contactInfo?.npCourier?.building
+                self.flatTextField.text = self.user.contactInfo?.npCourier?.flat
+            }
+        }
+     }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.navigationItem.title = "Адресная книга"
     }
@@ -36,6 +56,25 @@ class AddressBookViewController: UIViewController {
         super.viewDidLoad()
         self.navigationController?.navigationBar.topItem?.title = " "
         configureTapGesture()
+    }
+    
+    @IBAction func saveChangesButtonTapped(_ sender: Any) {
+        let firstName = firstNameTextField.text!
+        let lastName = lastNameTextField.text!
+        let patronymic = patronymicTextField.text!
+        let phone = phoneTextField.text!
+        let cityPostalOffice = cityPostalOfficeTextField.text!
+        let postalOffice = postalOfficeTextField.text!
+        let cityCourier = cityCourierTextField.text!
+        let street = streetTextField.text!
+        let building = buildingTextField.text!
+        let flat = flatTextField.text!
+        
+        let npCourier = NpCourier(city: cityCourier, street: street, building: building, flat: flat)
+        let npPostalOffice = NpPostalOffice(city: cityPostalOffice, postalOffice: postalOffice)
+        let userDictionary = ContactInfo(firstName: firstName, lastName: lastName, patronymic: patronymic, phone: phone, npPostalOffice: npPostalOffice, npCourier: npCourier).toDictionary
+        database?.editUserDetails(userDetailsType: .contactInfo, userData: userDictionary!)
+        self.navigationController?.popViewController(animated: true)
     }
     
     // MARK: - TapGesture

@@ -9,12 +9,35 @@ import UIKit
 
 class AccountTableViewController: UITableViewController {
     
+    private var database: Database?
+    var user: User?
+
     override func viewWillAppear(_ animated: Bool) {
         self.navigationItem.title = "Аккаунт"
+        loadData()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    //MARK: - Load Data From Database
+    func loadData() {
+        database = Database()
+        database?.getUserDetails() { userData in self.user = userData }
+    }
+    
+    //MARK: - Parse Cell Data To OrderDetailsViewController
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "toPersonalInfo":
+            let destination = segue.destination as! PersonalInfoViewController
+            destination.user = user
+        case "toAddressBook":
+            let destination = segue.destination as! AddressBookViewController
+            destination.user = user
+        default: break
+        }
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

@@ -2646,6 +2646,7 @@
                                                         <color key="titleColor" name="WhiteLP"/>
                                                     </state>
                                                     <connections>
+                                                        <action selector="addToCartButtonTapped:" destination="JQI-a2-ckp" eventType="touchUpInside" id="Kzm-u8-CXV"/>
                                                         <action selector="continueTapped:" destination="rCX-jW-aBy" eventType="touchUpInside" id="SWa-mT-8ox"/>
                                                         <action selector="registrationTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="t6w-C4-1h8"/>
                                                     </connections>
@@ -4085,9 +4086,7 @@
                                                     <color key="titleColor" name="WhiteLP"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="continueTapped:" destination="rCX-jW-aBy" eventType="touchUpInside" id="fhq-zc-RaJ"/>
-                                                    <action selector="paymentButtonTapped:" destination="0yj-tm-1l4" eventType="touchUpInside" id="6ah-kj-Szq"/>
-                                                    <action selector="registrationTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2Oh-Br-a5T"/>
+                                                    <action selector="saveChangesButtonTapped:" destination="Vip-RI-6LB" eventType="touchUpInside" id="71t-GT-GpZ"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -4118,8 +4117,9 @@
                         <outlet property="buildingErrorLabel" destination="FH5-aC-ofj" id="sdf-vt-7kZ"/>
                         <outlet property="buildingLabel" destination="Yoy-MZ-Ugs" id="REr-EK-I0N"/>
                         <outlet property="buildingTextField" destination="q7t-Ca-69q" id="r5A-Xt-ZDk"/>
+                        <outlet property="cityCourierTextField" destination="MR7-DF-TXG" id="LWG-ab-0Dg"/>
                         <outlet property="cityErrorLabel" destination="g0t-Zs-btz" id="ADH-hL-33I"/>
-                        <outlet property="cityTextField" destination="MR7-DF-TXG" id="gxW-8w-I9U"/>
+                        <outlet property="cityPostalOfficeTextField" destination="Iy5-Yh-7VI" id="mzv-NT-3gd"/>
                         <outlet property="firstNameErrorLabel" destination="Rft-HJ-GWm" id="Pda-s7-DW3"/>
                         <outlet property="firstNameTextField" destination="a4q-nU-1ny" id="2uB-8G-Isg"/>
                         <outlet property="flatErrorLabel" destination="7ui-sy-uoM" id="EGd-xe-s2m"/>
@@ -4131,13 +4131,13 @@
                         <outlet property="patronymicTextField" destination="8FS-Yo-eUi" id="ox0-kJ-0UV"/>
                         <outlet property="phoneErrorLabel" destination="6NF-5M-zNu" id="x8x-1A-VfH"/>
                         <outlet property="phoneTextField" destination="cyz-Fk-0BE" id="DuX-Rh-PSI"/>
+                        <outlet property="postalOfficeTextField" destination="bR7-sh-Cc3" id="LtF-g9-irZ"/>
                         <outlet property="streetErrorLabel" destination="DDG-0s-auF" id="hMe-hS-Sgd"/>
                         <outlet property="streetTextField" destination="Nyu-ga-8Eh" id="cHM-OY-fZW"/>
                         <outlet property="streetView" destination="Kvm-4L-ekI" id="tir-ly-tKZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Xa-P4-Q42" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="0yj-tm-1l4" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2744.9275362318845" y="3991.7410714285711"/>
         </scene>
@@ -4874,7 +4874,7 @@
     </designables>
     <inferredMetricsTieBreakers>
         <segue reference="i82-LU-UUz"/>
-        <segue reference="h7J-nL-dBP"/>
+        <segue reference="AaZ-Cf-Jf6"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Arrow" width="17" height="8"/>

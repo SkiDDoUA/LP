@@ -62,7 +62,7 @@ class AdditionalInfoViewController: UIViewController, UITextFieldDelegate {
         if name != "" && birthday != "" && brand != "" {
             UserDefaults.standard.set(brandData[brandRow ?? 0], forKey: "selectedBrandAdditionalInfo")
             let userDictionary: [String: Any] = ["name": name, "gender": genderText, "favoriteBrand": brand, "birthdayDate": pickerDateText]
-            database?.editUserDetails(userAdditionalInfo: userDictionary)
+            database?.editUserDetails(userDetailsType: .userAdditionalInfo, userData: userDictionary)
             self.performSegue(withIdentifier: "toMainViewController", sender: Any?.self)
         }
     }

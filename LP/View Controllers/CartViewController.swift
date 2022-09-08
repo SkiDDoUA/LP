@@ -52,6 +52,17 @@ class CartViewController: UIViewController, MaskedTextFieldDelegateListener {
     var clothingPrice = 0
     var deliveryPrice = 0
     var promocodeDiscount = 0
+    var user: User? {
+        didSet {
+            DispatchQueue.main.async {
+                self.firstNameTextField.text = self.user?.contactInfo?.firstName
+                self.lastNameTextField.text = self.user?.contactInfo?.lastName
+                self.patronymicTextField.text = self.user?.contactInfo?.patronymic
+                self.phoneTextField.text = self.user?.contactInfo?.phone
+            }
+        }
+     }
+
     var totalPrice: Int {
         get {
             clothingPrice + deliveryPrice - promocodeDiscount
@@ -96,6 +107,8 @@ class CartViewController: UIViewController, MaskedTextFieldDelegateListener {
         database?.getUserProducts(collection: .cart) {
             products in self.products = products;
         }
+        
+        database?.getUserDetails() { userData in self.user = userData }
     }
     
     @IBAction func postalOfficeDeliveryButtonTapped(_ sender: Any) {
@@ -104,8 +117,9 @@ class CartViewController: UIViewController, MaskedTextFieldDelegateListener {
         expandableView.heightAnchor.constraint(equalToConstant: 140).isActive = true
         expandableView.isHidden = false
         expandableViewBottomConstraint.constant = 20.0
+        cityTextField.text = user?.contactInfo?.npPostalOffice?.city
+        buildingTextField.text = user?.contactInfo?.npPostalOffice?.postalOffice
         buildingLabel.text = "НОМЕР ОТДЕЛЕНИЯ"
-        buildingTextField.text = ""
         buildingTextField.keyboardType = .numberPad
         streetView.isHidden = true
         flatView.isHidden = true
@@ -120,7 +134,10 @@ class CartViewController: UIViewController, MaskedTextFieldDelegateListener {
         expandableView.heightAnchor.constraint(equalToConstant: 140).isActive = true
         expandableView.isHidden = false
         expandableViewBottomConstraint.constant = 20.0
-        buildingTextField.text = ""
+        cityTextField.text = user?.contactInfo?.npCourier?.city
+        streetTextField.text = user?.contactInfo?.npCourier?.street
+        buildingTextField.text = user?.contactInfo?.npCourier?.building
+        flatTextField.text = self.user?.contactInfo?.npCourier?.flat
         buildingTextField.keyboardType = .default
         buildingLabel.text = "ЗДАНИЕ"
         streetView.isHidden = false
