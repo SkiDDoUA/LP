@@ -3515,6 +3515,7 @@
                         <outlet property="cityErrorLabel" destination="Ixy-5I-kA6" id="oth-oz-jg8"/>
                         <outlet property="cityTextField" destination="UW4-1P-gba" id="lx3-Du-jsP"/>
                         <outlet property="clothingPriceLabel" destination="OPa-jo-Tr5" id="6fy-BJ-LbL"/>
+                        <outlet property="courierDeliveryButton" destination="9Jy-td-98o" id="CIU-iT-Y4D"/>
                         <outlet property="expandableView" destination="f7F-2i-1hy" id="7Ti-bU-FjN"/>
                         <outlet property="expandableViewBottomConstraint" destination="FD8-Vg-pmF" id="8jN-K7-ls4"/>
                         <outlet property="firstNameErrorLabel" destination="DGq-8j-vtv" id="aZi-6m-Vk2"/>
@@ -3532,6 +3533,7 @@
                         <outlet property="patronymicTextField" destination="yf7-LT-Giy" id="ZxX-17-NHO"/>
                         <outlet property="phoneErrorLabel" destination="yAZ-1h-h4t" id="WZ8-dv-N4v"/>
                         <outlet property="phoneTextField" destination="FCe-b2-ECC" id="0it-YA-MoL"/>
+                        <outlet property="postalOfficeDeliveryButton" destination="mMP-Zs-3Bx" id="sCU-2B-ifu"/>
                         <outlet property="productsTableView" destination="219-iI-2Hj" id="hBL-WA-REc"/>
                         <outlet property="productsTableViewConstraint" destination="Ukv-GB-WBd" id="XeF-2c-JL1"/>
                         <outlet property="promocodeErrorLabel" destination="vet-7k-e3o" id="cQP-56-ipq"/>
@@ -4874,7 +4876,7 @@
     </designables>
     <inferredMetricsTieBreakers>
         <segue reference="i82-LU-UUz"/>
-        <segue reference="AaZ-Cf-Jf6"/>
+        <segue reference="6Qj-mO-JFd"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Arrow" width="17" height="8"/>

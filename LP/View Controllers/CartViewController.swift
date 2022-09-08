@@ -43,6 +43,8 @@ class CartViewController: UIViewController, MaskedTextFieldDelegateListener {
     @IBOutlet weak var promocodeErrorLabel: UILabel!
     @IBOutlet weak var clothingPriceLabel: UILabel!
     @IBOutlet weak var orderTotalPriceLabel: UILabel!
+    @IBOutlet weak var courierDeliveryButton: DLRadioButton!
+    @IBOutlet weak var postalOfficeDeliveryButton: DLRadioButton!
     @IBOutlet var listener: MaskedTextFieldDelegate!
 
     private var database: Database?
@@ -154,6 +156,14 @@ class CartViewController: UIViewController, MaskedTextFieldDelegateListener {
         let lastName = lastNameTextField.fieldValidation(label: lastNameErrorLabel, ValidatorStructure: .field)
         let patronymic = patronymicTextField.fieldValidation(label: patronymicErrorLabel, ValidatorStructure: .field)
         let phone = phoneTextField.fieldValidation(label: phoneErrorLabel, ValidatorStructure: .phone)
+        
+        if npPostalOffice == nil {
+            courierDeliveryButton.setTitleColor(UIColor(named: "RedLP"), for: .normal)
+            postalOfficeDeliveryButton.setTitleColor(UIColor(named: "RedLP"), for: .normal)
+        } else {
+            courierDeliveryButton.setTitleColor(UIColor(named: "BlackLP"), for: .normal)
+            postalOfficeDeliveryButton.setTitleColor(UIColor(named: "BlackLP"), for: .normal)
+        }
         
         if npPostalOffice == true {
             let city = cityTextField.fieldValidation(label: cityErrorLabel, ValidatorStructure: .field)
