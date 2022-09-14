@@ -23,14 +23,33 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var cartButton: UIButton!
     
+    static var maxLengthSizechartToCell = Int()
+    static var sizechartKeysToCell = [String]()
+    private var database: Database?
     var favoriteButtonChoosen = false
     var cartButtonChoosen = false
     var product: UserProduct!
     var viewPicker = UIPickerView()
     let headerID = String(describing: CustomHeaderView.self)
     var arrayOfData = [ExpandedModel]()
-    var sizechart: Sizechart!
-    private var database: Database?
+    var sizechart: Sizechart! {
+       didSet {
+           DispatchQueue.main.async {
+               var maxLengthSizechart = [Int]()
+               self.sizechart.toDictionary?.forEach({ (key: String, value: Any?) in
+                   ProductViewController.sizechartKeysToCell.append(key)
+                   maxLengthSizechart.append((value as! NSArray as? [String])!.count)
+               })
+               let maxLength = maxLengthSizechart.max() ?? 0
+               ProductViewController.maxLengthSizechartToCell = maxLength
+               
+               if maxLength == 0 {
+                   self.arrayOfData.remove(at: 3)
+                   self.detailsTableView.reloadData()
+               }
+           }
+       }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +59,7 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
             ExpandedModel(isExpanded: false, title: "Материал", text: "\(product.product!.details.material.map {"\($0): \($1)"}.joined(separator:"\n"))"),
             ExpandedModel(isExpanded: false, title: "Размерная сетка", text: "product.brand.sizechart")
         ]
-        
+                        
         self.navigationController?.navigationBar.topItem?.title = " "
         self.navigationController?.navigationBar.standardAppearance.shadowImage = UIImage()
         detailsTableView.register(SizeChartTableViewCell.nib(), forCellReuseIdentifier: "SizeChartTableViewCell")
@@ -48,6 +67,7 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
         tableViewConfig()
         configureTapGesture()
         
+                
         pageViewControl.numberOfPages = self.product.product!.images.count
         viewPicker.dataSource = self
         viewPicker.delegate = self
@@ -76,7 +96,7 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
     func loadSizechart() {
         database = Database()
         database?.getSizechart(docReference: product.product!.brand.sizechart!) {
-            handler in self.sizechart = handler
+            handler in self.sizechart = handler;
         }
     }
     
@@ -134,7 +154,7 @@ extension ProductViewController: HeaderViewDelegate {
         arrayOfData[section].isExpanded = !isExpanded
         detailsTableView.reloadSections(IndexSet(integer: section), with: .automatic)
         detailsTableView.layoutIfNeeded()
-        detailsTableViewConstraint.constant = detailsTableView.contentSize.height
+        detailsTableViewConstraint.constant = detailsTableView.contentSize.height - 1
     }
 }
 
@@ -185,6 +205,8 @@ extension ProductViewController: UITableViewDelegate {
     }
         
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        detailsTableView.layoutIfNeeded()
+        detailsTableViewConstraint.constant = detailsTableView.contentSize.height + 16
         return 45
     }
 }
