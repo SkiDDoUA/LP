@@ -17,7 +17,7 @@ class PersonalInfoViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var labelBirthdayError: UILabel!
     @IBOutlet weak var labelBrandError: UILabel!
     
-    private var database: Database?
+    private var database = Database()
     var brandData: [String] = [String]()
     var viewPicker = UIPickerView()
     var pickerDateText = Date()
@@ -61,9 +61,6 @@ class PersonalInfoViewController: UIViewController, UITextFieldDelegate {
         birthdayDatePickerTextField.setEditActions(only: [])
         self.brandPickerTextField.setInputViewPicker(target: self, selector: #selector(tapDoneViewPicker))
         self.birthdayDatePickerTextField.setInputViewPicker(target: self, selector: #selector(tapDoneDatePicker), type: "date")
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     @IBAction func saveChangesButtonTapped(_ sender: Any) {
@@ -73,23 +70,8 @@ class PersonalInfoViewController: UIViewController, UITextFieldDelegate {
                         
         if name != "" && birthday != "" && brand != "" {
             let userDictionary: [String: Any] = ["name": name, "gender": genderText, "favoriteBrand": brand, "birthdayDate": pickerDateText]
-            database?.editUserDetails(userDetailsType: .userAdditionalInfo, userData: userDictionary)
+            database.editUserDetails(userDetailsType: .userAdditionalInfo, userData: userDictionary)
             self.navigationController?.popViewController(animated: true)
-        }
-    }
-    
-    // MARK: - Keyboard
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height
-            }
-        }
-    }
-
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
         }
     }
     

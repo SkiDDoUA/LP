@@ -30,7 +30,7 @@ class AddressBookViewController: UIViewController {
     @IBOutlet weak var buildingErrorLabel: UILabel!
     @IBOutlet weak var flatErrorLabel: UILabel!
     
-    private var database: Database?
+    private var database = Database()
     var user: User! {
         didSet {
             DispatchQueue.main.async {
@@ -55,6 +55,7 @@ class AddressBookViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.topItem?.title = " "
+//        database = Database()
         configureTapGesture()
     }
     
@@ -73,7 +74,7 @@ class AddressBookViewController: UIViewController {
         let npCourier = NpCourier(city: cityCourier, street: street, building: building, flat: flat)
         let npPostalOffice = NpPostalOffice(city: cityPostalOffice, postalOffice: postalOffice)
         let userDictionary = ContactInfo(firstName: firstName, lastName: lastName, patronymic: patronymic, phone: phone, npPostalOffice: npPostalOffice, npCourier: npCourier).toDictionary
-        database?.editUserDetails(userDetailsType: .contactInfo, userData: userDictionary!)
+        database.editUserDetails(userDetailsType: .contactInfo, userData: userDictionary!)
         self.navigationController?.popViewController(animated: true)
     }
     

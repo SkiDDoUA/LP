@@ -769,6 +769,7 @@ PODS:
   - gRPC-Core/Interface (1.44.0)
   - GTMSessionFetcher/Core (2.0.0)
   - InputMask (6.1.0)
+  - IQKeyboardManagerSwift (6.5.10)
   - Kingfisher (7.3.0)
   - leveldb-library (1.22.1)
   - Libuv-gRPC (0.0.10):
@@ -798,6 +799,7 @@ DEPENDENCIES:
   - Firebase/Firestore
   - FirebaseFirestoreSwift
   - InputMask
+  - IQKeyboardManagerSwift
   - Kingfisher (~> 7.0)
   - RangeSeekSlider
   - ValidationComponents
@@ -826,6 +828,7 @@ SPEC REPOS:
     - gRPC-Core
     - GTMSessionFetcher
     - InputMask
+    - IQKeyboardManagerSwift
     - Kingfisher
     - leveldb-library
     - Libuv-gRPC
@@ -858,6 +861,7 @@ SPEC CHECKSUMS:
   gRPC-Core: 943e491cb0d45598b0b0eb9e910c88080369290b
   GTMSessionFetcher: 681175626052e03fdde7952f7e9c7a9785719506
   InputMask: 71d291dc54d2deaeac6512afb6ec2304228c0bb7
+  IQKeyboardManagerSwift: 52962c76ab33532f15ad9f3ff4e5715eda5335bb
   Kingfisher: cdb1189a9223b1bc028816bd47c8b8101a58831c
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   Libuv-gRPC: 55e51798e14ef436ad9bc45d12d43b77b49df378
@@ -868,6 +872,6 @@ SPEC CHECKSUMS:
   ValidationToolkit: ce8e9c1a5d49eddc3266a009d46df5ea22042dbc
   WMSegmentControl: 15120246d0fdbb7530d7fa03e90c3ec6f4fa85bd
 
-PODFILE CHECKSUM: 82b35937a535612b9121ce8fbda0ba015b029433
+PODFILE CHECKSUM: 0f1164eaaa3cf25f57b37ee537e0974ae0f63863
 
 COCOAPODS: 1.11.3

@@ -13,7 +13,6 @@ import InputMask
 import ValidationComponents
 
 class CartViewController: UIViewController, MaskedTextFieldDelegateListener {
-    
     @IBOutlet weak var productsTableView: UITableView!
     @IBOutlet weak var productsTableViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var expandableView: UIView!
@@ -47,7 +46,7 @@ class CartViewController: UIViewController, MaskedTextFieldDelegateListener {
     @IBOutlet weak var postalOfficeDeliveryButton: DLRadioButton!
     @IBOutlet var listener: MaskedTextFieldDelegate!
 
-    private var database: Database?
+    private var database = Database()
     private let toProductIdentifier = "toProduct"
     var viewHeightConstraint: NSLayoutConstraint?
     var npPostalOffice: Bool?
@@ -64,7 +63,6 @@ class CartViewController: UIViewController, MaskedTextFieldDelegateListener {
             }
         }
      }
-
     var totalPrice: Int {
         get {
             clothingPrice + deliveryPrice - promocodeDiscount
@@ -89,6 +87,7 @@ class CartViewController: UIViewController, MaskedTextFieldDelegateListener {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationItem.title = "Корзина"
+        getCart()
     }
 
     override func viewDidLoad() {
@@ -101,16 +100,14 @@ class CartViewController: UIViewController, MaskedTextFieldDelegateListener {
         viewHeightConstraint?.isActive = true
         expandableView.isHidden = true
         expandableViewBottomConstraint.constant = 0.0
-        getCart()
     }
     
     func getCart() {
-        database = Database()
-        database?.getUserProducts(collection: .cart) {
+        database.getUserProducts(collection: .cart) {
             products in self.products = products;
         }
         
-        database?.getUserDetails() { userData in self.user = userData }
+        database.getUserDetails() { userData in self.user = userData }
     }
     
     @IBAction func postalOfficeDeliveryButtonTapped(_ sender: Any) {
@@ -191,7 +188,7 @@ class CartViewController: UIViewController, MaskedTextFieldDelegateListener {
             let comment = orderCommentTextField.text
             let promocode = promocodeTextField.text
             let order = Order(products: products, deliveryInfo: contactInfo, comment: comment, promocode: promocode, clothingPrice: clothingPrice, deliveryPrice: deliveryPrice, promocodeDiscountPrice: promocodeDiscount, totalPrice: totalPrice, status: .processing, createdAt: Date())
-            database?.addUserOrder(order: order)
+            database.addUserOrder(order: order)
         }
     }
     
@@ -231,13 +228,15 @@ extension CartViewController: UITableViewDataSource {
         cell.configure(for: self.products[indexPath.row])
         if (indexPath.row == self.products.count-1) {
             cell.separatorInset = UIEdgeInsets(top: 0.0, left: cell.bounds.size.width, bottom: 0.0, right: 0.0);
+        } else {
+            cell.separatorInset = UIEdgeInsets(top: 0.0, left: 15.0, bottom: 0.0, right: 0.0);
         }
         return cell
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            database?.removeUserProduct(collection: .cart, productReference: products[indexPath.row].reference!)
+            database.removeUserProduct(collection: .cart, productReference: products[indexPath.row].reference!)
             products.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }

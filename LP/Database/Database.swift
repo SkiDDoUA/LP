@@ -108,6 +108,15 @@ class Database {
         docRef.document(productReference.documentID).delete()
     }
     
+    func editUserProductCart(cartProduct: UserProduct, size: String, quantity: Int? = nil) {
+        let docRef = db.collection("users").document(userID).collection("cart").document(cartProduct.reference!.documentID)
+        if quantity != nil {
+            docRef.setData(["quantity": quantity!], merge: true)
+        } else {
+            docRef.setData(["size": size], merge: true)
+        }
+    }
+    
     func addUserProduct(collection: userProductsCollectionTypes, productReference: DocumentReference, size: String? = nil, quantity: Int? = 1) {
         let docRef = db.collection("users").document(userID).collection("\(collection)").document(productReference.documentID)
         docRef.setData(["reference": db.document(productReference.path), "size": size as Any, "quantity": quantity as Any])

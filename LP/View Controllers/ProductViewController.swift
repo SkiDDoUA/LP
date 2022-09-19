@@ -25,7 +25,8 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
     
     static var maxLengthSizechartToCell = Int()
     static var sizechartKeysToCell = [String]()
-    private var database: Database?
+    private var database = Database()
+    var sortedKeys = [String]()
     var favoriteButtonChoosen = false
     var cartButtonChoosen = false
     var product: UserProduct!
@@ -80,13 +81,13 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
             self.productBrandLabel.text = self.product.product!.brand.name.uppercased()
             self.productNameLabel.text = self.product.product!.name
             self.productPriceLabel.text = "₴\(self.product.product!.price.description)"
-            self.favoriteButtonChoosen = self.product.isFavorite!
-            
-            if self.favoriteButtonChoosen == true {
-                self.favoriteButton.setImage(UIImage(named: "Favorite Filled"), for: .normal)
-            } else {
-                self.favoriteButton.setImage(UIImage(named: "Favorite"), for: .normal)
-            }
+//            self.favoriteButtonChoosen = self.product.isFavorite!
+//
+//            if self.favoriteButtonChoosen == true {
+//                self.favoriteButton.setImage(UIImage(named: "Favorite Filled"), for: .normal)
+//            } else {
+//                self.favoriteButton.setImage(UIImage(named: "Favorite"), for: .normal)
+//            }
         }
         
         loadSizechart()
@@ -94,8 +95,7 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
     
     //MARK: - Load Data From Database
     func loadSizechart() {
-        database = Database()
-        database?.getSizechart(docReference: product.product!.brand.sizechart!) {
+        database.getSizechart(docReference: product.product!.brand.sizechart!) {
             handler in self.sizechart = handler;
         }
     }
@@ -105,22 +105,20 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
         let size = sizePickerTextField.fieldValidation(label: sizeErrorLabel, ValidatorStructure: .field)
         
         if size != "" {
-            database = Database()
-            database?.addUserProduct(collection: .cart, productReference: product.product!.reference, size: size)
+            database.addUserProduct(collection: .cart, productReference: product.product!.reference, size: size)
             self.navigationController?.popViewController(animated: true)
         }
     }
     
     //MARK: - Add To Favorite
     @IBAction func addToFavoriteButtonTapped(_ sender: Any) {
-        database = Database()
         favoriteButtonChoosen = !favoriteButtonChoosen
 
         if favoriteButtonChoosen == true {
-            database?.addUserProduct(collection: .favorites, productReference: product.product!.reference, size: sizePickerTextField.text)
+            database.addUserProduct(collection: .favorites, productReference: product.product!.reference, size: sizePickerTextField.text)
             favoriteButton.setImage(UIImage(named: "Favorite Filled"), for: .normal)
         } else {
-            database?.removeUserProduct(collection: .favorites, productReference: product.product!.reference)
+            database.removeUserProduct(collection: .favorites, productReference: product.product!.reference)
             favoriteButton.setImage(UIImage(named: "Favorite"), for: .normal)
         }
     }
@@ -187,13 +185,12 @@ extension ProductViewController: UIPickerViewDataSource {
         let sizeOrder = ["No size", "One size", "XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL", "XXXXL"]
         let stringSizeArray = sizeOrder.filter({sizeKeys.contains($0)})
         let numberSizeArray = Array(Set(sizeKeys).subtracting(stringSizeArray)).sorted{$0 < $1}
-        let sortedKeys = stringSizeArray + numberSizeArray
+        sortedKeys = stringSizeArray + numberSizeArray
         return sortedKeys[row]
     }
 
     func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let sizeKeys = [String](product.product!.details.size.keys)
-        sizePickerTextField.text = sizeKeys[row]
+        sizePickerTextField.text = sortedKeys[row]
     }
 }
 

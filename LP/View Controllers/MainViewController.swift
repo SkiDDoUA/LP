@@ -30,15 +30,15 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     @IBOutlet weak var bagsButton: UIButton!
     @IBOutlet weak var underwearButton: UIButton!
     
+    private let toProductIdentifier = "toProduct"
+    private let toShoppingIdentifier = "toShopping"
+    private var database = Database()
     var titleString = " "
     var productCollectionType: Database.productCollectionTypes?
     var availabilityCollectionType: Database.availabilityCollectionTypes?
     var timer = Timer()
     var counter = 0
     var imageArray = [UIImage(named: "Rec1"), UIImage(named: "Rec2"), UIImage(named: "Rec3")]
-    private let toProductIdentifier = "toProduct"
-    private let toShoppingIdentifier = "toShopping"
-    private var database: Database?
     var products = [UserProduct]() {
        didSet {
            DispatchQueue.main.async {
@@ -55,7 +55,6 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("11111")
         loadData()
     }
     
@@ -79,12 +78,11 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     
     //MARK: - Load Data From Database
     func loadData() {
-        database = Database()
-        database?.getProducts(availabilityCollection: availabilityCollectionType ?? .stock, productCollection: productCollectionType ?? .pants) { products in
-            self.allproducts = products            
+        database.getProducts(availabilityCollection: availabilityCollectionType ?? .stock, productCollection: productCollectionType ?? .pants) { products in
+            self.allproducts = products
         }
         
-        database?.getUserProducts(collection: .favorites) { favorites in
+        database.getUserProducts(collection: .favorites) { favorites in
             for favorite in favorites {
                 if let index = self.products.firstIndex(where: { $0.product!.reference.documentID == favorite.reference?.documentID }) {
                     self.products[index].isFavorite = true

@@ -46,10 +46,6 @@ class AdditionalInfoViewController: UIViewController, UITextFieldDelegate {
         if let row = brandData.firstIndex(of: selectedBrand) {
             viewPicker.selectRow(row, inComponent: 0, animated: false)
         }
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        self.navigationItem.setHidesBackButton(true, animated: true)
     }
     
     // MARK: - User Additional Info
@@ -70,21 +66,6 @@ class AdditionalInfoViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Skip Additional Info
     @IBAction func skipTapped(_ sender: Any) {
         self.performSegue(withIdentifier: "toMainViewController", sender: Any?.self)
-    }
-
-    // MARK: - Keyboard
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height
-            }
-        }
-    }
-
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
-        }
     }
     
     // MARK: - TapGesture

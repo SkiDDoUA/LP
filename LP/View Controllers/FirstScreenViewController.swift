@@ -26,8 +26,6 @@ class FirstScreenViewController: UIViewController, MaskedTextFieldDelegateListen
         listener.affinityCalculationStrategy = .prefix
         listener.affineFormats = ["[000000000]"]
         phoneTextField.setEditActions(only: [.copy, .cut, .paste])
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         configureTapGesture()
         self.navigationController?.navigationBar.standardAppearance.shadowImage = UIImage()
     }
@@ -54,21 +52,6 @@ class FirstScreenViewController: UIViewController, MaskedTextFieldDelegateListen
     @IBAction func anonymousLoginTapped(_ sender: Any) {
         Auth.auth().signInAnonymously { authResult, error in
             self.performSegue(withIdentifier: "toMainViewController", sender: Any?.self)
-        }
-    }
-    
-    // MARK: - Keyboard
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height
-            }
-        }
-    }
-
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
         }
     }
     

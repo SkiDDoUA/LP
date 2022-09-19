@@ -51,6 +51,8 @@ class OrdersTableViewController: UITableViewController {
         cell.configure(for: self.orders[indexPath.row])
         if (indexPath.row == self.orders.count-1) {
             cell.separatorInset = UIEdgeInsets(top: 0.0, left: cell.bounds.size.width, bottom: 0.0, right: 0.0);
+        } else {
+            cell.separatorInset = UIEdgeInsets(top: 0.0, left: 15.0, bottom: 0.0, right: 0.0);
         }
         return cell
     }

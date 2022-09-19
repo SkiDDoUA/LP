@@ -15,7 +15,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var productImageView: UIImageView!
     
-    private var database: Database?
+    private var database = Database()
     var userProduct: UserProduct!
     var counter = 0
     
@@ -31,7 +31,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
         } else {
             favoriteButton.setImage(UIImage(named: "Favorite"), for: .normal)
         }
-        print("product: \(product.product?.brand.name) + \(product.isFavorite)")
+//        print("product: \(product.product?.brand.name) + \(product.isFavorite)")
 
 //        if userProduct == nil {
 //            self.userProduct = product
@@ -68,16 +68,15 @@ class ProductCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Add To Favorite
     @IBAction func addToFavoriteButtonTapped(_ sender: Any) {
-        database = Database()
-        print(!userProduct.isFavorite!)
+//        print(!userProduct.isFavorite!)
         if !userProduct.isFavorite! == true {
             userProduct.isFavorite = true
             favoriteButton.setImage(UIImage(named: "Favorite Filled"), for: .normal)
-            database?.addUserProduct(collection: .favorites, productReference: userProduct.product!.reference, size: "")
+            database.addUserProduct(collection: .favorites, productReference: userProduct.product!.reference, size: "")
         } else {
             userProduct.isFavorite = false
             favoriteButton.setImage(UIImage(named: "Favorite"), for: .normal)
-            database?.removeUserProduct(collection: .favorites, productReference: userProduct.product!.reference)
+            database.removeUserProduct(collection: .favorites, productReference: userProduct.product!.reference)
         }
     }
 }

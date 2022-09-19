@@ -10,7 +10,7 @@ import FirebaseAuth
 import FirebaseFirestore
 
 class FavoritesTableViewController: UITableViewController {
-    private var database: Database?
+    private var database = Database()
     private let toProductIdentifier = "toProduct"
     var products = [UserProduct]() {
        didSet {
@@ -21,8 +21,7 @@ class FavoritesTableViewController: UITableViewController {
     }
     
     func getFavorites() {
-        database = Database()
-        database?.getUserProducts(collection: .favorites) {
+        database.getUserProducts(collection: .favorites) {
             products in self.products = products;
         }
     }
@@ -52,13 +51,15 @@ class FavoritesTableViewController: UITableViewController {
         cell.configure(for: self.products[indexPath.row])
         if (indexPath.row == self.products.count-1) {
             cell.separatorInset = UIEdgeInsets(top: 0.0, left: cell.bounds.size.width, bottom: 0.0, right: 0.0);
+        } else {
+            cell.separatorInset = UIEdgeInsets(top: 0.0, left: 15.0, bottom: 0.0, right: 0.0);
         }
         return cell
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            database?.removeUserProduct(collection: .favorites, productReference: products[indexPath.row].reference!)
+            database.removeUserProduct(collection: .favorites, productReference: products[indexPath.row].reference!)
             products.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }

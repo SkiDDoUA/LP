@@ -13,12 +13,11 @@ protocol FilterDataDelegate: AnyObject {
 }
 
 class FilterTableViewController: UITableViewController {
+    weak var delegate: FilterDataDelegate?
     var products = [UserProduct]()
     var tempProducts = [UserProduct]()
     var selectedIndexPath: IndexPath = IndexPath()
     var barButtonItem = UIBarButtonItem()
-    weak var delegate: FilterDataDelegate?
-    private let toSecondFilterIdentifier = "toSecondFilter"
     var filterStructure: ProductFilter?
     var filterStructuresArray = [ProductFilter?](repeatElement(nil, count: FilterTypes.allFilters.count)) {
        didSet {
@@ -190,7 +189,7 @@ class FilterTableViewController: UITableViewController {
     //MARK: - Parse Filter Data To FilterSecondTableViewController And ShoppingViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
-        case toSecondFilterIdentifier:
+        case "toSecondFilter":
             let destination = segue.destination as! FilterSecondTableViewController
             destination.filterStructure = filterStructure
             destination.products = tempProducts

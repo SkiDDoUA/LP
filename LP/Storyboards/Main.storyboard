@@ -2621,7 +2621,7 @@
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="image" keyPath="rightImage" value="Arrow"/>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="rightPadding">
-                                                                    <real key="value" value="15"/>
+                                                                    <real key="value" value="10"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                             <connections>
@@ -2669,7 +2669,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="addToBagButton" destination="LDF-ar-YKm" id="aOz-dl-oVp"/>
+                                    <outlet property="addToCartButton" destination="LDF-ar-YKm" id="aOz-dl-oVp"/>
                                     <outlet property="detailsConstraint" destination="oFz-1U-5Eg" id="a5y-Fs-fe4"/>
                                     <outlet property="productBrandLabel" destination="Cfd-j7-fqH" id="T91-US-Vmc"/>
                                     <outlet property="productImageView" destination="uRK-Jv-n0C" id="ira-aQ-vDT"/>
@@ -2794,10 +2794,11 @@
                                                                             <userDefinedRuntimeAttributes>
                                                                                 <userDefinedRuntimeAttribute type="image" keyPath="rightImage" value="Arrow"/>
                                                                                 <userDefinedRuntimeAttribute type="number" keyPath="rightPadding">
-                                                                                    <real key="value" value="15"/>
+                                                                                    <real key="value" value="10"/>
                                                                                 </userDefinedRuntimeAttribute>
                                                                             </userDefinedRuntimeAttributes>
                                                                             <connections>
+                                                                                <action selector="sizeTextFieldDidEditing:" destination="liy-uU-RAw" eventType="editingDidEnd" id="Zyb-FK-nAg"/>
                                                                                 <outlet property="delegate" destination="6RL-E5-N7O" id="bwq-Rf-4lz"/>
                                                                             </connections>
                                                                         </textField>
@@ -2811,10 +2812,11 @@
                                                                             <userDefinedRuntimeAttributes>
                                                                                 <userDefinedRuntimeAttribute type="image" keyPath="rightImage" value="Arrow"/>
                                                                                 <userDefinedRuntimeAttribute type="number" keyPath="rightPadding">
-                                                                                    <real key="value" value="15"/>
+                                                                                    <real key="value" value="10"/>
                                                                                 </userDefinedRuntimeAttribute>
                                                                             </userDefinedRuntimeAttributes>
                                                                             <connections>
+                                                                                <action selector="quantityTextFieldDidEditing:" destination="liy-uU-RAw" eventType="editingDidEnd" id="4b3-Ll-8sC"/>
                                                                                 <outlet property="delegate" destination="6RL-E5-N7O" id="CaI-su-fxC"/>
                                                                             </connections>
                                                                         </textField>
@@ -2845,7 +2847,7 @@
                                                     <outlet property="productImageView" destination="aae-X1-rgc" id="W4O-aj-yYw"/>
                                                     <outlet property="productNameLabel" destination="ubD-LN-g35" id="e7U-l8-JlF"/>
                                                     <outlet property="productPriceLabel" destination="Zqn-VD-IBy" id="tXx-CY-bdY"/>
-                                                    <outlet property="quantitytPickerTextField" destination="oaj-U1-vvg" id="6fr-cf-bfc"/>
+                                                    <outlet property="quantityPickerTextField" destination="oaj-U1-vvg" id="Utz-Wt-gPE"/>
                                                     <outlet property="sizePickerTextField" destination="zvP-I8-MBl" id="I3V-JM-sjr"/>
                                                     <segue destination="UJP-CD-4Dg" kind="show" identifier="toProduct" id="6Qj-mO-JFd"/>
                                                 </connections>
@@ -3553,7 +3555,7 @@
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="1183" y="1851"/>
+            <point key="canvasLocation" x="1182.608695652174" y="1850.5580357142856"/>
         </scene>
         <!--Адресная книга-->
         <scene sceneID="0JS-ou-bc3">
@@ -4876,7 +4878,7 @@
     </designables>
     <inferredMetricsTieBreakers>
         <segue reference="i82-LU-UUz"/>
-        <segue reference="h7J-nL-dBP"/>
+        <segue reference="6Qj-mO-JFd"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Arrow" width="17" height="8"/>

@@ -13,12 +13,12 @@ class FavoriteProductTableViewCell: UITableViewCell {
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var productPriceLabel: UILabel!
     @IBOutlet weak var sizePickerTextField: СustomUITextField!
-    @IBOutlet weak var addToBagButton: UIButton!
+    @IBOutlet weak var addToCartButton: UIButton!
     @IBOutlet weak var productImageView: UIImageView!
     @IBOutlet weak var detailsConstraint: NSLayoutConstraint!
     @IBOutlet weak var stackViewHeight: NSLayoutConstraint!
     
-    private var database: Database?
+    private var database = Database()
     var viewPicker = UIPickerView()
     var sizeKeys = [String : Int]()
     var sortedKeys = [String]()
@@ -37,7 +37,7 @@ class FavoriteProductTableViewCell: UITableViewCell {
         if pickerKeys.contains(favoriteProduct.size!) {
             sizePickerTextField.text = favoriteProduct.size
         } else {
-            addToBagButton.isHidden = true
+            addToCartButton.isHidden = true
             detailsConstraint.constant = 55
             stackViewHeight.constant = 95
         }
@@ -54,8 +54,7 @@ class FavoriteProductTableViewCell: UITableViewCell {
     @IBAction func addToCartButtonTapped(_ sender: Any) {
         let size = sizePickerTextField.text
         if size != "" {
-            database = Database()
-            database?.addUserProduct(collection: .cart, productReference: product.product!.reference, size: size)
+            database.addUserProduct(collection: .cart, productReference: product.product!.reference, size: size!)
         }
     }
     
@@ -97,7 +96,7 @@ extension FavoriteProductTableViewCell: UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         sizePickerTextField.text = sortedKeys[row]
-        addToBagButton.isHidden = false
+        addToCartButton.isHidden = false
         detailsConstraint.constant = 15
         stackViewHeight.constant = 135
     }
