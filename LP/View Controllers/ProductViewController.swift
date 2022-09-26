@@ -51,6 +51,10 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
            }
        }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.topItem?.title = " "
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,9 +64,7 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
             ExpandedModel(isExpanded: false, title: "Материал", text: "\(product.product!.details.material.map {"\($0): \($1)"}.joined(separator:"\n"))"),
             ExpandedModel(isExpanded: false, title: "Размерная сетка", text: "product.brand.sizechart")
         ]
-                        
-        self.navigationController?.navigationBar.topItem?.title = " "
-        self.navigationController?.navigationBar.standardAppearance.shadowImage = UIImage()
+    
         detailsTableView.register(SizeChartTableViewCell.nib(), forCellReuseIdentifier: "SizeChartTableViewCell")
         detailsTableView.rowHeight = UITableView.automaticDimension
         tableViewConfig()

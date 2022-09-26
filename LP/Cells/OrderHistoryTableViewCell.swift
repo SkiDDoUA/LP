@@ -23,7 +23,6 @@ class OrderHistoryTableViewCell: UITableViewCell {
         self.orderDateLabel.text = dateFormatter.string(from: orderProduct.createdAt)
         
         for (index, productUnit) in orderProduct.products.enumerated() {
-            print(index)
             switch index{
             case 0:
                 self.orderItemOneImageView.kf.setImage(with: URL(string: productUnit.product!.images[0]))
