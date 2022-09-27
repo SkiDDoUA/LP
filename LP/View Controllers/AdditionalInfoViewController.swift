@@ -41,8 +41,8 @@ class AdditionalInfoViewController: UIViewController, UITextFieldDelegate {
         brandPickerTextField.inputView = viewPicker
         brandPickerTextField.setEditActions(only: [])
         birthdayDatePickerTextField.setEditActions(only: [])
-        self.brandPickerTextField.setInputViewPicker(target: self, selector: #selector(tapDoneViewPicker))
-        self.birthdayDatePickerTextField.setInputViewPicker(target: self, selector: #selector(tapDoneDatePicker), type: "date")
+        brandPickerTextField.setInputViewPicker(target: self, selector: #selector(tapDoneViewPicker))
+        birthdayDatePickerTextField.setInputViewPicker(target: self, selector: #selector(tapDoneDatePicker), type: "date")
         if let row = brandData.firstIndex(of: selectedBrand) {
             viewPicker.selectRow(row, inComponent: 0, animated: false)
         }

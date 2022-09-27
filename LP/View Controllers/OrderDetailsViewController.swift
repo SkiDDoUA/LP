@@ -17,14 +17,15 @@ class OrderDetailsViewController: UIViewController {
     var order: Order!
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationItem.title = "Детали заказа"
+        navigationItem.title = "Детали заказа"
+        navigationController?.navigationBar.topItem?.title = " "
+        navigationController?.addBottomLine()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.topItem?.title = " "
-        self.productsTableView.delegate = self
-        self.productsTableView.dataSource = self
+        productsTableView.delegate = self
+        productsTableView.dataSource = self
         
         var deliveryType = "Доставка в отделение Новой почтой"
         var deliveryAddress = ""

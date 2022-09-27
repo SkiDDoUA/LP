@@ -27,12 +27,12 @@ class FavoritesTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationItem.title = "Избранное"
+        navigationItem.title = "Избранное"
+        navigationController?.addBottomLine()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.topItem?.title = " "
         configureTapGesture()
         getFavorites()
     }

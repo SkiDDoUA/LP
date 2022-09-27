@@ -53,7 +53,7 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.topItem?.title = " "
+        navigationController?.transparentNav()
     }
 
     override func viewDidLoad() {
@@ -69,7 +69,6 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
         detailsTableView.rowHeight = UITableView.automaticDimension
         tableViewConfig()
         configureTapGesture()
-        
                 
         pageViewControl.numberOfPages = self.product.product!.images.count
         viewPicker.dataSource = self
@@ -77,7 +76,7 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
         viewPicker.backgroundColor = UIColor.systemBackground
         sizePickerTextField.inputView = viewPicker
         sizePickerTextField.setEditActions(only: [])
-        self.sizePickerTextField.setInputViewPicker(target: self, selector: #selector(tapDoneViewPicker))
+        sizePickerTextField.setInputViewPicker(target: self, selector: #selector(tapDoneViewPicker))
         
         DispatchQueue.main.async {
             self.productBrandLabel.text = self.product.product!.brand.name.uppercased()

@@ -49,13 +49,13 @@ class AddressBookViewController: UIViewController {
      }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationItem.title = "Адресная книга"
+        navigationItem.title = "Адресная книга"
+        navigationController?.navigationBar.topItem?.title = " "
+        navigationController?.addBottomLine()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.topItem?.title = " "
-//        database = Database()
         configureTapGesture()
     }
     

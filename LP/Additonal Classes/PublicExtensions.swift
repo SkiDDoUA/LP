@@ -11,7 +11,6 @@ class Extensions {
     
 }
 
-//        self.navigationController?.navigationBar.standardAppearance.shadowImage = UIColor(named: "Light GreyLP")?.as1ptImage()
 public extension UIColor {
     /// Converts this `UIColor` instance to a 1x1 `UIImage` instance and returns it.
     /// - Returns: `self` as a 1x1 `UIImage`.
@@ -22,5 +21,26 @@ public extension UIColor {
         let image = UIGraphicsGetImageFromCurrentImageContext() ?? UIImage()
         UIGraphicsEndImageContext()
         return image
+    }
+}
+
+public extension UINavigationController {
+    func transparentNav() {
+        self.navigationBar.topItem?.title = " "
+        self.navigationBar.isTranslucent = true
+        self.navigationBar.backgroundColor = .clear
+        self.navigationBar.standardAppearance.shadowColor = .clear
+        self.navigationBar.standardAppearance.backgroundColor = .clear
+        self.navigationBar.standardAppearance.backgroundEffect = nil
+        self.navigationBar.standardAppearance.shadowImage = UIColor.clear.as1ptImage()
+        self.navigationBar.scrollEdgeAppearance?.shadowColor = .clear
+        self.navigationBar.scrollEdgeAppearance?.backgroundColor = .clear
+        self.navigationBar.scrollEdgeAppearance?.backgroundEffect = nil
+        self.navigationBar.layoutIfNeeded()
+    }
+    
+    func addBottomLine() {
+        self.navigationBar.standardAppearance.shadowImage = UIColor(named: "Light GreyLP")?.as1ptImage()
+        self.navigationBar.layoutIfNeeded()
     }
 }

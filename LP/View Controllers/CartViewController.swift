@@ -86,8 +86,8 @@ class CartViewController: UIViewController, MaskedTextFieldDelegateListener {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationItem.title = "Корзина"
-        self.navigationController?.navigationBar.standardAppearance.shadowImage = UIColor(named: "Light GreyLP")?.as1ptImage()
+        navigationItem.title = "Корзина"
+        navigationController?.addBottomLine()
         getCart()
     }
 

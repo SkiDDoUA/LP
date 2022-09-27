@@ -54,7 +54,7 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegateFlowLayo
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationItem.title = titleString
+        navigationItem.title = titleString
         loadData()
     }
     

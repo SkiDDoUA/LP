@@ -604,7 +604,15 @@ PODS:
     - BoringSSL-GRPC/Interface (= 0.0.24)
   - BoringSSL-GRPC/Interface (0.0.24)
   - CryptoSwift (1.5.1)
+  - DeviceKit (4.7.0)
   - DLRadioButton (1.4.12)
+  - EachNavigationBar (1.16.1)
+  - EFFoundation/Core (1.4.12)
+  - EFFoundation/Device (1.4.12):
+    - DeviceKit (>= 4.2.1)
+    - EFFoundation/Core
+  - EFNavigationBar (5.2.4):
+    - EFFoundation/Device (>= 1.4.9)
   - Firebase/Analytics (9.3.0):
     - Firebase/Core
   - Firebase/Auth (9.3.0):
@@ -789,11 +797,14 @@ PODS:
     - ValidationToolkit (~> 0.4.1)
   - ValidationToolkit (0.4.1)
   - WMSegmentControl (2.3)
+  - WXNavigationBar (2.3.6)
 
 DEPENDENCIES:
   - AEOTPTextField
   - CryptoSwift
   - DLRadioButton (~> 1.4)
+  - EachNavigationBar
+  - EFNavigationBar
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Firestore
@@ -804,6 +815,7 @@ DEPENDENCIES:
   - RangeSeekSlider
   - ValidationComponents
   - WMSegmentControl
+  - WXNavigationBar
 
 SPEC REPOS:
   trunk:
@@ -811,7 +823,11 @@ SPEC REPOS:
     - AEOTPTextField
     - BoringSSL-GRPC
     - CryptoSwift
+    - DeviceKit
     - DLRadioButton
+    - EachNavigationBar
+    - EFFoundation
+    - EFNavigationBar
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -838,13 +854,18 @@ SPEC REPOS:
     - ValidationComponents
     - ValidationToolkit
     - WMSegmentControl
+    - WXNavigationBar
 
 SPEC CHECKSUMS:
   abseil: ebe5b5529fb05d93a8bdb7951607be08b7fa71bc
   AEOTPTextField: b66c25fdb83526083cddbb1a7f899e07ce970838
   BoringSSL-GRPC: 3175b25143e648463a56daeaaa499c6cb86dad33
   CryptoSwift: c4f2debceb38bf44c80659afe009f71e23e4a082
+  DeviceKit: c870c34f7c0e0ac4caa6f052e6efe7ef1472c5a1
   DLRadioButton: d7c4e225ed0e8013cef7be61455230c7557ad7c1
+  EachNavigationBar: c72c02b22bcc84ae999f0c86ae7cd83dc88c0ee4
+  EFFoundation: 1928fa7598bd715cce6af3a21e73e3d85b2e389f
+  EFNavigationBar: ea8fee5db699c08b75c1b3593de2796960664728
   Firebase: ef75abb1cdbc746d5a38f4e26c422c807b189b8c
   FirebaseAnalytics: bf46f5163f44097ce2c789de0b3e6f87f1da834a
   FirebaseAuth: 9ebc3577fe0acf9092df21ac314024b70aebf21e
@@ -871,7 +892,8 @@ SPEC CHECKSUMS:
   ValidationComponents: fad1f9e9d7fbf3e10c893c880ef9d27627e90382
   ValidationToolkit: ce8e9c1a5d49eddc3266a009d46df5ea22042dbc
   WMSegmentControl: 15120246d0fdbb7530d7fa03e90c3ec6f4fa85bd
+  WXNavigationBar: aa1ceebac517b0720ba6115ef3e13e246d105b42
 
-PODFILE CHECKSUM: 0f1164eaaa3cf25f57b37ee537e0974ae0f63863
+PODFILE CHECKSUM: 7caebd90dce59f64b77db64cccbf12dde692bb8d
 
 COCOAPODS: 1.11.3

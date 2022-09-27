@@ -13,7 +13,8 @@ class AccountTableViewController: UITableViewController {
     var user: User?
 
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationItem.title = "Аккаунт"
+        navigationItem.title = "Аккаунт"
+        navigationController?.addBottomLine()
         loadData()
     }
 

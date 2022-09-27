@@ -42,12 +42,13 @@ class PersonalInfoViewController: UIViewController, UITextFieldDelegate {
      }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationItem.title = "Личная информация"
+        navigationItem.title = "Личная информация"
+        navigationController?.navigationBar.topItem?.title = " "
+        navigationController?.addBottomLine()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.topItem?.title = " "
         configureTapGesture()
         
         brandData = ["Отсутствует", "Adidas", "Nike", "Balenciaga", "Kith"]
@@ -59,8 +60,8 @@ class PersonalInfoViewController: UIViewController, UITextFieldDelegate {
         brandPickerTextField.inputView = viewPicker
         brandPickerTextField.setEditActions(only: [])
         birthdayDatePickerTextField.setEditActions(only: [])
-        self.brandPickerTextField.setInputViewPicker(target: self, selector: #selector(tapDoneViewPicker))
-        self.birthdayDatePickerTextField.setInputViewPicker(target: self, selector: #selector(tapDoneDatePicker), type: "date")
+        brandPickerTextField.setInputViewPicker(target: self, selector: #selector(tapDoneViewPicker))
+        birthdayDatePickerTextField.setInputViewPicker(target: self, selector: #selector(tapDoneDatePicker), type: "date")
     }
     
     @IBAction func saveChangesButtonTapped(_ sender: Any) {

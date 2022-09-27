@@ -33,7 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       navigationBarAppearance.shadowImage = UIColor(named: "Light GreyLP")?.as1ptImage()
       UINavigationBar.appearance().standardAppearance = navigationBarAppearance
       UINavigationBar.appearance().compactAppearance = navigationBarAppearance
-//      UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
     return true
   }
 }

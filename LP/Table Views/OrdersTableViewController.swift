@@ -28,12 +28,13 @@ class OrdersTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationItem.title = "Мои заказы"
+        navigationItem.title = "Мои заказы"
+        navigationController?.navigationBar.topItem?.title = " "
+        navigationController?.addBottomLine()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.topItem?.title = " "
         getOrders()
     }
 
