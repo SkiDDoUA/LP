@@ -9,7 +9,6 @@ import UIKit
 import WMSegmentControl
 
 class ShoppingViewController: UIViewController, UICollectionViewDelegateFlowLayout {
-    
     @IBOutlet weak var productCollectionView: UICollectionView!
     @IBOutlet weak var availabilitySegmentedControl: WMSegment!
     @IBOutlet weak var productCollectionViewHeightConstraint: NSLayoutConstraint!
@@ -27,7 +26,6 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegateFlowLayo
     var products = [UserProduct]() {
        didSet {
            DispatchQueue.main.async {
-               self.products = self.sortProducts(productsP: self.products)
                self.productCollectionView.reloadData()
            }
        }
@@ -55,7 +53,6 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegateFlowLayo
     
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.title = titleString
-        loadData()
     }
     
     //MARK: - Setup Product Collection View Constraints
@@ -70,6 +67,7 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegateFlowLayo
         availabilitySegmentedControl.selectorType = .bottomBar
         availabilitySegmentedControl.SelectedFont = UIFont(name: "Helvetica", size: 14)!
         availabilitySegmentedControl.normalFont = UIFont(name: "Helvetica", size: 14)!
+        loadData()
     }
     
     //MARK: - Load Data From Database
@@ -166,5 +164,6 @@ extension ShoppingViewController: FilterDataDelegate {
 extension ShoppingViewController: SortDataDelegate {
     func returnSortData(sort: Sort) {
         sortStructure = sort
+        products = sortProducts(productsP: products)
     }
 }

@@ -55,11 +55,11 @@ class SortTableViewController: UITableViewController {
             sortStructure = Sort(sortType: .new)
             newButton.sendActions(for: .touchUpInside)
         case 2:
-            sortStructure = Sort(sortType: .lowprice)
-            lowpriceButton.sendActions(for: .touchUpInside)
-        default:
             sortStructure = Sort(sortType: .highprice)
             highpriceButton.sendActions(for: .touchUpInside)
+        default:
+            sortStructure = Sort(sortType: .lowprice)
+            lowpriceButton.sendActions(for: .touchUpInside)
         }
     }
     
