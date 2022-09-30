@@ -26,9 +26,8 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
     static var maxLengthSizechartToCell = Int()
     static var sizechartKeysToCell = [String]()
     private var database = Database()
+    var favoriteButtonChosen = Bool()
     var sortedKeys = [String]()
-    var favoriteButtonChoosen = false
-    var cartButtonChoosen = false
     var product: UserProduct!
     var viewPicker = UIPickerView()
     let headerID = String(describing: CustomHeaderView.self)
@@ -82,13 +81,13 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
             self.productBrandLabel.text = self.product.product!.brand.name.uppercased()
             self.productNameLabel.text = self.product.product!.name
             self.productPriceLabel.text = "₴\(self.product.product!.price.description)"
-//            self.favoriteButtonChoosen = self.product.isFavorite!
-//
-//            if self.favoriteButtonChoosen == true {
-//                self.favoriteButton.setImage(UIImage(named: "Favorite Filled"), for: .normal)
-//            } else {
-//                self.favoriteButton.setImage(UIImage(named: "Favorite"), for: .normal)
-//            }
+            self.favoriteButtonChosen = self.product.isFavorite ?? false
+
+            if self.favoriteButtonChosen == true {
+                self.favoriteButton.setImage(UIImage(named: "Favorite Filled"), for: .normal)
+            } else {
+                self.favoriteButton.setImage(UIImage(named: "Favorite"), for: .normal)
+            }
         }
         
         loadSizechart()
@@ -113,14 +112,14 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
     
     //MARK: - Add To Favorite
     @IBAction func addToFavoriteButtonTapped(_ sender: Any) {
-        favoriteButtonChoosen = !favoriteButtonChoosen
-
-        if favoriteButtonChoosen == true {
-            database.addUserProduct(collection: .favorites, productReference: product.product!.reference, size: sizePickerTextField.text)
+        if !favoriteButtonChosen == true {
+            favoriteButtonChosen = true
             favoriteButton.setImage(UIImage(named: "Favorite Filled"), for: .normal)
+            database.addUserProduct(collection: .favorites, productReference: product.product!.reference, size: sizePickerTextField.text)
         } else {
-            database.removeUserProduct(collection: .favorites, productReference: product.product!.reference)
+            favoriteButtonChosen = false
             favoriteButton.setImage(UIImage(named: "Favorite"), for: .normal)
+            database.removeUserProduct(collection: .favorites, productReference: product.product!.reference)
         }
     }
     

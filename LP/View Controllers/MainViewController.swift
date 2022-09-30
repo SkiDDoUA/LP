@@ -10,7 +10,6 @@ import FirebaseAuth
 import FirebaseFirestore
 
 class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
-//    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var sliderCollectionView: UICollectionView!
     @IBOutlet weak var productCollectionView: UICollectionView!
     @IBOutlet weak var pageViewControl: UIPageControl!
@@ -78,16 +77,8 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     
     //MARK: - Load Data From Database
     func loadData() {
-        database.getProducts(availabilityCollection: availabilityCollectionType ?? .stock, productCollection: productCollectionType ?? .pants) { products in
+        database.getProductsWithFavorites(availabilityCollection: availabilityCollectionType ?? .stock, productCollection: productCollectionType ?? .pants) { products in
             self.allproducts = products
-        }
-        
-        database.getUserProducts(collection: .favorites) { favorites in
-            for favorite in favorites {
-                if let index = self.products.firstIndex(where: { $0.product!.reference.documentID == favorite.reference?.documentID }) {
-                    self.products[index].isFavorite = true
-                }
-            }
         }
     }
     
