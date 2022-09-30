@@ -33,7 +33,12 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegateFlowLayo
     private var allproducts = [UserProduct]() {
        didSet {
            DispatchQueue.main.async {
-               self.products = self.allproducts
+               let goodFilters = self.filterStructuresArray.compactMap{$0}
+               if !goodFilters.isEmpty {
+                   self.products = FilterTableViewController().filterProducts(productsP: self.allproducts, filters: goodFilters)
+               } else {
+                   self.products = self.allproducts
+               }
            }
        }
     }
@@ -110,6 +115,8 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegateFlowLayo
         } else {
             availabilityCollectionType = .order
         }
+        sortStructure = nil
+        filterStructuresArray = []
         loadData()
     }
     
@@ -155,8 +162,8 @@ extension ShoppingViewController: UICollectionViewDataSource {
 // MARK: - FilterDataDelegate
 extension ShoppingViewController: FilterDataDelegate {
     func returnFilterData(filterArray: [ProductFilter?], filteredProducts: [UserProduct]) {
-        products = filteredProducts
         filterStructuresArray = filterArray
+        products = filteredProducts
     }
 }
 

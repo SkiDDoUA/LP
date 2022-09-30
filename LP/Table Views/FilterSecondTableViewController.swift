@@ -14,9 +14,8 @@ protocol FilterChosenDelegate: AnyObject {
 }
 
 class FilterSecondTableViewController: UITableViewController {
-    
-    var chosenFilters = [String]()
     weak var delegate: FilterChosenDelegate?
+    var chosenFilters = [String]()
     var filterStructure: ProductFilter?
     var filterStructuresArray = [ProductFilter?]()
     var products = [UserProduct]()
