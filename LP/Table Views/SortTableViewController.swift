@@ -17,10 +17,10 @@ class SortTableViewController: UITableViewController {
     
     @IBOutlet weak var recommendationButton: DLRadioButton!
     @IBOutlet weak var newButton: DLRadioButton!
-    @IBOutlet weak var lowpriceButton: DLRadioButton!
-    @IBOutlet weak var highpriceButton: DLRadioButton!
-    var sortStructure = Sort(sortType: .recommendation)
+    @IBOutlet weak var ascendingPriceButton: DLRadioButton!
+    @IBOutlet weak var descendingPriceButton: DLRadioButton!
     weak var delegate: SortDataDelegate?
+    var sortStructure = Sort(sortType: .recommendation)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,10 +32,10 @@ class SortTableViewController: UITableViewController {
             recommendationButton.isSelected = true
         case .new:
             newButton.isSelected = true
-        case .lowprice:
-            lowpriceButton.isSelected = true
+        case .ascending:
+            ascendingPriceButton.isSelected = true
         default:
-            highpriceButton.isSelected = true
+            descendingPriceButton.isSelected = true
         }
     }
     
@@ -55,11 +55,11 @@ class SortTableViewController: UITableViewController {
             sortStructure = Sort(sortType: .new)
             newButton.sendActions(for: .touchUpInside)
         case 2:
-            sortStructure = Sort(sortType: .highprice)
-            highpriceButton.sendActions(for: .touchUpInside)
+            sortStructure = Sort(sortType: .ascending)
+            ascendingPriceButton.sendActions(for: .touchUpInside)
         default:
-            sortStructure = Sort(sortType: .lowprice)
-            lowpriceButton.sendActions(for: .touchUpInside)
+            sortStructure = Sort(sortType: .descending)
+            descendingPriceButton.sendActions(for: .touchUpInside)
         }
     }
     

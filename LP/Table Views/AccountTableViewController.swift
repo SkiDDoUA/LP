@@ -12,15 +12,16 @@ class AccountTableViewController: UITableViewController {
     private var database: Database?
     var user: User?
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.title = "Аккаунт"
         navigationController?.addBottomLine()
         loadData()
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
     
     //MARK: - Load Data From Database
     func loadData() {
@@ -47,9 +48,10 @@ class AccountTableViewController: UITableViewController {
         sectionHeaderLabel.textColor = UIColor(named: "BlackLP")
         sectionHeaderLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18.0)
         sectionHeaderLabel.frame = CGRect(x: 14, y: 10, width: 250, height: 20)
+        
         switch section {
         case 0:
-            sectionHeaderLabel.frame = CGRect(x: 14, y: 20, width: 250, height: 20)
+            sectionHeaderLabel.frame = CGRect(x: 14, y: 15, width: 250, height: 20)
             sectionHeaderLabel.text =  "Личный кабинет"
         case 1:
             sectionHeaderLabel.text =  "Настройки"
@@ -64,7 +66,7 @@ class AccountTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
         case 0:
-            return 40.0
+            return 35.0
         case 1:
             return 30.0
         default:

@@ -13,14 +13,7 @@ class OrderDetailsViewController: UIViewController {
     @IBOutlet weak var orderContactInfoLabel: UILabel!
     @IBOutlet weak var clothingPriceLabel: UILabel!
     @IBOutlet weak var orderTotalPriceLabel: UILabel!
-    
     var order: Order!
-    
-    override func viewWillAppear(_ animated: Bool) {
-        navigationItem.title = "Детали заказа"
-        navigationController?.navigationBar.topItem?.title = " "
-        navigationController?.addBottomLine()
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +32,12 @@ class OrderDetailsViewController: UIViewController {
         orderContactInfoLabel.text = "\(deliveryType)\n\(deliveryAddress)\n\(order.deliveryInfo!.firstName) \(order.deliveryInfo!.lastName) \(order.deliveryInfo!.patronymic) \n\(order.deliveryInfo!.phone)"
         clothingPriceLabel.text = "₴\(order.clothingPrice)\n₴\(order.deliveryPrice)\n₴\(order.promocodeDiscountPrice)"
         orderTotalPriceLabel.text = "₴\(order.totalPrice)"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationItem.title = "Детали заказа"
+        navigationController?.navigationBar.topItem?.title = " "
+        navigationController?.addBottomLine()
     }
 }
 

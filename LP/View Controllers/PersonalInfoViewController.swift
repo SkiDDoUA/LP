@@ -40,12 +40,6 @@ class PersonalInfoViewController: UIViewController, UITextFieldDelegate {
             }
         }
      }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        navigationItem.title = "Личная информация"
-        navigationController?.navigationBar.topItem?.title = " "
-        navigationController?.addBottomLine()
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +56,12 @@ class PersonalInfoViewController: UIViewController, UITextFieldDelegate {
         birthdayDatePickerTextField.setEditActions(only: [])
         brandPickerTextField.setInputViewPicker(target: self, selector: #selector(tapDoneViewPicker))
         birthdayDatePickerTextField.setInputViewPicker(target: self, selector: #selector(tapDoneDatePicker), type: "date")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationItem.title = "Личная информация"
+        navigationController?.navigationBar.topItem?.title = " "
+        navigationController?.addBottomLine()
     }
     
     @IBAction func saveChangesButtonTapped(_ sender: Any) {

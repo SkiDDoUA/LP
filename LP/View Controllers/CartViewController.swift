@@ -85,12 +85,6 @@ class CartViewController: UIViewController, MaskedTextFieldDelegateListener {
        }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        navigationItem.title = "Корзина"
-        navigationController?.addBottomLine()
-        getCart()
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTapGesture()
@@ -101,6 +95,12 @@ class CartViewController: UIViewController, MaskedTextFieldDelegateListener {
         viewHeightConstraint?.isActive = true
         expandableView.isHidden = true
         expandableViewBottomConstraint.constant = 0.0
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationItem.title = "Корзина"
+        navigationController?.addBottomLine()
+        getCart()
     }
     
     func getCart() {

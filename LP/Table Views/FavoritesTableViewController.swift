@@ -26,15 +26,15 @@ class FavoritesTableViewController: UITableViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        navigationItem.title = "Избранное"
-        navigationController?.addBottomLine()
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTapGesture()
         getFavorites()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationItem.title = "Избранное"
+        navigationController?.addBottomLine()
     }
 
     // MARK: - Table view data source

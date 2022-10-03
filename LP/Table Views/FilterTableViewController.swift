@@ -64,14 +64,15 @@ class FilterTableViewController: UITableViewController {
         return productFiltered
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationItem.title = "Фильтр"
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.topItem?.title = " "
         addResultButtonView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationItem.title = "Фильтр"
+        navigationController?.addBottomLine()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

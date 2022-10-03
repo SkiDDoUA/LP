@@ -23,20 +23,21 @@ class FilterSecondTableViewController: UITableViewController {
     var minPrice = String()
     var maxPrice = String()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationController?.navigationBar.topItem?.title = " "
+        addResultButtonView()
+        title = filterStructure?.filterType.details.title
+        tableView.register(CustomFilterTableViewCell.nib(), forCellReuseIdentifier: "PriceFilterCell")
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         if filterStructure?.isUsed ?? false {
             addClearButton()
         } else {
-            self.navigationItem.rightBarButtonItem = nil
+            navigationItem.rightBarButtonItem = nil
         }
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.navigationController?.navigationBar.topItem?.title = " "
-        addResultButtonView()
-        title = filterStructure?.filterType.details.title
-        self.tableView.register(CustomFilterTableViewCell.nib(), forCellReuseIdentifier: "PriceFilterCell")
+        navigationController?.addBottomLine()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -53,8 +54,8 @@ class FilterSecondTableViewController: UITableViewController {
             var min = CGFloat()
             var max = CGFloat()
             var priceArray = [String]()
+            
             filterStructure?.filterData.forEach{priceArray.append($0.filterString)}
-
             if filterStructure!.isUsed {
                 let minAndMax = filterStructure?.priceRange!.components(separatedBy: " - ")
                 min = CGFloat(Double(minAndMax![0]) ?? 0)
@@ -63,6 +64,7 @@ class FilterSecondTableViewController: UITableViewController {
                 min = CGFloat(Double(priceArray.min()!) ?? 0)
                 max = CGFloat(Double(priceArray.max()!) ?? 0)
             }
+            
             cell.priceSlider.minValue = CGFloat(Double(priceArray.min()!) ?? 0)
             cell.priceSlider.maxValue = CGFloat(Double(priceArray.max()!) ?? 0)
             cell.priceSlider.selectedMinValue = min
@@ -70,13 +72,15 @@ class FilterSecondTableViewController: UITableViewController {
             cell.priceSlider.maxDistance = max
             cell.priceSlider.delegate = self
             tableView.separatorStyle = .none
-            self.tableView.rowHeight = 75.0
+            tableView.rowHeight = 75.0
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "FilterSecondCell", for: indexPath)
             if let cell = cell as? FilterSecondTableViewCell {
                 cell.filterParameterTextLabel?.text = filterStructure?.filterData[indexPath.row].filterString
-                if filterStructure?.filterData[indexPath.row].isChosen == true {
+                if filterStructure?.filterData[indexPath.row].isChosen == false {
+                    cell.checkImageView.isHidden = true
+                } else {
                     cell.checkImageView.isHidden = false
                 }
             }
@@ -90,21 +94,19 @@ class FilterSecondTableViewController: UITableViewController {
             cell.selectionStyle = .none
         } else {
             let cell = tableView.cellForRow(at: indexPath) as! FilterSecondTableViewCell
-            if cell.checkImageView.isHidden {
-                filterStructure?.filterData[indexPath.row].isChosen = true
-                cell.checkImageView.isHidden = false
-            }
-            else {
+            if filterStructure?.filterData[indexPath.row].isChosen == true {
                 filterStructure?.filterData[indexPath.row].isChosen = false
                 cell.checkImageView.isHidden = true
-                self.navigationItem.rightBarButtonItem = nil
+            } else {
+                filterStructure?.filterData[indexPath.row].isChosen = true
+                cell.checkImageView.isHidden = false
             }
         }
 
         if filterStructure?.isUsed ?? false {
             addClearButton()
         } else {
-            self.navigationItem.rightBarButtonItem = nil
+            navigationItem.rightBarButtonItem = nil
         }
     }
     
@@ -132,8 +134,8 @@ class FilterSecondTableViewController: UITableViewController {
                 filter.isChosen = false
             }
         }
-        self.navigationItem.rightBarButtonItem = nil
-        tableView.reloadRows(at: self.tableView.indexPathsForVisibleRows!, with: .none) // FIX
+        navigationItem.rightBarButtonItem = nil
+        tableView.reloadRows(at: self.tableView.indexPathsForVisibleRows!, with: .none)
     }
     
     // MARK: - Parse Chosen Filters
@@ -166,7 +168,7 @@ class FilterSecondTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return CGFloat.leastNormalMagnitude
+        return 50.0
     }
     
     public func addResultButtonView() {

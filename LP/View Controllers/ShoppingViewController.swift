@@ -47,32 +47,33 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegateFlowLayo
         switch self.sortStructure?.sortType {
         case .recommendation:
             return productsP.sorted(by: {$0.product!.details.size.count > $1.product!.details.size.count})
-        case .lowprice:
+        case .ascending:
             return productsP.sorted(by: {$0.product!.price < $1.product!.price})
-        case .highprice:
+        case .descending:
             return productsP.sorted(by: {$0.product!.price > $1.product!.price})
         default:
             return productsP
         }
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationController?.navigationBar.topItem?.title = " "
+        availabilitySegmentedControl.selectorType = .bottomBar
+        availabilitySegmentedControl.SelectedFont = UIFont(name: "Helvetica", size: 14)!
+        availabilitySegmentedControl.normalFont = UIFont(name: "Helvetica", size: 14)!
+        loadData()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.title = titleString
+        navigationController?.addBottomLine()
     }
     
     //MARK: - Setup Product Collection View Constraints
     override func viewDidAppear(_ animated: Bool) {
         productCollectionViewHeightConstraint.constant = productCollectionView.contentSize.height
         productCollectionViewConstraint.constant = 35
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.navigationController?.navigationBar.topItem?.title = " "
-        availabilitySegmentedControl.selectorType = .bottomBar
-        availabilitySegmentedControl.SelectedFont = UIFont(name: "Helvetica", size: 14)!
-        availabilitySegmentedControl.normalFont = UIFont(name: "Helvetica", size: 14)!
-        loadData()
     }
     
     //MARK: - Load Data From Database

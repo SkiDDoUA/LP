@@ -1312,7 +1312,7 @@
                             </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Iwt-uP-wrE"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="WhiteLP"/>
                         <constraints>
                             <constraint firstItem="4Yw-Dz-wBj" firstAttribute="top" secondItem="Iwt-uP-wrE" secondAttribute="top" id="7KI-nX-rEZ"/>
                             <constraint firstItem="4Yw-Dz-wBj" firstAttribute="trailing" secondItem="Iwt-uP-wrE" secondAttribute="trailing" id="Ao9-Il-ktN"/>
@@ -1541,8 +1541,8 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="7SG-Bf-MIY"/>
                     <connections>
-                        <outlet property="highpriceButton" destination="b9K-w8-7og" id="kFh-54-16F"/>
-                        <outlet property="lowpriceButton" destination="yah-CI-NKA" id="WjW-Yt-X17"/>
+                        <outlet property="ascendingPriceButton" destination="yah-CI-NKA" id="k8G-iH-u2Z"/>
+                        <outlet property="descendingPriceButton" destination="b9K-w8-7og" id="O7c-oI-GlO"/>
                         <outlet property="newButton" destination="GQD-SK-LM8" id="gZX-Fr-yc2"/>
                         <outlet property="recommendationButton" destination="37w-0p-bKg" id="DJV-sS-XJP"/>
                         <segue destination="cVK-Ul-AbG" kind="unwind" identifier="unwindToShopping" unwindAction="unwindToShopping:" id="1LE-Ke-Awh"/>
@@ -1551,7 +1551,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NLg-lM-kMC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="cVK-Ul-AbG" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-478" y="3273"/>
+            <point key="canvasLocation" x="-441" y="3273"/>
         </scene>
         <!--Filter Table View Controller-->
         <scene sceneID="hEe-Np-ZNy">
@@ -1611,7 +1611,7 @@
                                 <connections>
                                     <outlet property="filterNameLabel" destination="dqY-CN-5IT" id="yDH-xM-noa"/>
                                     <outlet property="filtersLabel" destination="Iqn-EY-xAR" id="Gmr-ay-nuC"/>
-                                    <segue destination="bQv-2k-F44" kind="show" identifier="toSecondFilter" id="2kQ-CA-dUw"/>
+                                    <segue destination="bQv-2k-F44" kind="show" identifier="toSecondFilter" id="Dlr-FL-8w8"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1629,7 +1629,7 @@
                 <exit id="efz-sC-Ky7" userLabel="Exit" sceneMemberID="exit"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hiz-4y-dHm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="371" y="3273"/>
+            <point key="canvasLocation" x="390" y="3273"/>
         </scene>
         <!--Item-->
         <scene sceneID="Jax-hY-pRs">
@@ -1946,7 +1946,7 @@
         <scene sceneID="m8Q-GZ-55G">
             <objects>
                 <tableViewController id="bQv-2k-F44" customClass="FilterSecondTableViewController" customModule="LP" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="99K-QI-gYB">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="99K-QI-gYB">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="WhiteLP"/>
@@ -2004,7 +2004,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wBM-Mj-U4I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="370" y="4013"/>
+            <point key="canvasLocation" x="390" y="4013"/>
         </scene>
         <!--Аккаунт-->
         <scene sceneID="FJs-zw-VBY">
@@ -2559,7 +2559,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" separatorInsetReference="fromAutomaticInsets" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="95z-Rl-qRT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="WhiteLP"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="favoriteCell" rowHeight="160" id="JQI-a2-ckp" customClass="FavoriteProductTableViewCell" customModule="LP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="50" width="414" height="160"/>
@@ -4750,7 +4750,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" separatorInsetReference="fromAutomaticInsets" rowHeight="200" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="n1H-G6-it2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="WhiteLP"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="orderHistoryCell" rowHeight="200" id="WFd-5w-TnM" customClass="OrderHistoryTableViewCell" customModule="LP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="50" width="414" height="200"/>
@@ -4879,7 +4879,7 @@
     </designables>
     <inferredMetricsTieBreakers>
         <segue reference="i82-LU-UUz"/>
-        <segue reference="6Qj-mO-JFd"/>
+        <segue reference="h7J-nL-dBP"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Arrow" width="17" height="8"/>

@@ -27,15 +27,15 @@ class OrdersTableViewController: UITableViewController {
         }
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        getOrders()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.title = "Мои заказы"
         navigationController?.navigationBar.topItem?.title = " "
         navigationController?.addBottomLine()
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        getOrders()
     }
 
     // MARK: - Table View Data Source

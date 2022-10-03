@@ -232,8 +232,8 @@ public struct Sort {
 public enum SortTypes {
     case recommendation
     case new
-    case lowprice
-    case highprice
+    case descending
+    case ascending
 }
 
 extension Encodable {
