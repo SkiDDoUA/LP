@@ -236,7 +236,7 @@ extension CartViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            database.removeUserProduct(collection: .cart, productReference: products[indexPath.row].reference!)
+            database.removeUserProduct(collection: .cart, product: products[indexPath.row])
             products.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }

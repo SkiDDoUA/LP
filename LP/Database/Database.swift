@@ -123,14 +123,23 @@ class Database {
         }
     }
     
-    func addUserProduct(collection: userProductsCollectionTypes, productReference: DocumentReference, size: String? = nil, quantity: Int? = 1) {
-        let docRef = db.collection("users").document(userID).collection("\(collection)").document(productReference.documentID)
-        docRef.setData(["reference": db.document(productReference.path), "size": size as Any, "quantity": quantity as Any])
+    func addUserProduct(collection: userProductsCollectionTypes, product: UserProduct, size: String? = nil, quantity: Int? = 1) {
+        if collection == .cart {
+            let docRef = db.collection("users").document(userID).collection("\(collection)").document()
+            docRef.setData(["reference": db.document(product.product!.reference.path), "cartProductID": docRef.documentID, "size": size as Any, "quantity": quantity as Any])
+        } else {
+            let docRef = db.collection("users").document(userID).collection("\(collection)").document(product.reference!.documentID)
+            docRef.setData(["reference": db.document(product.product!.reference.path), "size": size as Any, "quantity": quantity as Any])
+        }
     }
     
-    func removeUserProduct(collection: userProductsCollectionTypes, productReference: DocumentReference) {
+    func removeUserProduct(collection: userProductsCollectionTypes, product: UserProduct) {
         let docRef = db.collection("users").document(userID).collection("\(collection)")
-        docRef.document(productReference.documentID).delete()
+        if collection == .cart {
+            docRef.document(product.cartProductID!).delete()
+        } else {
+            docRef.document(product.product!.reference.documentID).delete()
+        }
     }
     
     func editUserProductCart(cartProduct: UserProduct, size: String, quantity: Int? = nil) {

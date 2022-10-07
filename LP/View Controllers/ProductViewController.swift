@@ -105,7 +105,7 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
         let size = sizePickerTextField.fieldValidation(label: sizeErrorLabel, ValidatorStructure: .field)
         
         if size != "" {
-            database.addUserProduct(collection: .cart, productReference: product.product!.reference, size: size)
+            database.addUserProduct(collection: .cart, product: product, size: size)
             self.navigationController?.popViewController(animated: true)
         }
     }
@@ -115,11 +115,11 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
         if !favoriteButtonChosen == true {
             favoriteButtonChosen = true
             favoriteButton.setImage(UIImage(named: "Favorite Filled"), for: .normal)
-            database.addUserProduct(collection: .favorites, productReference: product.product!.reference, size: sizePickerTextField.text)
+            database.addUserProduct(collection: .favorites, product: product, size: sizePickerTextField.text)
         } else {
             favoriteButtonChosen = false
             favoriteButton.setImage(UIImage(named: "Favorite"), for: .normal)
-            database.removeUserProduct(collection: .favorites, productReference: product.product!.reference)
+            database.removeUserProduct(collection: .favorites, product: product)
         }
     }
     

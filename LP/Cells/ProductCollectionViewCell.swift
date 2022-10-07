@@ -38,9 +38,9 @@ class ProductCollectionViewCell: UICollectionViewCell {
     //MARK: - Add To Favorite
     @IBAction func addToFavoriteButtonTapped(_ sender: Any) {
         if !userProduct.isFavorite! == true {
-            database.addUserProduct(collection: .favorites, productReference: userProduct.product!.reference, size: "")
+            database.addUserProduct(collection: .favorites, product: userProduct, size: "")
         } else {
-            database.removeUserProduct(collection: .favorites, productReference: userProduct.product!.reference)
+            database.removeUserProduct(collection: .favorites, product: userProduct)
         }
     }
 }

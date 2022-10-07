@@ -126,6 +126,7 @@ public struct UserProduct: Codable {
     var quantity: Int?
     var isFavorite: Bool?
     var product: Product?
+    var cartProductID: String?
 }
 
 // MARK: - Order Structure

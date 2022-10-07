@@ -54,7 +54,7 @@ class FavoriteProductTableViewCell: UITableViewCell {
     @IBAction func addToCartButtonTapped(_ sender: Any) {
         let size = sizePickerTextField.text
         if size != "" {
-            database.addUserProduct(collection: .cart, productReference: product.product!.reference, size: size!)
+            database.addUserProduct(collection: .cart, product: product, size: size!)
         }
     }
     
