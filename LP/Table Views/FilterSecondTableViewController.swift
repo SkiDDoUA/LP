@@ -37,7 +37,6 @@ class FilterSecondTableViewController: UITableViewController {
         } else {
             navigationItem.rightBarButtonItem = nil
         }
-        navigationController?.addBottomLine()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -135,7 +134,8 @@ class FilterSecondTableViewController: UITableViewController {
             }
         }
         navigationItem.rightBarButtonItem = nil
-        tableView.reloadRows(at: self.tableView.indexPathsForVisibleRows!, with: .none)
+        tableView.reloadRows(at: tableView.indexPathsForVisibleRows!, with: .none)
+        tableView.reloadData()
     }
     
     // MARK: - Parse Chosen Filters

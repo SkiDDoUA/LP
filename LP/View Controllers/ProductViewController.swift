@@ -50,10 +50,6 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
            }
        }
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        navigationController?.transparentNav()
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,6 +87,10 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
         }
         
         loadSizechart()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.transparentNav()
     }
     
     //MARK: - Load Data From Database

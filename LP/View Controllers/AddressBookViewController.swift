@@ -48,15 +48,15 @@ class AddressBookViewController: UIViewController {
         }
      }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureTapGesture()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.title = "Адресная книга"
         navigationController?.navigationBar.topItem?.title = " "
         navigationController?.addBottomLine()
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        configureTapGesture()
     }
     
     @IBAction func saveChangesButtonTapped(_ sender: Any) {

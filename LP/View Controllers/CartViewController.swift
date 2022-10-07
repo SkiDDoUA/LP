@@ -107,7 +107,6 @@ class CartViewController: UIViewController, MaskedTextFieldDelegateListener {
         database.getUserProducts(collection: .cart) {
             products in self.products = products;
         }
-        
         database.getUserDetails() { userData in self.user = userData }
     }
     

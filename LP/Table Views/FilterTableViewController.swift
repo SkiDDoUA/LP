@@ -72,7 +72,6 @@ class FilterTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationItem.title = "Фильтр"
-        navigationController?.addBottomLine()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

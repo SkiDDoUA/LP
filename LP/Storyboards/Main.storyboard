@@ -4859,22 +4859,22 @@
     </scenes>
     <designables>
         <designable name="37w-0p-bKg">
-            <size key="intrinsicContentSize" width="30" height="34"/>
+            <size key="intrinsicContentSize" width="16" height="22"/>
         </designable>
         <designable name="9Jy-td-98o">
-            <size key="intrinsicContentSize" width="111" height="26"/>
+            <size key="intrinsicContentSize" width="127" height="16"/>
         </designable>
         <designable name="GQD-SK-LM8">
-            <size key="intrinsicContentSize" width="30" height="34"/>
+            <size key="intrinsicContentSize" width="16" height="22"/>
         </designable>
         <designable name="b9K-w8-7og">
-            <size key="intrinsicContentSize" width="30" height="34"/>
+            <size key="intrinsicContentSize" width="16" height="22"/>
         </designable>
         <designable name="mMP-Zs-3Bx">
-            <size key="intrinsicContentSize" width="205" height="26"/>
+            <size key="intrinsicContentSize" width="221" height="16"/>
         </designable>
         <designable name="yah-CI-NKA">
-            <size key="intrinsicContentSize" width="30" height="34"/>
+            <size key="intrinsicContentSize" width="16" height="22"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
