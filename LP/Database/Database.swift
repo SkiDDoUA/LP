@@ -91,19 +91,19 @@ class Database {
                 return
             }
             if data != [] {
-                var favoriteProducts = [UserProduct]()
+                var productsArray = [UserProduct]()
                 for document in data {
                     var dataProduct = try? document.data(as: UserProduct.self)
-                    let docRef = self.db.document(dataProduct!.reference!.path)
+                    let docRefProduct = self.db.document(dataProduct!.reference!.path)
 
-                    docRef.addSnapshotListener { documentSnapshot, err in
-                        guard let dataFav = documentSnapshot else {
+                    docRefProduct.addSnapshotListener { documentSnapshot, err in
+                        guard let dataLocal = documentSnapshot else {
                             return
                         }
-                        dataProduct!.product = try? dataFav.data(as: Product.self)
-                        favoriteProducts.append(dataProduct!)
-                        if favoriteProducts.count == data.count {
-                            handler(favoriteProducts)
+                        dataProduct!.product = try? dataLocal.data(as: Product.self)
+                        productsArray.append(dataProduct!)
+                        if productsArray.count == data.count {
+                            handler(productsArray)
                         }
                     }
                 }
@@ -128,7 +128,7 @@ class Database {
             let docRef = db.collection("users").document(userID).collection("\(collection)").document()
             docRef.setData(["reference": db.document(product.product!.reference.path), "cartProductID": docRef.documentID, "size": size as Any, "quantity": quantity as Any])
         } else {
-            let docRef = db.collection("users").document(userID).collection("\(collection)").document(product.reference!.documentID)
+            let docRef = db.collection("users").document(userID).collection("\(collection)").document(product.product!.reference.documentID)
             docRef.setData(["reference": db.document(product.product!.reference.path), "size": size as Any, "quantity": quantity as Any])
         }
     }
@@ -143,7 +143,7 @@ class Database {
     }
     
     func editUserProductCart(cartProduct: UserProduct, size: String, quantity: Int? = nil) {
-        let docRef = db.collection("users").document(userID).collection("cart").document(cartProduct.reference!.documentID)
+        let docRef = db.collection("users").document(userID).collection("cart").document(cartProduct.cartProductID!)
         if quantity != nil {
             docRef.setData(["quantity": quantity!], merge: true)
         } else {
