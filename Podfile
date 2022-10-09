@@ -19,8 +19,8 @@ pod 'IQKeyboardManagerSwift'
 
 pod 'Firebase/Analytics'
 pod 'Firebase/Auth'
-pod 'Firebase/Firestore', '>= 0'
-pod 'FirebaseFirestoreSwift', '>= 0'
+pod 'Firebase/Firestore'
+pod 'FirebaseFirestoreSwift'
 
 
 end
