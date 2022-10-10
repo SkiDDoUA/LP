@@ -9,6 +9,7 @@ import UIKit
 
 class OrderHistoryTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var productAmountLabel: UILabel!
     @IBOutlet weak var orderStatusLabel: UILabel!
     @IBOutlet weak var orderDateLabel: UILabel!
     @IBOutlet weak var orderItemOneImageView: UIImageView!
@@ -16,20 +17,31 @@ class OrderHistoryTableViewCell: UITableViewCell {
     @IBOutlet weak var orderItemThreeImageView: UIImageView!
     
     func configure(for orderProduct: Order) {
-        self.orderStatusLabel.text = orderProduct.status.statusString
+        orderStatusLabel.text = orderProduct.status.statusString
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy"
-        self.orderDateLabel.text = dateFormatter.string(from: orderProduct.createdAt)
+        orderDateLabel.text = dateFormatter.string(from: orderProduct.createdAt)
         
+        let productsAmount = orderProduct.products.count
         for (index, productUnit) in orderProduct.products.enumerated() {
             switch index{
             case 0:
-                self.orderItemOneImageView.kf.setImage(with: URL(string: productUnit.product!.images[0]))
+                orderItemOneImageView.kf.setImage(with: URL(string: productUnit.product!.images[0]))
             case 1:
-                self.orderItemTwoImageView.kf.setImage(with: URL(string: productUnit.product!.images[0]))
+                orderItemTwoImageView.kf.setImage(with: URL(string: productUnit.product!.images[0]))
             case 2:
-                self.orderItemThreeImageView.kf.setImage(with: URL(string: productUnit.product!.images[0]))
+                orderItemThreeImageView.kf.setImage(with: URL(string: productUnit.product!.images[0]))
+                
+                if productsAmount > 3 {
+                    let greyOverlayView = UIView()
+                    greyOverlayView.frame = orderItemThreeImageView.bounds
+                    greyOverlayView.layer.compositingFilter = "multiplyBlendMode"
+                    greyOverlayView.backgroundColor = .darkGray
+                    orderItemThreeImageView.addSubview(greyOverlayView)
+                    productAmountLabel.text = "+\(productsAmount-3)"
+                    productAmountLabel.isHidden = false
+                }
             default:
                 return
             }
