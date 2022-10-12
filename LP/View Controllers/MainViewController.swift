@@ -32,6 +32,8 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     private let toProductIdentifier = "toProduct"
     private let toShoppingIdentifier = "toShopping"
     private var database = Database()
+    private let searchBar = UISearchBar()
+    
     var titleString = " "
     var productCollectionType: Database.productCollectionTypes?
     var availabilityCollectionType: Database.availabilityCollectionTypes?
@@ -52,14 +54,16 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
            }
        }
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        loadData()
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.standardAppearance.shadowImage = UIImage()
+        //MARK: - Setup Search
+        navigationItem.titleView = searchBar
+        searchBar.delegate = self
+        searchBar.setUpSearchBar()
+        searchBar.setCenteredPlaceHolder()
+
+        navigationController?.navigationBar.standardAppearance.shadowImage = UIImage()
 
         //MARK: - Setup Slider
         pageViewControl.numberOfPages = imageArray.count
@@ -67,6 +71,11 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
         DispatchQueue.main.async {
             self.timer = Timer.scheduledTimer(timeInterval: 4.0, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        searchBar.resignFirstResponder()
+        loadData()
     }
     
     //MARK: - Setup Product Collection View Constraints
@@ -155,38 +164,6 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     }
 }
 
-//MARK: - @IBDesignable For Button In Horizontal Menu
-@IBDesignable extension UIButton {
-    @IBInspectable var borderWidth: CGFloat {
-        set {
-            layer.borderWidth = newValue
-        }
-        get {
-            return layer.borderWidth
-        }
-    }
-
-    @IBInspectable var cornerRadius: CGFloat {
-        set {
-            layer.cornerRadius = newValue
-        }
-        get {
-            return layer.cornerRadius
-        }
-    }
-
-    @IBInspectable var borderColor: UIColor? {
-        set {
-            guard let uiColor = newValue else { return }
-            layer.borderColor = uiColor.cgColor
-        }
-        get {
-            guard let color = layer.borderColor else { return nil }
-            return UIColor(cgColor: color)
-        }
-    }
-}
-
 // MARK: - UICollectionViewDelegate
 extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -238,5 +215,44 @@ extension MainViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0.0
+    }
+}
+
+// MARK: - Search Bar Setup
+extension MainViewController: UISearchBarDelegate {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        self.show(SearchTableViewController(), sender: Any?.self)
+    }
+}
+
+//MARK: - @IBDesignable For Button In Horizontal Menu
+@IBDesignable extension UIButton {
+    @IBInspectable var borderWidth: CGFloat {
+        set {
+            layer.borderWidth = newValue
+        }
+        get {
+            return layer.borderWidth
+        }
+    }
+
+    @IBInspectable var cornerRadius: CGFloat {
+        set {
+            layer.cornerRadius = newValue
+        }
+        get {
+            return layer.cornerRadius
+        }
+    }
+
+    @IBInspectable var borderColor: UIColor? {
+        set {
+            guard let uiColor = newValue else { return }
+            layer.borderColor = uiColor.cgColor
+        }
+        get {
+            guard let color = layer.borderColor else { return nil }
+            return UIColor(cgColor: color)
+        }
     }
 }

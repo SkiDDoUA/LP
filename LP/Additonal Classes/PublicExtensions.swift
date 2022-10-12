@@ -44,3 +44,34 @@ public extension UINavigationController {
         self.navigationBar.layoutIfNeeded()
     }
 }
+
+public extension UISearchBar {
+    func setUpSearchBar() {
+        self.sizeToFit()
+        self.searchBarStyle = .default
+        self.tintColor = UIColor(named: "BlackLP")
+        self.barTintColor = UIColor(named: "BlackLP")
+        
+//        self.layer.cornerRadius = 20
+//        self.clipsToBounds = true
+
+        self.searchTextField.font = UIFont(name: "Helvetica", size: 14)
+        self.searchTextField.attributedPlaceholder =  NSAttributedString.init(string: "Поиск", attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "BlackLP")!])
+        
+        if let searchImage = self.searchTextField.leftView as? UIImageView {
+            searchImage.image = searchImage.image?.withRenderingMode(.alwaysTemplate)
+            searchImage.tintColor = UIColor(named: "BlackLP")
+        }
+    }
+    
+    func setCenteredPlaceHolder() {
+        let searchBarWidth = self.frame.width
+        let placeholderIconWidth = self.searchTextField.leftView?.frame.width
+        let placeHolderWidth = self.searchTextField.attributedPlaceholder?.size().width
+        let offsetIconToPlaceholder: CGFloat = 20
+        let placeHolderWithIcon = placeholderIconWidth! + offsetIconToPlaceholder
+        
+        let offset = UIOffset(horizontal: ((searchBarWidth / 2) - (placeHolderWidth! / 2) - placeHolderWithIcon), vertical: 0)
+        self.setPositionAdjustment(offset, for: .search)
+    }
+}

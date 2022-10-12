@@ -45,6 +45,7 @@
 		3AB4AB1928B2D3040007655D /* OrderDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB4AB1828B2D3040007655D /* OrderDetailsViewController.swift */; };
 		3AB4AB1B28B2D57B0007655D /* PersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB4AB1A28B2D57B0007655D /* PersonalInfoViewController.swift */; };
 		3AB4AB1F28B2D80D0007655D /* AddressBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB4AB1E28B2D80D0007655D /* AddressBookViewController.swift */; };
+		3AB69E8C28F6CF77009DB760 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB69E8B28F6CF77009DB760 /* SearchTableViewController.swift */; };
 		3AB7795E287078610017B1C5 /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB7795D287078610017B1C5 /* CartViewController.swift */; };
 		3AB94BBE28B7940E002F22CF /* OrdersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB94BBD28B7940E002F22CF /* OrdersTableViewController.swift */; };
 		3AC7ADB32795DFF20075187A /* CustomHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC7ADB22795DFF20075187A /* CustomHeaderView.swift */; };
@@ -122,6 +123,7 @@
 		3AB4AB1828B2D3040007655D /* OrderDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailsViewController.swift; sourceTree = "<group>"; };
 		3AB4AB1A28B2D57B0007655D /* PersonalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoViewController.swift; sourceTree = "<group>"; };
 		3AB4AB1E28B2D80D0007655D /* AddressBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookViewController.swift; sourceTree = "<group>"; };
+		3AB69E8B28F6CF77009DB760 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		3AB7795D287078610017B1C5 /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		3AB94BBD28B7940E002F22CF /* OrdersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersTableViewController.swift; sourceTree = "<group>"; };
 		3AC7ADB22795DFF20075187A /* CustomHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeaderView.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				3A0D2B7F284A291400EA1FF3 /* AccountTableViewController.swift */,
 				3AAF8FB92854BA4E0042C89B /* FavoritesTableViewController.swift */,
 				3AB94BBD28B7940E002F22CF /* OrdersTableViewController.swift */,
+				3AB69E8B28F6CF77009DB760 /* SearchTableViewController.swift */,
 			);
 			path = "Table Views";
 			sourceTree = "<group>";
@@ -529,6 +532,7 @@
 				3A20675D27BFC2D800D88038 /* FilterTableViewController.swift in Sources */,
 				3A82E59426C55526001762DC /* FirstScreenViewController.swift in Sources */,
 				3A2D300627B2BAB800F1E09E /* SizeChartTableViewCell.swift in Sources */,
+				3AB69E8C28F6CF77009DB760 /* SearchTableViewController.swift in Sources */,
 				3AB94BBE28B7940E002F22CF /* OrdersTableViewController.swift in Sources */,
 				3AB4AB1F28B2D80D0007655D /* AddressBookViewController.swift in Sources */,
 				3A82E59026C55526001762DC /* AppDelegate.swift in Sources */,
