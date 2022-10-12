@@ -54,6 +54,17 @@ public extension UISearchBar {
         
 //        self.layer.cornerRadius = 20
 //        self.clipsToBounds = true
+        
+//        if let textfield = self.value(forKey: "searchField") as? UITextField {
+//            textfield.textColor = UIColor.blue
+//            if let backgroundview = textfield.subviews.first {
+//                backgroundview.layer.cornerRadius = 20;
+//                backgroundview.clipsToBounds = true;
+//            }
+//        }
+        
+        self.searchTextField.layer.cornerRadius = 20
+        self.searchTextField.clipsToBounds = true
 
         self.searchTextField.font = UIFont(name: "Helvetica", size: 14)
         self.searchTextField.attributedPlaceholder =  NSAttributedString.init(string: "Поиск", attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "BlackLP")!])
