@@ -19,7 +19,7 @@ class Database {
         case order
     }
     
-    enum productCollectionTypes {
+    enum productCollectionTypes: CaseIterable {
         case accessories
         case bags
         case hats
@@ -109,6 +109,22 @@ class Database {
                 }
             } else {
                 handler([])
+            }
+        }
+    }
+    
+    func getProductsForSearch(availabilityCollection: availabilityCollectionTypes, handler: @escaping ([UserProduct]) -> Void) {
+        var buildData = [QueryDocumentSnapshot]()
+        for (index, type) in productCollectionTypes.allCases.enumerated() {
+            let docRef = db.collection("men").document("\(availabilityCollection)").collection("\(type)")
+            docRef.addSnapshotListener { querySnapshot, err in
+                guard let data = querySnapshot?.documents else {
+                    return
+                }
+                buildData.append(contentsOf: data)
+                if index == productCollectionTypes.allCases.endIndex-1 {
+                    handler(UserProduct.build(from: buildData, and: []))
+                }
             }
         }
     }

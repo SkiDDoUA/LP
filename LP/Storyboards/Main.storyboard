@@ -4801,7 +4801,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" backIndicatorImage="Left Arrow" backIndicatorTransitionMaskImage="Left Arrow" id="ubA-eh-jYQ">
                         <rect key="frame" x="0.0" y="48" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" name="WhiteLP"/>
                         <color key="tintColor" name="BlackLP"/>
                         <color key="barTintColor" name="WhiteLP"/>
                         <textAttributes key="titleTextAttributes">
@@ -4809,7 +4808,6 @@
                         </textAttributes>
                         <textAttributes key="largeTitleTextAttributes">
                             <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
-                            <color key="textColor" name="WhiteLP"/>
                         </textAttributes>
                     </navigationBar>
                     <connections>

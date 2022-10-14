@@ -1,5 +1,5 @@
 //
-//  Structures.swift
+//  CustomTextFieldStructures.swift
 //  LP
 //
 //  Created by Anton Kolesnikov on 13.09.2021.
@@ -11,7 +11,7 @@ struct Email {
     private var string: String
 
     init(_ string: String) throws {
-        try Validations.email(string)
+        try CustomTextFieldValidations.email(string)
         self.string = string
     }
 
@@ -24,7 +24,7 @@ struct Field {
     private var string: String
 
     init(_ string: String) throws {
-        try Validations.field(string)
+        try CustomTextFieldValidations.field(string)
         self.string = string
     }
 
@@ -37,7 +37,7 @@ struct Phone {
     private var string: String
 
     init(_ string: String) throws {
-        try Validations.phone(string)
+        try CustomTextFieldValidations.phone(string)
         self.string = string
     }
 

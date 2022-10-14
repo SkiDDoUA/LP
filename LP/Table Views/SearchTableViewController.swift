@@ -8,6 +8,36 @@
 import UIKit
 
 class SearchTableViewController: UITableViewController {
+    var stockLoaded = false
+    var orderLoaded = false
+    private var database = Database()
+    private var allproducts = [[UserProduct](), [UserProduct]()] {
+       didSet {
+           DispatchQueue.main.async {
+               if self.stockLoaded && self.orderLoaded {
+                   self.tableView.reloadData()
+               }
+           }
+       }
+    }
+    var productsStock = [UserProduct]() {
+       didSet {
+           DispatchQueue.main.async {
+               self.stockLoaded = true
+               self.allproducts[0] = self.productsStock
+           }
+       }
+    }
+    
+    var productsOrder = [UserProduct]() {
+       didSet {
+           DispatchQueue.main.async {
+               self.orderLoaded = true
+               self.allproducts[1] = self.productsOrder
+           }
+       }
+    }
+
     let searchBar = UISearchBar()
 
     override func viewDidLoad() {
@@ -15,11 +45,23 @@ class SearchTableViewController: UITableViewController {
         self.navigationController?.navigationBar.topItem?.title = " "
         navigationItem.titleView = searchBar
         searchBar.setUpSearchBar()
+        loadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         searchBar.becomeFirstResponder()
+    }
+    
+    //MARK: - Load Data From Database
+    func loadData() {
+        database.getProductsForSearch(availabilityCollection: .stock) { products in
+            self.productsStock = products
+        }
+        
+        database.getProductsForSearch(availabilityCollection: .order) { products in
+            self.productsOrder = products
+        }
     }
 
     // MARK: - Table view data source

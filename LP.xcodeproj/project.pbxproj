@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		3A02128527C3E3F80069D447 /* SMSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A02128427C3E3F80069D447 /* SMSViewController.swift */; };
 		3A02128727C3E40F0069D447 /* AdditionalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A02128627C3E40F0069D447 /* AdditionalInfoViewController.swift */; };
-		3A067B3A26EF66A6008488EB /* Structures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A067B3926EF66A6008488EB /* Structures.swift */; };
+		3A067B3A26EF66A6008488EB /* CustomTextFieldStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A067B3926EF66A6008488EB /* CustomTextFieldStructures.swift */; };
 		3A0D2B80284A291400EA1FF3 /* AccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0D2B7F284A291400EA1FF3 /* AccountTableViewController.swift */; };
 		3A10220127B9C08A007F8067 /* TwoColumnsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1021FF27B9C08A007F8067 /* TwoColumnsTableViewCell.swift */; };
 		3A10220227B9C08A007F8067 /* TwoColumnsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A10220027B9C08A007F8067 /* TwoColumnsTableViewCell.xib */; };
@@ -53,8 +53,7 @@
 		3AD64E922853574700C28A56 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD64E912853574700C28A56 /* TabBarViewController.swift */; };
 		3AE0CB5A27E7603300B406ED /* FilterSecondTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CB5927E7603300B406ED /* FilterSecondTableViewCell.swift */; };
 		3AEA10EA27A94B1200B2CEC0 /* DetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEA10E927A94B1200B2CEC0 /* DetailsTableViewCell.swift */; };
-		3AEB09F426E62D3E00F500F8 /* Validations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEB09F326E62D3E00F500F8 /* Validations.swift */; };
-		3AF80FB8271DF5FE0003F7CA /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF80FB7271DF5FE0003F7CA /* Keychain.swift */; };
+		3AEB09F426E62D3E00F500F8 /* CustomTextFieldValidations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEB09F326E62D3E00F500F8 /* CustomTextFieldValidations.swift */; };
 		3AFF82F328B4235E00A258AD /* PublicExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF82F228B4235E00A258AD /* PublicExtensions.swift */; };
 		860AF9D2AD4098B0F1CD453E /* Pods_LP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BFD58EBC17E1C696BC8440D /* Pods_LP.framework */; };
 /* End PBXBuildFile section */
@@ -79,7 +78,7 @@
 /* Begin PBXFileReference section */
 		3A02128427C3E3F80069D447 /* SMSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSViewController.swift; sourceTree = "<group>"; };
 		3A02128627C3E40F0069D447 /* AdditionalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalInfoViewController.swift; sourceTree = "<group>"; };
-		3A067B3926EF66A6008488EB /* Structures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structures.swift; sourceTree = "<group>"; };
+		3A067B3926EF66A6008488EB /* CustomTextFieldStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldStructures.swift; sourceTree = "<group>"; };
 		3A0D2B7F284A291400EA1FF3 /* AccountTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewController.swift; sourceTree = "<group>"; };
 		3A1021FF27B9C08A007F8067 /* TwoColumnsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoColumnsTableViewCell.swift; sourceTree = "<group>"; };
 		3A10220027B9C08A007F8067 /* TwoColumnsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TwoColumnsTableViewCell.xib; sourceTree = "<group>"; };
@@ -131,8 +130,7 @@
 		3AD64E912853574700C28A56 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		3AE0CB5927E7603300B406ED /* FilterSecondTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSecondTableViewCell.swift; sourceTree = "<group>"; };
 		3AEA10E927A94B1200B2CEC0 /* DetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsTableViewCell.swift; sourceTree = "<group>"; };
-		3AEB09F326E62D3E00F500F8 /* Validations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validations.swift; sourceTree = "<group>"; };
-		3AF80FB7271DF5FE0003F7CA /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
+		3AEB09F326E62D3E00F500F8 /* CustomTextFieldValidations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldValidations.swift; sourceTree = "<group>"; };
 		3AFF82F228B4235E00A258AD /* PublicExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicExtensions.swift; sourceTree = "<group>"; };
 		7BFD58EBC17E1C696BC8440D /* Pods_LP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A96DFA11EBBEFB16AD1EDB07 /* Pods-LP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LP.release.xcconfig"; path = "Target Support Files/Pods-LP/Pods-LP.release.xcconfig"; sourceTree = "<group>"; };
@@ -279,15 +277,22 @@
 		3AA30181274E505A0029EDA2 /* Additonal Classes */ = {
 			isa = PBXGroup;
 			children = (
-				3A609C6C26E1000A00EC194A /* CustomTextField.swift */,
-				3AEB09F326E62D3E00F500F8 /* Validations.swift */,
-				3A067B3926EF66A6008488EB /* Structures.swift */,
-				3AF80FB7271DF5FE0003F7CA /* Keychain.swift */,
+				3ADC60FB28F98589002B354B /* CustomTextField */,
 				3A71B89F2718D88200D60E69 /* Schema.swift */,
 				3AC7ADB22795DFF20075187A /* CustomHeaderView.swift */,
 				3AFF82F228B4235E00A258AD /* PublicExtensions.swift */,
 			);
 			path = "Additonal Classes";
+			sourceTree = "<group>";
+		};
+		3ADC60FB28F98589002B354B /* CustomTextField */ = {
+			isa = PBXGroup;
+			children = (
+				3A609C6C26E1000A00EC194A /* CustomTextField.swift */,
+				3AEB09F326E62D3E00F500F8 /* CustomTextFieldValidations.swift */,
+				3A067B3926EF66A6008488EB /* CustomTextFieldStructures.swift */,
+			);
+			path = CustomTextField;
 			sourceTree = "<group>";
 		};
 		3AE61ECF2790551B00706111 /* View Controllers */ = {
@@ -536,12 +541,11 @@
 				3AB94BBE28B7940E002F22CF /* OrdersTableViewController.swift in Sources */,
 				3AB4AB1F28B2D80D0007655D /* AddressBookViewController.swift in Sources */,
 				3A82E59026C55526001762DC /* AppDelegate.swift in Sources */,
-				3AEB09F426E62D3E00F500F8 /* Validations.swift in Sources */,
-				3A067B3A26EF66A6008488EB /* Structures.swift in Sources */,
+				3AEB09F426E62D3E00F500F8 /* CustomTextFieldValidations.swift in Sources */,
+				3A067B3A26EF66A6008488EB /* CustomTextFieldStructures.swift in Sources */,
 				3A10220727BBE453007F8067 /* SortTableViewController.swift in Sources */,
 				3A0D2B80284A291400EA1FF3 /* AccountTableViewController.swift in Sources */,
 				3AFF82F328B4235E00A258AD /* PublicExtensions.swift in Sources */,
-				3AF80FB8271DF5FE0003F7CA /* Keychain.swift in Sources */,
 				3AAF8FBA2854BA4E0042C89B /* FavoritesTableViewController.swift in Sources */,
 				3A82E59226C55526001762DC /* SceneDelegate.swift in Sources */,
 				3AB4AB1B28B2D57B0007655D /* PersonalInfoViewController.swift in Sources */,
