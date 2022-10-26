@@ -184,14 +184,17 @@ public extension UITextField {
             case .phone:
                 let field = try Phone(self.text!)
                 label.isHidden = true
+                self.layer.borderColor = UIColor(named: "BlackLP")?.cgColor
                 return "+380" + field.textField()
             case .email:
                 let field = try Email(self.text!)
                 label.isHidden = true
+                self.layer.borderColor = UIColor(named: "BlackLP")?.cgColor
                 return field.textField()
             case .field:
                 let field = try Field(self.text!)
                 label.isHidden = true
+                self.layer.borderColor = UIColor(named: "BlackLP")?.cgColor
                 return field.textField()
             }
         } catch let errorField {

@@ -49,6 +49,7 @@
 		3AB7795E287078610017B1C5 /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB7795D287078610017B1C5 /* CartViewController.swift */; };
 		3AB94BBE28B7940E002F22CF /* OrdersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB94BBD28B7940E002F22CF /* OrdersTableViewController.swift */; };
 		3AC7ADB32795DFF20075187A /* CustomHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC7ADB22795DFF20075187A /* CustomHeaderView.swift */; };
+		3AC9F67128FACB98004BAA19 /* SearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC9F67028FACB98004BAA19 /* SearchEngine.swift */; };
 		3ACD92C5278076DC009CB427 /* ProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACD92C4278076DC009CB427 /* ProductCollectionViewCell.swift */; };
 		3AD64E922853574700C28A56 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD64E912853574700C28A56 /* TabBarViewController.swift */; };
 		3AE0CB5A27E7603300B406ED /* FilterSecondTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CB5927E7603300B406ED /* FilterSecondTableViewCell.swift */; };
@@ -126,6 +127,7 @@
 		3AB7795D287078610017B1C5 /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		3AB94BBD28B7940E002F22CF /* OrdersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersTableViewController.swift; sourceTree = "<group>"; };
 		3AC7ADB22795DFF20075187A /* CustomHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeaderView.swift; sourceTree = "<group>"; };
+		3AC9F67028FACB98004BAA19 /* SearchEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEngine.swift; sourceTree = "<group>"; };
 		3ACD92C4278076DC009CB427 /* ProductCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCollectionViewCell.swift; sourceTree = "<group>"; };
 		3AD64E912853574700C28A56 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		3AE0CB5927E7603300B406ED /* FilterSecondTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSecondTableViewCell.swift; sourceTree = "<group>"; };
@@ -281,6 +283,7 @@
 				3A71B89F2718D88200D60E69 /* Schema.swift */,
 				3AC7ADB22795DFF20075187A /* CustomHeaderView.swift */,
 				3AFF82F228B4235E00A258AD /* PublicExtensions.swift */,
+				3AC9F67028FACB98004BAA19 /* SearchEngine.swift */,
 			);
 			path = "Additonal Classes";
 			sourceTree = "<group>";
@@ -539,6 +542,7 @@
 				3A2D300627B2BAB800F1E09E /* SizeChartTableViewCell.swift in Sources */,
 				3AB69E8C28F6CF77009DB760 /* SearchTableViewController.swift in Sources */,
 				3AB94BBE28B7940E002F22CF /* OrdersTableViewController.swift in Sources */,
+				3AC9F67128FACB98004BAA19 /* SearchEngine.swift in Sources */,
 				3AB4AB1F28B2D80D0007655D /* AddressBookViewController.swift in Sources */,
 				3A82E59026C55526001762DC /* AppDelegate.swift in Sources */,
 				3AEB09F426E62D3E00F500F8 /* CustomTextFieldValidations.swift in Sources */,

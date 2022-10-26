@@ -62,7 +62,7 @@ public extension UISearchBar {
 //                backgroundview.clipsToBounds = true;
 //            }
 //        }
-        
+                
         self.searchTextField.layer.cornerRadius = 20
         self.searchTextField.clipsToBounds = true
 

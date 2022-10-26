@@ -218,7 +218,7 @@ extension MainViewController: UICollectionViewDataSource {
     }
 }
 
-// MARK: - Search Bar Setup
+// MARK: - UISearchBarDelegate
 extension MainViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         self.show(SearchTableViewController(), sender: Any?.self)
