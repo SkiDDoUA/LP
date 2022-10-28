@@ -22,6 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       IQKeyboardManager.shared.enable = true
       IQKeyboardManager.shared.enableAutoToolbar = false
       
+      //MARK: - Tab Bar Setup
+      UITabBar.appearance().clipsToBounds = true
+      UITabBar.appearance().shadowImage = nil
+      
       //MARK: - Nagivation Bar Setup
       let navigationBarAppearance = UINavigationBarAppearance()
       navigationBarAppearance.titleTextAttributes = [

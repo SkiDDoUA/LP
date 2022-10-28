@@ -46,6 +46,7 @@ class SearchTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+//        tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: "FilterCell")
         navigationController?.navigationBar.topItem?.title = " "
         navigationItem.titleView = searchBar
         searchBar.delegate = self
@@ -81,7 +82,7 @@ class SearchTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FilterCell", for: indexPath)
         if let cell = cell as? FilterTableViewCell {
             cell.filtersLabel?.text = searchBrandSuggestions[indexPath.row]
             cell.filterNameLabel?.text = "Бренд"

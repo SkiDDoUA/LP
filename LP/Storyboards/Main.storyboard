@@ -1040,7 +1040,7 @@
                             <constraint firstItem="BMJ-Xo-uPw" firstAttribute="top" secondItem="nI9-w8-4Mn" secondAttribute="topMargin" constant="1" id="XrX-SP-OP6"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" systemItem="more" id="FRb-e1-nZZ"/>
+                    <tabBarItem key="tabBarItem" selectedImage="Logo" id="FRb-e1-nZZ"/>
                     <navigationItem key="navigationItem" id="57h-um-ygq"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <size key="freeformSize" width="390" height="1000"/>
@@ -1641,27 +1641,27 @@
                         <color key="backgroundColor" name="WhiteLP"/>
                         <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SearchCell" id="JqJ-Pc-fIM" customClass="FilterTableViewCell" customModule="LP" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FilterCell" id="jV5-UW-c92" customClass="FilterTableViewCell" customModule="LP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="414" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JqJ-Pc-fIM" id="flH-SY-3hz">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jV5-UW-c92" id="ZEF-c4-0fR">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Размер" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="khX-eK-gZa">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Размер" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rfr-pP-Bd1">
                                             <rect key="frame" x="15" y="16.5" width="49.5" height="17"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="49.333333333333343" id="xhN-Ck-W3e"/>
+                                                <constraint firstAttribute="width" constant="49.333333333333343" id="BXv-mR-SM7"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                             <color key="textColor" name="BlackLP"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Arrow Left" translatesAutoresizingMaskIntoConstraints="NO" id="2QH-Ff-BuH">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Arrow Left" translatesAutoresizingMaskIntoConstraints="NO" id="jgA-9h-GR0">
                                             <rect key="frame" x="386" y="16.5" width="8" height="17"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="8" id="HA9-IN-hYj"/>
-                                                <constraint firstAttribute="height" constant="17" id="JBW-IR-6zX"/>
+                                                <constraint firstAttribute="height" constant="17" id="mIM-dl-H2U"/>
+                                                <constraint firstAttribute="width" constant="8" id="pTU-Eo-lWy"/>
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="rotation">
@@ -1669,7 +1669,7 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
-                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YR4-JW-HqC">
+                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tIX-dT-wPa">
                                             <rect key="frame" x="80" y="16.5" width="286" height="17"/>
                                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                             <color key="textColor" name="Dark GreyLP"/>
@@ -1677,18 +1677,18 @@
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="2QH-Ff-BuH" firstAttribute="leading" secondItem="YR4-JW-HqC" secondAttribute="trailing" constant="20" id="4HN-JO-uXd"/>
-                                        <constraint firstItem="YR4-JW-HqC" firstAttribute="centerY" secondItem="flH-SY-3hz" secondAttribute="centerY" id="Iou-yp-Ymm"/>
-                                        <constraint firstItem="khX-eK-gZa" firstAttribute="leading" secondItem="flH-SY-3hz" secondAttribute="leading" constant="15" id="Z3v-hC-k7B"/>
-                                        <constraint firstItem="YR4-JW-HqC" firstAttribute="leading" secondItem="khX-eK-gZa" secondAttribute="trailing" constant="15.67" id="cQH-7E-fbR"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="2QH-Ff-BuH" secondAttribute="trailing" id="knj-Os-w1C"/>
-                                        <constraint firstItem="2QH-Ff-BuH" firstAttribute="centerY" secondItem="flH-SY-3hz" secondAttribute="centerY" id="uwR-5G-IRa"/>
-                                        <constraint firstItem="khX-eK-gZa" firstAttribute="centerY" secondItem="flH-SY-3hz" secondAttribute="centerY" id="wiE-yb-FfH"/>
+                                        <constraint firstItem="jgA-9h-GR0" firstAttribute="centerY" secondItem="ZEF-c4-0fR" secondAttribute="centerY" id="9Eb-Nn-sYh"/>
+                                        <constraint firstItem="rfr-pP-Bd1" firstAttribute="centerY" secondItem="ZEF-c4-0fR" secondAttribute="centerY" id="K3h-Da-Rz8"/>
+                                        <constraint firstItem="tIX-dT-wPa" firstAttribute="centerY" secondItem="ZEF-c4-0fR" secondAttribute="centerY" id="MdW-hc-rPo"/>
+                                        <constraint firstItem="rfr-pP-Bd1" firstAttribute="leading" secondItem="ZEF-c4-0fR" secondAttribute="leading" constant="15" id="YtW-Bo-UWP"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="jgA-9h-GR0" secondAttribute="trailing" id="ZxF-sT-9gT"/>
+                                        <constraint firstItem="jgA-9h-GR0" firstAttribute="leading" secondItem="tIX-dT-wPa" secondAttribute="trailing" constant="20" id="abs-ck-UUu"/>
+                                        <constraint firstItem="tIX-dT-wPa" firstAttribute="leading" secondItem="rfr-pP-Bd1" secondAttribute="trailing" constant="15.67" id="z2H-F8-ONX"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="filterNameLabel" destination="khX-eK-gZa" id="dkr-0p-lsW"/>
-                                    <outlet property="filtersLabel" destination="YR4-JW-HqC" id="KTx-SD-gcR"/>
+                                    <outlet property="filterNameLabel" destination="rfr-pP-Bd1" id="hl8-5l-yBF"/>
+                                    <outlet property="filtersLabel" destination="tIX-dT-wPa" id="U0Z-M3-Wfm"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1708,11 +1708,14 @@
             </objects>
             <point key="canvasLocation" x="-459" y="1769"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="Jax-hY-pRs">
             <objects>
                 <navigationController id="vze-lS-dx0" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="7UI-SW-PP5"/>
+                    <tabBarItem key="tabBarItem" title="" image="Logo" selectedImage="Logo" id="7UI-SW-PP5">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                        <color key="badgeColor" name="BlackLP"/>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" backIndicatorImage="Left Arrow" backIndicatorTransitionMaskImage="Left Arrow" id="Fmu-MO-ggh">
                         <rect key="frame" x="0.0" y="48" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1800,19 +1803,19 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="4pF-20-u06">
                                                 <rect key="frame" x="0.0" y="0.0" width="151" height="71"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NIKE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="81l-qb-Ahj">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="NIKE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="81l-qb-Ahj">
                                                         <rect key="frame" x="0.0" y="0.0" width="37" height="24"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="20"/>
                                                         <color key="textColor" name="BlackLP"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Футболка Air Jordan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kex-O2-QrM">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Футболка Air Jordan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kex-O2-QrM">
                                                         <rect key="frame" x="0.0" y="29" width="151" height="18.5"/>
                                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="16"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="₴3500.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Jo-Pr-lv6">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="₴3500.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Jo-Pr-lv6">
                                                         <rect key="frame" x="0.0" y="52.5" width="68.5" height="18.5"/>
                                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="16"/>
                                                         <nil key="textColor"/>
@@ -2622,7 +2625,7 @@
                             <outlet property="delegate" destination="Vfd-6V-Sqt" id="U4Q-P9-Oe4"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" systemItem="recents" id="fub-oR-8a1"/>
+                    <tabBarItem key="tabBarItem" selectedImage="Account Filled" id="fub-oR-8a1"/>
                     <navigationItem key="navigationItem" title="Аккаунт" id="Hqt-y7-9u4"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hH4-kB-hQt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2780,7 +2783,14 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jNY-Mk-N0T">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="WhiteLP"/>
+                        <color key="barTintColor" name="WhiteLP"/>
+                        <color key="selectedImageTintColor" name="BlackLP"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="unselectedItemTintColor">
+                                <color key="value" name="BlackLP"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </tabBar>
                     <connections>
                         <segue destination="vze-lS-dx0" kind="relationship" relationship="viewControllers" id="MxJ-WQ-hOM"/>
@@ -3585,7 +3595,7 @@
                             <constraint firstItem="mUC-F5-wXl" firstAttribute="trailing" secondItem="Z6V-0D-XOj" secondAttribute="trailing" id="ma6-In-X02"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="ISP-ID-UUo"/>
+                    <tabBarItem key="tabBarItem" title="Item" selectedImage="Bag Filled" id="ISP-ID-UUo"/>
                     <navigationItem key="navigationItem" title="Корзина" id="tfF-tP-yLE"/>
                     <size key="freeformSize" width="390" height="1145"/>
                     <connections>
@@ -4743,11 +4753,14 @@
             </objects>
             <point key="canvasLocation" x="3613" y="2551"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="mQj-57-4Xk">
             <objects>
                 <navigationController id="orZ-do-Sig" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Y0X-bE-wug"/>
+                    <tabBarItem key="tabBarItem" title="" image="Account" selectedImage="Account Filled" id="Y0X-bE-wug">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                        <color key="badgeColor" name="BlackLP"/>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" backIndicatorImage="Left Arrow" backIndicatorTransitionMaskImage="Left Arrow" id="V8J-7K-UFq">
                         <rect key="frame" x="0.0" y="48" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -4768,11 +4781,14 @@
             </objects>
             <point key="canvasLocation" x="2745" y="1099"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="Xsb-NA-Bnq">
             <objects>
                 <navigationController id="KPS-5W-Wd2" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="teU-XV-Ijg"/>
+                    <tabBarItem key="tabBarItem" title="" image="Favorite" selectedImage="Favorite Filled Tab Bar" id="teU-XV-Ijg">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                        <color key="badgeColor" name="BlackLP"/>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" backIndicatorImage="Left Arrow" backIndicatorTransitionMaskImage="Left Arrow" id="fkX-HM-Oqq">
                         <rect key="frame" x="0.0" y="48" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -4793,11 +4809,14 @@
             </objects>
             <point key="canvasLocation" x="1951" y="1099"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="CHk-ZA-JBN">
             <objects>
                 <navigationController id="yNe-z4-ooe" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="6r5-gv-GJV"/>
+                    <tabBarItem key="tabBarItem" title="" image="Bag" selectedImage="Bag Filled" id="6r5-gv-GJV">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                        <color key="badgeColor" name="BlackLP"/>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" backIndicatorImage="Left Arrow" backIndicatorTransitionMaskImage="Left Arrow" id="ubA-eh-jYQ">
                         <rect key="frame" x="0.0" y="48" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -4954,16 +4973,42 @@
             <point key="canvasLocation" x="2745" y="2551"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="37w-0p-bKg">
+            <size key="intrinsicContentSize" width="16" height="22"/>
+        </designable>
+        <designable name="9Jy-td-98o">
+            <size key="intrinsicContentSize" width="127" height="16"/>
+        </designable>
+        <designable name="GQD-SK-LM8">
+            <size key="intrinsicContentSize" width="16" height="22"/>
+        </designable>
+        <designable name="b9K-w8-7og">
+            <size key="intrinsicContentSize" width="16" height="22"/>
+        </designable>
+        <designable name="mMP-Zs-3Bx">
+            <size key="intrinsicContentSize" width="221" height="16"/>
+        </designable>
+        <designable name="yah-CI-NKA">
+            <size key="intrinsicContentSize" width="16" height="22"/>
+        </designable>
+    </designables>
     <inferredMetricsTieBreakers>
         <segue reference="i82-LU-UUz"/>
-        <segue reference="h7J-nL-dBP"/>
+        <segue reference="6Qj-mO-JFd"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="Account" width="23" height="23"/>
+        <image name="Account Filled" width="23" height="23"/>
         <image name="Arrow" width="17" height="8"/>
         <image name="Arrow Left" width="8" height="17"/>
+        <image name="Bag" width="27" height="23"/>
+        <image name="Bag Filled" width="27" height="23"/>
         <image name="Check" width="16" height="11"/>
         <image name="Favorite" width="25" height="23"/>
+        <image name="Favorite Filled Tab Bar" width="25" height="23"/>
         <image name="Left Arrow" width="26" height="20"/>
+        <image name="Logo" width="25" height="32"/>
         <image name="Rec" width="16" height="16"/>
         <image name="Rec Selected" width="16" height="16"/>
         <namedColor name="BlackLP">

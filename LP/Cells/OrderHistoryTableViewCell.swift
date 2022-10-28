@@ -24,26 +24,45 @@ class OrderHistoryTableViewCell: UITableViewCell {
         orderDateLabel.text = dateFormatter.string(from: orderProduct.createdAt)
         
         let productsAmount = orderProduct.products.count
-        for (index, productUnit) in orderProduct.products.enumerated() {
-            switch index{
-            case 0:
-                orderItemOneImageView.kf.setImage(with: URL(string: productUnit.product!.images[0]))
-            case 1:
-                orderItemTwoImageView.kf.setImage(with: URL(string: productUnit.product!.images[0]))
-            case 2:
-                orderItemThreeImageView.kf.setImage(with: URL(string: productUnit.product!.images[0]))
-                
-                if productsAmount > 3 {
-                    let greyOverlayView = UIView()
-                    greyOverlayView.frame = orderItemThreeImageView.bounds
-                    greyOverlayView.layer.compositingFilter = "multiplyBlendMode"
-                    greyOverlayView.backgroundColor = .darkGray
-                    orderItemThreeImageView.addSubview(greyOverlayView)
-                    productAmountLabel.text = "+\(productsAmount-3)"
-                    productAmountLabel.isHidden = false
-                }
-            default:
-                return
+        if productsAmount <= 3 {
+            if let viewWithTag = orderItemThreeImageView.viewWithTag(100) {
+                viewWithTag.removeFromSuperview()
+            }
+            productAmountLabel.isHidden = true
+        }
+        
+        switch productsAmount {
+        case 1:
+            orderItemOneImageView.kf.setImage(with: URL(string: orderProduct.products[0].product!.images[0]))
+            orderItemTwoImageView.isHidden = true
+            orderItemThreeImageView.isHidden = true
+        case 2:
+            orderItemOneImageView.kf.setImage(with: URL(string: orderProduct.products[0].product!.images[0]))
+            orderItemTwoImageView.kf.setImage(with: URL(string: orderProduct.products[1].product!.images[0]))
+            orderItemTwoImageView.isHidden = false
+            orderItemThreeImageView.isHidden = true
+        case 3:
+            orderItemOneImageView.kf.setImage(with: URL(string: orderProduct.products[0].product!.images[0]))
+            orderItemTwoImageView.kf.setImage(with: URL(string: orderProduct.products[1].product!.images[0]))
+            orderItemThreeImageView.kf.setImage(with: URL(string: orderProduct.products[2].product!.images[0]))
+            orderItemTwoImageView.isHidden = false
+            orderItemThreeImageView.isHidden = false
+        default:
+            orderItemOneImageView.kf.setImage(with: URL(string: orderProduct.products[0].product!.images[0]))
+            orderItemTwoImageView.kf.setImage(with: URL(string: orderProduct.products[1].product!.images[0]))
+            orderItemThreeImageView.kf.setImage(with: URL(string: orderProduct.products[2].product!.images[0]))
+            orderItemTwoImageView.isHidden = false
+            orderItemThreeImageView.isHidden = false
+
+            if productAmountLabel.isHidden == true {
+                let greyOverlayView = UIView()
+                greyOverlayView.frame = orderItemThreeImageView.bounds
+                greyOverlayView.layer.compositingFilter = "multiplyBlendMode"
+                greyOverlayView.backgroundColor = .darkGray
+                greyOverlayView.tag = 100
+                orderItemThreeImageView.addSubview(greyOverlayView)
+                productAmountLabel.text = "+\(productsAmount-3)"
+                productAmountLabel.isHidden = false
             }
         }
     }

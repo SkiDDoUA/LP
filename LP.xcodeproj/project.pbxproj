@@ -220,8 +220,8 @@
 				3AA30180274E4FAD0029EDA2 /* Storyboards */,
 				3AA3017F274E4F990029EDA2 /* Delegates */,
 				3AE61ED02790554900706111 /* Cells */,
-				3AA3017D274E4F580029EDA2 /* Assets */,
 				3AE61ECF2790551B00706111 /* View Controllers */,
+				3AA3017D274E4F580029EDA2 /* Assets */,
 			);
 			path = LP;
 			sourceTree = "<group>";
