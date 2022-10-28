@@ -31,16 +31,16 @@ class OrderHistoryTableViewCell: UITableViewCell {
             productAmountLabel.isHidden = true
         }
         
+        orderItemTwoImageView.isHidden = true
+        orderItemThreeImageView.isHidden = true
+        
         switch productsAmount {
         case 1:
             orderItemOneImageView.kf.setImage(with: URL(string: orderProduct.products[0].product!.images[0]))
-            orderItemTwoImageView.isHidden = true
-            orderItemThreeImageView.isHidden = true
         case 2:
             orderItemOneImageView.kf.setImage(with: URL(string: orderProduct.products[0].product!.images[0]))
             orderItemTwoImageView.kf.setImage(with: URL(string: orderProduct.products[1].product!.images[0]))
             orderItemTwoImageView.isHidden = false
-            orderItemThreeImageView.isHidden = true
         case 3:
             orderItemOneImageView.kf.setImage(with: URL(string: orderProduct.products[0].product!.images[0]))
             orderItemTwoImageView.kf.setImage(with: URL(string: orderProduct.products[1].product!.images[0]))

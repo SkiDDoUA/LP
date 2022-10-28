@@ -1634,8 +1634,8 @@
         <!--Search Table View Controller-->
         <scene sceneID="Sa8-cX-I4U">
             <objects>
-                <tableViewController id="6zr-f9-Pjd" customClass="SearchTableViewController" customModule="LP" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="xdh-fE-phc">
+                <tableViewController storyboardIdentifier="SearchTableViewController" id="6zr-f9-Pjd" customClass="SearchTableViewController" customModule="LP" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="xdh-fE-phc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="WhiteLP"/>
@@ -1648,14 +1648,11 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Размер" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rfr-pP-Bd1">
-                                            <rect key="frame" x="15" y="16.5" width="49.5" height="17"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="49.333333333333343" id="BXv-mR-SM7"/>
-                                            </constraints>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Размер" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rfr-pP-Bd1">
+                                            <rect key="frame" x="15" y="17" width="49.5" height="16.5"/>
                                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                             <color key="textColor" name="BlackLP"/>
-                                            <nil key="highlightedColor"/>
+                                            <color key="highlightedColor" name="BlackLP"/>
                                         </label>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Arrow Left" translatesAutoresizingMaskIntoConstraints="NO" id="jgA-9h-GR0">
                                             <rect key="frame" x="386" y="16.5" width="8" height="17"/>
@@ -1669,8 +1666,8 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
-                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tIX-dT-wPa">
-                                            <rect key="frame" x="80" y="16.5" width="286" height="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Бренд" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tIX-dT-wPa">
+                                            <rect key="frame" x="324" y="16.5" width="42" height="17"/>
                                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                             <color key="textColor" name="Dark GreyLP"/>
                                             <nil key="highlightedColor"/>
@@ -1683,7 +1680,6 @@
                                         <constraint firstItem="rfr-pP-Bd1" firstAttribute="leading" secondItem="ZEF-c4-0fR" secondAttribute="leading" constant="15" id="YtW-Bo-UWP"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="jgA-9h-GR0" secondAttribute="trailing" id="ZxF-sT-9gT"/>
                                         <constraint firstItem="jgA-9h-GR0" firstAttribute="leading" secondItem="tIX-dT-wPa" secondAttribute="trailing" constant="20" id="abs-ck-UUu"/>
-                                        <constraint firstItem="tIX-dT-wPa" firstAttribute="leading" secondItem="rfr-pP-Bd1" secondAttribute="trailing" constant="15.67" id="z2H-F8-ONX"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -1706,7 +1702,7 @@
                 <exit id="6oM-mj-Fbe" userLabel="Exit" sceneMemberID="exit"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x9y-PN-lbO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-459" y="1769"/>
+            <point key="canvasLocation" x="-459.4202898550725" y="1768.5267857142856"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Jax-hY-pRs">

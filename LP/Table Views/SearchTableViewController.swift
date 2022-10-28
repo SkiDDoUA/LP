@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Foundation
 
 class SearchTableViewController: UITableViewController {
     var stockLoaded = false
@@ -46,12 +47,16 @@ class SearchTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: "FilterCell")
         navigationController?.navigationBar.topItem?.title = " "
         navigationItem.titleView = searchBar
         searchBar.delegate = self
         searchBar.setUpSearchBar()
+        searchBar.setImage(UIImage(), for: .search, state: .normal)
         loadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.addBottomLine()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -84,10 +89,18 @@ class SearchTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FilterCell", for: indexPath)
         if let cell = cell as? FilterTableViewCell {
-            cell.filtersLabel?.text = searchBrandSuggestions[indexPath.row]
-            cell.filterNameLabel?.text = "Бренд"
+            cell.filterNameLabel?.text = searchBrandSuggestions[indexPath.row]
+            cell.filtersLabel?.text = "Бренд"
         }
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return CGFloat.leastNormalMagnitude
+    }
+
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return CGFloat.leastNormalMagnitude
     }
 }
 
@@ -96,14 +109,19 @@ extension SearchTableViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         pendingRequestWorkItem?.cancel()
         
+        spaceStrippedSearchText = searchText.trimmingCharacters(in: .whitespaces)
+        
+        // Show all the symbols when `spaceStrippedSearchText` is empty
+        guard !spaceStrippedSearchText.isEmpty else {
+            searchBrandSuggestions.removeAll()
+            tableView.reloadData()
+            print("#USER HISTORY SHOWING#")
+            return
+        }
+        
         let requestWorkItem = DispatchWorkItem { [weak self] in
-            self?.spaceStrippedSearchText = searchText.trimmingCharacters(in: .whitespaces)
-            
-            // Show all the symbols when `spaceStrippedSearchText` is empty
-            guard !self!.spaceStrippedSearchText.isEmpty else {
-                print("#USER HISTORY SHOWING#")
-                return
-            }
+            self!.searchBrandSuggestions.removeAll()
+            self!.tableView.reloadData()
             
             // Filter all symbol names using a smart matching algorithm based on token prefixes
             let smartSearchMatcher = SearchEngine(searchString: self!.spaceStrippedSearchText)
@@ -128,8 +146,8 @@ extension SearchTableViewController: UISearchBarDelegate {
             for (availabilityType, _) in self!.tempAllproducts.enumerated() {
                 self!.tempAllproducts[availabilityType].forEach{self!.searchBrandSuggestions.append($0.product!.brand.name)}
             }
+            self!.searchBrandSuggestions = Array(Set(self!.searchBrandSuggestions))
             self!.tableView.reloadData()
-            print(self!.searchBrandSuggestions)
         }
                 
         pendingRequestWorkItem = requestWorkItem
