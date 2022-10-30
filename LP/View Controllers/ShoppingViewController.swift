@@ -17,19 +17,13 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegateFlowLayo
     private var database = Database()
     weak var delegate: FilterDataDelegate?
     var titleString = " "
+    var shoppingFromSearch = false
     var productCollectionType: Database.productCollectionTypes?
-    var availabilityCollectionType: Database.availabilityCollectionTypes?
     var filterType: FilterTypes?
     var tempProducts = [UserProduct]()
     var filterStructuresArray = [ProductFilter?]()
     var sortStructure: Sort?
-    var products = [UserProduct]() {
-       didSet {
-           DispatchQueue.main.async {
-               self.productCollectionView.reloadData()
-           }
-       }
-    }
+    
     private var allproducts = [UserProduct]() {
        didSet {
            DispatchQueue.main.async {
@@ -43,16 +37,44 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegateFlowLayo
        }
     }
     
-    public func sortProducts(productsP: [UserProduct]) -> [UserProduct] {
-        switch self.sortStructure?.sortType {
-        case .recommendation:
-            return productsP.sorted(by: {$0.product!.details.size.count > $1.product!.details.size.count})
-        case .ascending:
-            return productsP.sorted(by: {$0.product!.price < $1.product!.price})
-        case .descending:
-            return productsP.sorted(by: {$0.product!.price > $1.product!.price})
-        default:
-            return productsP
+    var products = [UserProduct]() {
+       didSet {
+           DispatchQueue.main.async {
+               self.productCollectionView.reloadData()
+           }
+       }
+    }
+    
+    var productsStock = [UserProduct]() {
+        didSet {
+            if !self.productsStock.isEmpty {
+                shoppingFromSearch = true
+            }
+        }
+    }
+    var productsOrder = [UserProduct]() {
+        didSet {
+            if !self.productsOrder.isEmpty {
+                shoppingFromSearch = true
+            }
+        }
+    }
+    
+    var availabilityCollectionType: Database.availabilityCollectionTypes?  {
+        didSet {
+            DispatchQueue.main.async {
+                if self.shoppingFromSearch == true {
+                    if self.availabilityCollectionType == .stock {
+                        self.allproducts = self.productsStock
+                        self.tempProducts = self.productsStock
+                    } else {
+                        self.allproducts = self.productsOrder
+                        self.tempProducts = self.productsOrder
+                    }
+                } else {
+                    self.loadData()
+                }
+            }
         }
     }
     
@@ -62,7 +84,16 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegateFlowLayo
         availabilitySegmentedControl.selectorType = .bottomBar
         availabilitySegmentedControl.SelectedFont = UIFont(name: "Helvetica", size: 14)!
         availabilitySegmentedControl.normalFont = UIFont(name: "Helvetica", size: 14)!
-        loadData()
+
+        if shoppingFromSearch == false {
+            loadData()
+        } else if !self.productsStock.isEmpty {
+            availabilityCollectionType = .stock
+            availabilitySegmentedControl.selectedSegmentIndex = 0
+        } else {
+            availabilityCollectionType = .order
+            availabilitySegmentedControl.selectedSegmentIndex = 1
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,14 +105,6 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegateFlowLayo
     override func viewDidAppear(_ animated: Bool) {
         productCollectionViewHeightConstraint.constant = productCollectionView.contentSize.height
         productCollectionViewConstraint.constant = 35
-    }
-    
-    //MARK: - Load Data From Database
-    func loadData() {
-        database.getProductsWithFavorites(availabilityCollection: availabilityCollectionType ?? .stock, productCollection: productCollectionType ?? .pants) { products in
-            self.allproducts = products
-            self.tempProducts = products
-        }
     }
     
     //MARK: - Parse Cell Data To ProductViewController
@@ -109,6 +132,28 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegateFlowLayo
         }
     }
     
+    //MARK: - Load Data From Database
+    func loadData() {
+        database.getProductsWithFavorites(availabilityCollection: availabilityCollectionType ?? .stock, productCollection: productCollectionType ?? .pants) { products in
+            self.allproducts = products
+            self.tempProducts = products
+        }
+    }
+    
+    //MARK: - Sort Products
+    public func sortProducts(productsP: [UserProduct]) -> [UserProduct] {
+        switch self.sortStructure?.sortType {
+        case .recommendation:
+            return productsP.sorted(by: {$0.product!.details.size.count > $1.product!.details.size.count})
+        case .ascending:
+            return productsP.sorted(by: {$0.product!.price < $1.product!.price})
+        case .descending:
+            return productsP.sorted(by: {$0.product!.price > $1.product!.price})
+        default:
+            return productsP
+        }
+    }
+    
     // MARK: - Get Index From Segment
     @IBAction func segmentValueChange(_ sender: WMSegment) {
         if sender.selectedSegmentIndex == 0 {
@@ -118,7 +163,6 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegateFlowLayo
         }
         sortStructure = nil
         filterStructuresArray = []
-        loadData()
     }
     
     // MARK: - Unwind Segue From Filter And Sort

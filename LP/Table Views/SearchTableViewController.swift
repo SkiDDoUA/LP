@@ -9,10 +9,15 @@ import UIKit
 import Foundation
 
 class SearchTableViewController: UITableViewController {
+    let searchBar = UISearchBar()
     var stockLoaded = false
     var orderLoaded = false
+    var spaceStrippedSearchText = String()
+    var searchBrandSuggestions = [String]()
+    private var tempAllproducts = [[UserProduct](), [UserProduct]()]
     private var pendingRequestWorkItem: DispatchWorkItem?
     private var database = Database()
+    
     private var allproducts = [[UserProduct](), [UserProduct]()] {
        didSet {
            DispatchQueue.main.async {
@@ -22,6 +27,7 @@ class SearchTableViewController: UITableViewController {
            }
        }
     }
+    
     var productsStock = [UserProduct]() {
        didSet {
            DispatchQueue.main.async {
@@ -39,11 +45,6 @@ class SearchTableViewController: UITableViewController {
            }
        }
     }
-    var spaceStrippedSearchText = String()
-    var searchBrandSuggestions = [String]()
-    private var tempAllproducts = [[UserProduct](), [UserProduct]()]
-
-    let searchBar = UISearchBar()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,17 +78,15 @@ class SearchTableViewController: UITableViewController {
 
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return searchBrandSuggestions.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FilterCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath)
         if let cell = cell as? FilterTableViewCell {
             cell.filterNameLabel?.text = searchBrandSuggestions[indexPath.row]
             cell.filtersLabel?.text = "Бренд"
@@ -101,6 +100,21 @@ class SearchTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return CGFloat.leastNormalMagnitude
+    }
+    
+    //MARK: - Parse Filter Data To FilterSecondTableViewController And ShoppingViewController
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "toShopping":
+            let destination = segue.destination as! ShoppingViewController
+            let cell = sender as! FilterTableViewCell
+            let indexPath = tableView.indexPath(for: cell)!
+            let brandFilterStructure = ProductFilter(filterType: .brand, filterData: [Filter(filterString: searchBrandSuggestions[indexPath.row], isChosen: true)])
+            destination.productsStock = FilterTableViewController().filterProducts(productsP: allproducts[0], filters: [brandFilterStructure])
+            destination.productsOrder = FilterTableViewController().filterProducts(productsP: allproducts[1], filters: [brandFilterStructure])
+            destination.titleString = searchBrandSuggestions[indexPath.row]
+        default: break
+        }
     }
 }
 

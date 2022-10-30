@@ -34,7 +34,7 @@ class FilterTableViewController: UITableViewController {
         }
     }
 
-    // MARK: Products Filter Function
+    // MARK: - Products Filter Function
     public func filterProducts(productsP: [UserProduct], filters: [ProductFilter]) -> [UserProduct] {
         var productFiltered = productsP
         for filterP in filters {
