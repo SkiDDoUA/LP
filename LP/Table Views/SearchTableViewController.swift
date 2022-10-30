@@ -14,9 +14,9 @@ class SearchTableViewController: UITableViewController {
     var orderLoaded = false
     var spaceStrippedSearchText = String()
     var searchBrandSuggestions = [String]()
-    private var tempAllproducts = [[UserProduct](), [UserProduct]()]
     private var pendingRequestWorkItem: DispatchWorkItem?
     private var database = Database()
+    private var tempAllproducts = [[UserProduct](), [UserProduct]()]
     
     private var allproducts = [[UserProduct](), [UserProduct]()] {
        didSet {
@@ -49,10 +49,7 @@ class SearchTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.topItem?.title = " "
-        navigationItem.titleView = searchBar
-        searchBar.delegate = self
-        searchBar.setUpSearchBar()
-        searchBar.setImage(UIImage(), for: .search, state: .normal)
+        searchBarAdditionalSetUp()
         loadData()
     }
     
@@ -74,6 +71,14 @@ class SearchTableViewController: UITableViewController {
         database.getProductsForSearch(availabilityCollection: .order) { products in
             self.productsOrder = products
         }
+    }
+    
+    func searchBarAdditionalSetUp() {
+        navigationItem.titleView = searchBar
+        searchBar.setUpSearchBar()
+        searchBar.delegate = self
+        searchBar.placeholder = "Название, бренд, цвет, пол, сезон, материал"
+        searchBar.setImage(UIImage(), for: .search, state: .normal)
     }
 
     // MARK: - Table view data source
@@ -107,12 +112,18 @@ class SearchTableViewController: UITableViewController {
         switch segue.identifier {
         case "toShopping":
             let destination = segue.destination as! ShoppingViewController
-            let cell = sender as! FilterTableViewCell
-            let indexPath = tableView.indexPath(for: cell)!
-            let brandFilterStructure = ProductFilter(filterType: .brand, filterData: [Filter(filterString: searchBrandSuggestions[indexPath.row], isChosen: true)])
-            destination.productsStock = FilterTableViewController().filterProducts(productsP: allproducts[0], filters: [brandFilterStructure])
-            destination.productsOrder = FilterTableViewController().filterProducts(productsP: allproducts[1], filters: [brandFilterStructure])
-            destination.titleString = searchBrandSuggestions[indexPath.row]
+            
+            if let cell = sender as? FilterTableViewCell {
+                let indexPath = tableView.indexPath(for: cell)!
+                let brandFilterStructure = ProductFilter(filterType: .brand, filterData: [Filter(filterString: searchBrandSuggestions[indexPath.row], isChosen: true)])
+                destination.productsStock = FilterTableViewController().filterProducts(productsP: allproducts[0], filters: [brandFilterStructure])
+                destination.productsOrder = FilterTableViewController().filterProducts(productsP: allproducts[1], filters: [brandFilterStructure])
+                destination.titleString = searchBrandSuggestions[indexPath.row]
+            } else {
+                destination.productsStock = tempAllproducts[0]
+                destination.productsOrder = tempAllproducts[1]
+                destination.titleString = searchBar.searchTextField.text ?? ""
+            }
         default: break
         }
     }
@@ -137,34 +148,41 @@ extension SearchTableViewController: UISearchBarDelegate {
             self!.searchBrandSuggestions.removeAll()
             self!.tableView.reloadData()
             
-            // Filter all symbol names using a smart matching algorithm based on token prefixes
-            let smartSearchMatcher = SearchEngine(searchString: self!.spaceStrippedSearchText)
-            
-            for (availabilityType, productsCollection) in self!.allproducts.enumerated() {
-                self!.tempAllproducts[availabilityType] = productsCollection.filter { product in
-                    if smartSearchMatcher.searchTokens.count == 1 && smartSearchMatcher.matches(product) {
-                        return true
-                    }
-                    return smartSearchMatcher.matches(product)
-                }
-            }
-            
             // Get brand suggestions
-            for (availabilityType, _) in self!.tempAllproducts.enumerated() {
-                self!.tempAllproducts[availabilityType] = self!.tempAllproducts[availabilityType].filter {
+            for (availabilityType, _) in self!.allproducts.enumerated() {
+                self!.tempAllproducts[availabilityType] = self!.allproducts[availabilityType].filter {
                     $0.product?.brand.name.lowercased().contains(searchText.lowercased()) ?? false
                 }
             }
             
             // Prepare brand suggestions for TableView
-            for (availabilityType, _) in self!.tempAllproducts.enumerated() {
+            for (availabilityType, _) in self!.allproducts.enumerated() {
                 self!.tempAllproducts[availabilityType].forEach{self!.searchBrandSuggestions.append($0.product!.brand.name)}
             }
+            
             self!.searchBrandSuggestions = Array(Set(self!.searchBrandSuggestions))
             self!.tableView.reloadData()
         }
-                
+        
         pendingRequestWorkItem = requestWorkItem
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: requestWorkItem)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let spaceStrippedSearchText = searchBar.searchTextField.text?.trimmingCharacters(in: .whitespaces) else { return }
+
+        // Filter all symbol names using a smart matching algorithm based on token prefixes
+        let smartSearchMatcher = SearchEngine(searchString: spaceStrippedSearchText)
+        
+        for (availabilityType, productsCollection) in allproducts.enumerated() {
+            tempAllproducts[availabilityType] = productsCollection.filter { product in
+                if smartSearchMatcher.searchTokens.count == 1 && smartSearchMatcher.matches(product) {
+                    return true
+                }
+                return smartSearchMatcher.matches(product)
+            }
+        }
+        
+        performSegue(withIdentifier: "toShopping", sender: nil)
     }
 }
