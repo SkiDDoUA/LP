@@ -81,9 +81,7 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegateFlowLayo
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.topItem?.title = " "
-        availabilitySegmentedControl.selectorType = .bottomBar
-        availabilitySegmentedControl.SelectedFont = UIFont(name: "Helvetica", size: 14)!
-        availabilitySegmentedControl.normalFont = UIFont(name: "Helvetica", size: 14)!
+        setupSegmentedControl()
 
         if shoppingFromSearch == false {
             loadData()
@@ -138,6 +136,13 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegateFlowLayo
             self.allproducts = products
             self.tempProducts = products
         }
+    }
+    
+    //MARK: - Setup SegmentedControl
+    func setupSegmentedControl() {
+        availabilitySegmentedControl.selectorType = .bottomBar
+        availabilitySegmentedControl.SelectedFont = UIFont(name: "Helvetica", size: 14)!
+        availabilitySegmentedControl.normalFont = UIFont(name: "Helvetica", size: 14)!
     }
     
     //MARK: - Sort Products
