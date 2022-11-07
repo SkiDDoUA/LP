@@ -84,6 +84,16 @@ class Database {
         }
     }
     
+    func getFavoriteProductsForSearch(searchProducts: [[UserProduct]], handler: @escaping ([[UserProduct]]) -> Void) {
+        if self.anonymousUser == false {
+            getUserProducts(collection: .favorites) { favorites in
+                handler(UserProduct.buildSearch(from: searchProducts, and: favorites))
+            }
+        } else {
+            handler(searchProducts)
+        }
+    }
+    
     func getUserProducts(collection: userProductsCollectionTypes, handler: @escaping ([UserProduct]) -> Void) {
         let docRef = db.collection("users").document(userID).collection("\(collection)")
         docRef.addSnapshotListener { querySnapshot, err in
@@ -128,7 +138,7 @@ class Database {
             }
         }
     }
-        
+            
     func getSizechart(docReference: DocumentReference, handler: @escaping (Sizechart) -> Void) {
         let docRef = db.document(docReference.path)
         docRef.getDocument { documentSnapshot, err in
@@ -203,6 +213,22 @@ extension UserProduct {
             for document in products {
                 let product = try? document.data(as: Product.self)
                 userProducts.append(UserProduct(isFavorite: false, product: product))
+            }
+        }
+        return userProducts
+    }
+    
+    static func buildSearch(from products: [[UserProduct]], and favoriteProducts: [UserProduct]) -> [[UserProduct]] {
+        var userProducts = products
+        if favoriteProducts.count != 0 {
+            for (indexCollection, productsCollection) in products.enumerated() {
+                for (index, product) in productsCollection.enumerated() {
+                    if favoriteProducts.filter({$0.reference == product.product?.reference}).count > 0 {
+                        userProducts[indexCollection][index].isFavorite = true
+                    } else {
+                        userProducts[indexCollection][index].isFavorite = false
+                    }
+                }
             }
         }
         return userProducts

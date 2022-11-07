@@ -27,6 +27,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
             self.productImageView.kf.setImage(with: URL(string: product.product!.images[0]))
             self.userProduct = product
         
+//            print(self.userProduct.isFavorite)
             if self.userProduct.isFavorite == true {
                 self.favoriteButton.setImage(UIImage(named: "Favorite Filled"), for: .normal)
             } else {

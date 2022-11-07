@@ -40,6 +40,7 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     var timer = Timer()
     var counter = 0
     var imageArray = [UIImage(named: "Rec1"), UIImage(named: "Rec2"), UIImage(named: "Rec3")]
+    
     var products = [UserProduct]() {
        didSet {
            DispatchQueue.main.async {
@@ -47,6 +48,7 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
            }
        }
     }
+    
     private var allproducts = [UserProduct]() {
        didSet {
            DispatchQueue.main.async {

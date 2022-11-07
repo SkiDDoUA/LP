@@ -14,6 +14,7 @@ class SearchTableViewController: UITableViewController {
     var orderLoaded = false
     var spaceStrippedSearchText = String()
     var searchBrandSuggestions = [String]()
+    
     private var pendingRequestWorkItem: DispatchWorkItem?
     private var database = Database()
     private var tempAllproducts = [[UserProduct](), [UserProduct]()]
@@ -73,6 +74,15 @@ class SearchTableViewController: UITableViewController {
         }
     }
     
+    //MARK: - Get Favorites For Search
+    func getFavorites() {
+        database.getFavoriteProductsForSearch(searchProducts: tempAllproducts) { products in
+            self.tempAllproducts = products
+            print("1")
+        }
+        print("2")
+    }
+    
     func searchBarAdditionalSetUp() {
         navigationItem.titleView = searchBar
         searchBar.setUpSearchBar()
@@ -111,19 +121,23 @@ class SearchTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "toShopping":
+            
+            getFavorites()
+            print("3")
             let destination = segue.destination as! ShoppingViewController
             
             if let cell = sender as? FilterTableViewCell {
                 let indexPath = tableView.indexPath(for: cell)!
                 let brandFilterStructure = ProductFilter(filterType: .brand, filterData: [Filter(filterString: searchBrandSuggestions[indexPath.row], isChosen: true)])
-                destination.productsStock = FilterTableViewController().filterProducts(productsP: allproducts[0], filters: [brandFilterStructure])
-                destination.productsOrder = FilterTableViewController().filterProducts(productsP: allproducts[1], filters: [brandFilterStructure])
+                destination.productsStock = FilterTableViewController().filterProducts(productsP: tempAllproducts[0], filters: [brandFilterStructure])
+                destination.productsOrder = FilterTableViewController().filterProducts(productsP: tempAllproducts[1], filters: [brandFilterStructure])
                 destination.titleString = searchBrandSuggestions[indexPath.row]
             } else {
                 destination.productsStock = tempAllproducts[0]
                 destination.productsOrder = tempAllproducts[1]
                 destination.titleString = searchBar.searchTextField.text ?? ""
             }
+
         default: break
         }
     }
