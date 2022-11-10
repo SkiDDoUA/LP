@@ -19,7 +19,7 @@ struct SearchEngine {
         // If there are no search tokens, everything matches
         guard !searchTokens.isEmpty else { return true }
 
-        let paths = [\UserProduct.product?.name, \UserProduct.product?.brand.name, \UserProduct.product?.details.color, \UserProduct.product?.details.gender, \UserProduct.product?.details.season, \UserProduct.product?.details.type, \UserProduct.product?.details.material.convertToString]
+        let paths = [\UserProduct.product?.name, \UserProduct.product?.brand.name, \UserProduct.product?.details.color, \UserProduct.product?.details.gender, \UserProduct.product?.brand.season, \UserProduct.product?.details.type, \UserProduct.product?.details.material]
         
         // Split `candidateString` into tokens by whitespace
         var candidateStringTokens = paths.map { (candidateString[keyPath:$0] ?? "") }
@@ -46,10 +46,4 @@ struct SearchEngine {
     }
 
     private(set) var searchTokens: [String.SubSequence]
-}
-
-extension Dictionary where Key: StringProtocol, Value: StringProtocol {
-    var convertToString: String {
-        self.map { "\($1)" }.joined(separator: " ")
-    }
 }

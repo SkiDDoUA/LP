@@ -93,14 +93,14 @@ public struct Product: Identifiable, Codable {
 // MARK: - ProductBrand Structure
 public struct ProductBrand: Codable {
     let name: String
-    let sizechart: DocumentReference?
+    let season: String
+    let reference: DocumentReference
 }
 
 // MARK: - ProductDetails Structure
 public struct ProductDetails: Codable {
     let color: String
-    let season: String
-    let material: [String : String]
+    let material: String
     let size: [String : Int]
     let stylecode: String
     let delivery: String
@@ -162,7 +162,7 @@ public struct OrderHistory {
 struct ExpandedModel {
     var isExpanded: Bool
     let title: String
-    let text: String
+    var text: String?
 }
 
 public enum OrderStatusTypes: String, Codable {

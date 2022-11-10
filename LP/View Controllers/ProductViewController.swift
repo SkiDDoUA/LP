@@ -23,6 +23,7 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var cartButton: UIButton!
     
+    let headerID = String(describing: CustomHeaderView.self)
     static var maxLengthSizechartToCell = Int()
     static var sizechartKeysToCell = [String]()
     private var database = Database()
@@ -30,21 +31,23 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
     var sortedKeys = [String]()
     var product: UserProduct!
     var viewPicker = UIPickerView()
-    let headerID = String(describing: CustomHeaderView.self)
     var arrayOfData = [ExpandedModel]()
+    
     var sizechart: Sizechart! {
        didSet {
            DispatchQueue.main.async {
                var maxLengthSizechart = [Int]()
+               
                self.sizechart.toDictionary?.forEach({ (key: String, value: Any?) in
                    ProductViewController.sizechartKeysToCell.append(key)
                    maxLengthSizechart.append((value as! NSArray as? [String])!.count)
                })
+               
                let maxLength = maxLengthSizechart.max() ?? 0
                ProductViewController.maxLengthSizechartToCell = maxLength
                
-               if maxLength == 0 {
-                   self.arrayOfData.remove(at: 3)
+               if maxLength != 0 {
+                   self.arrayOfData.append(ExpandedModel(isExpanded: false, title: "Размерная сетка"))
                    self.detailsTableView.reloadData()
                }
            }
@@ -54,10 +57,9 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
     override func viewDidLoad() {
         super.viewDidLoad()
         arrayOfData = [
-            ExpandedModel(isExpanded: false, title: "Описание", text: "ID модели: \(product.product!.details.stylecode) \nЦвет: \(product.product!.details.color)"),
+            ExpandedModel(isExpanded: false, title: "Описание", text: "ID модели: \(product.product!.details.stylecode)\nЦвет: \(product.product!.details.color)\nСезон: \(product.product!.brand.season)"),
             ExpandedModel(isExpanded: false, title: "Доставка", text: "Сроки доставки: \(product.product!.details.delivery)"),
-            ExpandedModel(isExpanded: false, title: "Материал", text: "\(product.product!.details.material.map {"\($0): \($1)"}.joined(separator:"\n"))"),
-            ExpandedModel(isExpanded: false, title: "Размерная сетка", text: "product.brand.sizechart")
+            ExpandedModel(isExpanded: false, title: "Материал", text: "\(product.product!.details.material)")
         ]
     
         detailsTableView.register(SizeChartTableViewCell.nib(), forCellReuseIdentifier: "SizeChartTableViewCell")
@@ -95,8 +97,9 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
     
     //MARK: - Load Data From Database
     func loadSizechart() {
-        database.getSizechart(docReference: product.product!.brand.sizechart!) {
-            handler in self.sizechart = handler;
+        let sizechartPath = "\(product.product!.brand.reference.path)/sizecharts/\(product.product!.details.type)"
+        database.getSizechart(docReference: sizechartPath) {
+            handler in self.sizechart = handler
         }
     }
     

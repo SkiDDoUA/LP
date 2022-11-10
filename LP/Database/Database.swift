@@ -100,7 +100,7 @@ class Database {
             guard let data = querySnapshot?.documents else {
                 return
             }
-            if data != [] {
+            if !data.isEmpty {
                 var productsArray = [UserProduct]()
                 for document in data {
                     var dataProduct = try? document.data(as: UserProduct.self)
@@ -139,13 +139,17 @@ class Database {
         }
     }
             
-    func getSizechart(docReference: DocumentReference, handler: @escaping (Sizechart) -> Void) {
-        let docRef = db.document(docReference.path)
+    func getSizechart(docReference: String, handler: @escaping (Sizechart) -> Void) {
+        let docRef = db.document(docReference)
         docRef.getDocument { documentSnapshot, err in
-            guard let data = documentSnapshot else {
+            if documentSnapshot!.exists {
+                guard let data = documentSnapshot else {
+                    return
+                }
+                handler(Sizechart.build(from: data))
+            } else {
                 return
             }
-            handler(Sizechart.build(from: data))
         }
     }
     
@@ -170,8 +174,8 @@ class Database {
     
     func editUserProductCart(cartProduct: UserProduct, size: String, quantity: Int? = nil) {
         let docRef = db.collection("users").document(userID).collection("cart").document(cartProduct.cartProductID!)
-        if quantity != nil {
-            docRef.setData(["quantity": quantity!], merge: true)
+        if let quantity {
+            docRef.setData(["quantity": quantity], merge: true)
         } else {
             docRef.setData(["size": size], merge: true)
         }
@@ -200,6 +204,7 @@ class Database {
 extension UserProduct {
     static func build(from products: [QueryDocumentSnapshot], and favoriteProducts: [UserProduct]) -> [UserProduct] {
         var userProducts = [UserProduct]()
+        
         if favoriteProducts.count != 0 {
             for document in products {
                 let product = try? document.data(as: Product.self)
@@ -215,12 +220,14 @@ extension UserProduct {
                 userProducts.append(UserProduct(isFavorite: false, product: product))
             }
         }
+        
         return userProducts
     }
     
     static func buildSearch(from products: [[UserProduct]], and favoriteProducts: [UserProduct]) -> [[UserProduct]] {
         var userProducts = products
-        if favoriteProducts.count != 0 {
+        
+        if !favoriteProducts.isEmpty {
             for (indexCollection, productsCollection) in products.enumerated() {
                 for (index, product) in productsCollection.enumerated() {
                     if favoriteProducts.filter({$0.reference == product.product?.reference}).count > 0 {
@@ -231,6 +238,7 @@ extension UserProduct {
                 }
             }
         }
+        
         return userProducts
     }
 }
@@ -238,36 +246,40 @@ extension UserProduct {
 extension Product {
     static func build(from documents: [QueryDocumentSnapshot]) -> [Product] {
         var products = [Product]()
+        
         for document in documents {
             try? products.append(document.data(as: Product.self))
         }
+        
         return products
     }
 }
 
 extension Sizechart {
     static func build(from documents: DocumentSnapshot) -> Sizechart {
-        var sizecharts: Sizechart!
-        try? sizecharts = documents.data(as: Sizechart.self)
-        return sizecharts
+//        var sizecharts: Sizechart!
+        let sizecharts = try? documents.data(as: Sizechart.self)
+//        print(sizecharts)
+        return sizecharts!
     }
 }
 
 extension Order {
     static func build(from documents: [QueryDocumentSnapshot]) -> [Order] {
         var orders = [Order]()
+        
         for document in documents {
             try? orders.append(document.data(as: Order.self))
         }
+        
         return orders
     }
 }
 
 extension User {
     static func build(from documents: DocumentSnapshot) -> User {
-        var user: User!
-        try? user = documents.data(as: User.self)
-        return user
+        let user = try? documents.data(as: User.self)
+        return user!
     }
 }
 
