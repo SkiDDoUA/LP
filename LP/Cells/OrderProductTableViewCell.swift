@@ -21,7 +21,7 @@ class OrderProductTableViewCell: UITableViewCell {
     func configure(for orderProduct: UserProduct) {
         self.productBrandLabel.text = orderProduct.product!.brand.name.uppercased()
         self.productNameLabel.text = orderProduct.product!.name
-        self.productPriceLabel.text = "₴\(orderProduct.product!.price.description)"
+        self.productPriceLabel.text = "₴\(orderProduct.product!.minPrice.description)"
         self.productImageView.kf.setImage(with: URL(string: orderProduct.product!.images[0]))
         
         self.quantityLabel.text = orderProduct.quantity?.description

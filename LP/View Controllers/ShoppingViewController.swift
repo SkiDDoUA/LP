@@ -149,11 +149,11 @@ class ShoppingViewController: UIViewController, UICollectionViewDelegateFlowLayo
     public func sortProducts(productsP: [UserProduct]) -> [UserProduct] {
         switch self.sortStructure?.sortType {
         case .recommendation:
-            return productsP.sorted(by: {$0.product!.details.size.count > $1.product!.details.size.count})
+            return productsP.sorted(by: {$0.product!.details.sizes.count > $1.product!.details.sizes.count})
         case .ascending:
-            return productsP.sorted(by: {$0.product!.price < $1.product!.price})
+            return productsP.sorted(by: {$0.product!.minPrice < $1.product!.minPrice})
         case .descending:
-            return productsP.sorted(by: {$0.product!.price > $1.product!.price})
+            return productsP.sorted(by: {$0.product!.minPrice > $1.product!.minPrice})
         default:
             return productsP
         }

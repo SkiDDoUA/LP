@@ -83,11 +83,23 @@ public struct UserAdditionalInfo: Codable {
 public struct Product: Identifiable, Codable {
     @DocumentID public var id: String? = UUID().uuidString
     let name: String
-    let price: Int
     let brand: ProductBrand
     let images: [String]
     let details: ProductDetails
     let reference: DocumentReference
+    
+    
+    var minPrice: Int {
+        get {
+            var priceArray = [Int]()
+            
+            details.sizes.values.forEach({ size in
+                priceArray.append(size.price)
+            })
+            
+            return priceArray.min()!
+        }
+    }
 }
 
 // MARK: - ProductBrand Structure
@@ -101,11 +113,17 @@ public struct ProductBrand: Codable {
 public struct ProductDetails: Codable {
     let color: String
     let material: String
-    let size: [String : Int]
+    let sizes: [String : ProductSize]
     let stylecode: String
     let delivery: String
     let type: String
     let gender: String
+}
+
+// MARK: - ProductSize Structure
+public struct ProductSize: Codable {
+    let price: Int
+    let quantity: Int
 }
 
 // MARK: - Sizechart Structure

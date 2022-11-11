@@ -10,6 +10,7 @@
 		3A02128527C3E3F80069D447 /* SMSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A02128427C3E3F80069D447 /* SMSViewController.swift */; };
 		3A02128727C3E40F0069D447 /* AdditionalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A02128627C3E40F0069D447 /* AdditionalInfoViewController.swift */; };
 		3A067B3A26EF66A6008488EB /* CustomTextFieldStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A067B3926EF66A6008488EB /* CustomTextFieldStructures.swift */; };
+		3A0AAAD0291E403D006BB197 /* EditProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0AAACF291E403D006BB197 /* EditProductViewController.swift */; };
 		3A0D2B80284A291400EA1FF3 /* AccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0D2B7F284A291400EA1FF3 /* AccountTableViewController.swift */; };
 		3A10220127B9C08A007F8067 /* TwoColumnsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1021FF27B9C08A007F8067 /* TwoColumnsTableViewCell.swift */; };
 		3A10220227B9C08A007F8067 /* TwoColumnsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A10220027B9C08A007F8067 /* TwoColumnsTableViewCell.xib */; };
@@ -80,6 +81,7 @@
 		3A02128427C3E3F80069D447 /* SMSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSViewController.swift; sourceTree = "<group>"; };
 		3A02128627C3E40F0069D447 /* AdditionalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalInfoViewController.swift; sourceTree = "<group>"; };
 		3A067B3926EF66A6008488EB /* CustomTextFieldStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldStructures.swift; sourceTree = "<group>"; };
+		3A0AAACF291E403D006BB197 /* EditProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProductViewController.swift; sourceTree = "<group>"; };
 		3A0D2B7F284A291400EA1FF3 /* AccountTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewController.swift; sourceTree = "<group>"; };
 		3A1021FF27B9C08A007F8067 /* TwoColumnsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoColumnsTableViewCell.swift; sourceTree = "<group>"; };
 		3A10220027B9C08A007F8067 /* TwoColumnsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TwoColumnsTableViewCell.xib; sourceTree = "<group>"; };
@@ -165,6 +167,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A0AAAD1291E4057006BB197 /* Admin Panel */ = {
+			isa = PBXGroup;
+			children = (
+				3A0AAACF291E403D006BB197 /* EditProductViewController.swift */,
+			);
+			path = "Admin Panel";
+			sourceTree = "<group>";
+		};
 		3A10220527BBE433007F8067 /* Table Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,6 +222,7 @@
 		3A82E58E26C55526001762DC /* LP */ = {
 			isa = PBXGroup;
 			children = (
+				3A0AAAD1291E4057006BB197 /* Admin Panel */,
 				3A95A71D2754E1EC009017FE /* GoogleService-Info.plist */,
 				3A82E59D26C55528001762DC /* Info.plist */,
 				3A10220527BBE433007F8067 /* Table Views */,
@@ -554,6 +565,7 @@
 				3A82E59226C55526001762DC /* SceneDelegate.swift in Sources */,
 				3AB4AB1B28B2D57B0007655D /* PersonalInfoViewController.swift in Sources */,
 				3A6801D028B2522B008A002D /* OrderProductTableViewCell.swift in Sources */,
+				3A0AAAD0291E403D006BB197 /* EditProductViewController.swift in Sources */,
 				3A96492F28B8FC89008BA446 /* OrderHistoryTableViewCell.swift in Sources */,
 				3AAF8FB82854B8ED0042C89B /* CartProductTableViewCell.swift in Sources */,
 				3AB4AB1928B2D3040007655D /* OrderDetailsViewController.swift in Sources */,

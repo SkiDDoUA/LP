@@ -20,7 +20,7 @@ class FavoriteProductTableViewCell: UITableViewCell {
     
     private var database = Database()
     var viewPicker = UIPickerView()
-    var sizeKeys = [String : Int]()
+    var sizeKeys = [String : ProductSize]()
     var sortedKeys = [String]()
     var pickerKeys = [String]()
     var product: UserProduct!
@@ -29,9 +29,9 @@ class FavoriteProductTableViewCell: UITableViewCell {
         self.product = favoriteProduct
         self.productBrandLabel.text = favoriteProduct.product!.brand.name.uppercased()
         self.productNameLabel.text = favoriteProduct.product!.name
-        self.productPriceLabel.text = "₴\(favoriteProduct.product!.price.description)"
+        self.productPriceLabel.text = "₴\(favoriteProduct.product!.minPrice.description)"
         self.productImageView.kf.setImage(with: URL(string: favoriteProduct.product!.images[0]))
-        self.sizeKeys = favoriteProduct.product!.details.size
+        self.sizeKeys = favoriteProduct.product!.details.sizes
         self.pickerKeys = [String](sizeKeys.keys)
         
         if pickerKeys.contains(favoriteProduct.size!) {

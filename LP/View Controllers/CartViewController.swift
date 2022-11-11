@@ -77,7 +77,7 @@ class CartViewController: UIViewController, MaskedTextFieldDelegateListener {
                self.promocodeDiscount = 0
                
                for product in self.products {
-                   self.clothingPrice += product.product!.price * product.quantity!
+                   self.clothingPrice += product.product!.minPrice * product.quantity!
                }
                self.clothingPriceLabel.text = "₴\(self.clothingPrice)\n₴\(self.deliveryPrice)\n₴\(self.promocodeDiscount)"
                self.orderTotalPriceLabel.text = "₴\(self.totalPrice)"

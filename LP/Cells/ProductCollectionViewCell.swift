@@ -23,7 +23,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
         DispatchQueue.main.async {
             self.productBrandLabel.text = product.product!.brand.name.uppercased()
             self.productNameLabel.text = product.product!.name
-            self.productPriceLabel.text = "₴\(product.product!.price.description)"
+            self.productPriceLabel.text = "₴\(product.product!.minPrice.description)"
             self.productImageView.kf.setImage(with: URL(string: product.product!.images[0]))
             self.userProduct = product
         

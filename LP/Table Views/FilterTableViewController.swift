@@ -42,7 +42,7 @@ class FilterTableViewController: UITableViewController {
             if filterP.isUsed {
                 switch filterP.filterType {
                 case .size:
-                    productFiltered.removeAll(where: {!$0.product!.details.size.keys.contains(where: chosenFilters.map{$0.filterString}.contains)})
+                    productFiltered.removeAll(where: {!$0.product!.details.sizes.keys.contains(where: chosenFilters.map{$0.filterString}.contains)})
                 case .gender:
                     productFiltered.removeAll(where: {!chosenFilters.map{$0.filterString}.contains($0.product!.details.gender)})
                 case .color:
@@ -57,7 +57,7 @@ class FilterTableViewController: UITableViewController {
                     let minAndMax = filterP.priceRange!.components(separatedBy: " - ")
                     let min = Int(Double(minAndMax[0]) ?? 0)
                     let max = Int(Double(minAndMax[1]) ?? 0)
-                    productFiltered.removeAll(where: {!(min <= $0.product!.price && $0.product!.price <= max)})
+                    productFiltered.removeAll(where: {!(min <= $0.product!.minPrice && $0.product!.minPrice <= max)})
                 }
             }
         }
@@ -134,10 +134,10 @@ class FilterTableViewController: UITableViewController {
 
             switch indexPath.row {
             case 0:
-                products.forEach{filterData.append(contentsOf: $0.product!.details.size.keys)}
+                products.forEach{filterData.append(contentsOf: $0.product!.details.sizes.keys)}
                 filterType = .size
             case 1:
-                products.forEach{filterData.append($0.product!.price.description)}
+                products.forEach{filterData.append($0.product!.minPrice.description)}
                 filterType = .price
             case 2:
                 products.forEach{filterData.append($0.product!.details.gender)}

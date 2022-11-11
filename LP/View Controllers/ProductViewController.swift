@@ -78,7 +78,7 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
         DispatchQueue.main.async {
             self.productBrandLabel.text = self.product.product!.brand.name.uppercased()
             self.productNameLabel.text = self.product.product!.name
-            self.productPriceLabel.text = "₴\(self.product.product!.price.description)"
+            self.productPriceLabel.text = "₴\(self.product.product!.minPrice.description)"
             self.favoriteButtonChosen = self.product.isFavorite ?? false
 
             if self.favoriteButtonChosen == true {
@@ -180,15 +180,14 @@ extension ProductViewController: UIPickerViewDataSource {
     }
     
     func pickerView( _ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return product.product!.details.size.count
+        return product.product!.details.sizes.count
     }
 
     func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let sizeKeys = [String](product.product!.details.size.keys)
+        let sizeKeys = [String](product.product!.details.sizes.keys)
         let sizeOrder = ["No size", "One size", "XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL", "XXXXL"]
         let stringSizeArray = sizeOrder.filter({sizeKeys.contains($0)})
-        let numberSizeArray = Array(Set(sizeKeys).subtracting(stringSizeArray)).sorted{$0 < $1}
-        sortedKeys = stringSizeArray + numberSizeArray
+        sortedKeys = stringSizeArray
         return sortedKeys[row]
     }
 

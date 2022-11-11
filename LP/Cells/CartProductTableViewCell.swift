@@ -23,7 +23,7 @@ class CartProductTableViewCell: UITableViewCell {
     var sizeValue = Int()
     var sizeQuantity = [Int]()
     var choosenSize = String()
-    var productSizes = [String: Int]()
+    var productSizes = [String: ProductSize]()
     var cartProduct: UserProduct!
     var reloadQuantity = Bool()
     
@@ -31,9 +31,9 @@ class CartProductTableViewCell: UITableViewCell {
         self.cartProduct = cartProduct
         self.productBrandLabel.text = cartProduct.product!.brand.name.uppercased()
         self.productNameLabel.text = cartProduct.product!.name
-        self.productPriceLabel.text = "₴\(cartProduct.product!.price.description)"
+        self.productPriceLabel.text = "₴\(cartProduct.product!.minPrice.description)"
         self.productImageView.kf.setImage(with: URL(string: cartProduct.product!.images[0]))
-        self.productSizes = cartProduct.product!.details.size
+        self.productSizes = cartProduct.product!.details.sizes
         
         if productSizes.keys.contains(cartProduct.size!) {
             sizePickerTextField.text = cartProduct.size
@@ -104,9 +104,9 @@ extension CartProductTableViewCell: UIPickerViewDelegate {
 extension CartProductTableViewCell: UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView.tag == 0 {
-            return cartProduct.product!.details.size.count
+            return cartProduct.product!.details.sizes.count
         } else {
-            let sizeValue = productSizes[choosenSize]!
+            let sizeValue = productSizes[choosenSize]!.quantity
             sizeQuantity = Array(1...sizeValue)
             return sizeQuantity.count
         }
