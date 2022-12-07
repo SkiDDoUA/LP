@@ -1,5 +1,4 @@
-# LP
-Legit Place iOS Ecommerce App
+# Legit Place iOS Ecommerce App
 
 App is still in development and have plenty of bugs. Main functional on the video below.
 
