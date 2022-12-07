@@ -42,7 +42,7 @@ class FilterTableViewController: UITableViewController {
             if filterP.isUsed {
                 switch filterP.filterType {
                 case .size:
-                    productFiltered.removeAll(where: {!$0.product!.details.sizes.keys.contains(where: chosenFilters.map{$0.filterString}.contains)})
+                    productFiltered.removeAll(where: {!$0.product!.details.sizeKeys.contains(where: chosenFilters.map{$0.filterString}.contains)})
                 case .gender:
                     productFiltered.removeAll(where: {!chosenFilters.map{$0.filterString}.contains($0.product!.details.gender)})
                 case .color:
@@ -134,7 +134,7 @@ class FilterTableViewController: UITableViewController {
 
             switch indexPath.row {
             case 0:
-                products.forEach{filterData.append(contentsOf: $0.product!.details.sizes.keys)}
+                products.forEach{filterData.append(contentsOf: $0.product!.details.sizeKeys)}
                 filterType = .size
             case 1:
                 products.forEach{filterData.append($0.product!.minPrice.description)}
@@ -152,6 +152,7 @@ class FilterTableViewController: UITableViewController {
             }
             
             if filterType == .size {
+                //FIXME: - Rewrite this function
                 let stringSizeArray = sizeOrder.filter({Array(Set(filterData)).contains($0)})
                 let numberSizeArray = Array(Set(filterData).subtracting(stringSizeArray)).sorted{$0 < $1}
                 let sortedSizeArray = stringSizeArray + numberSizeArray

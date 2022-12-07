@@ -63,11 +63,13 @@ class CartViewController: UIViewController, MaskedTextFieldDelegateListener {
             }
         }
      }
+    
     var totalPrice: Int {
         get {
             clothingPrice + deliveryPrice - promocodeDiscount
         }
     }
+    
     var products = [UserProduct]() {
        didSet {
            DispatchQueue.main.async {
@@ -76,6 +78,7 @@ class CartViewController: UIViewController, MaskedTextFieldDelegateListener {
                self.deliveryPrice = 0
                self.promocodeDiscount = 0
                
+               //FIXME: - Don't use minPrice
                for product in self.products {
                    self.clothingPrice += product.product!.minPrice * product.quantity!
                }

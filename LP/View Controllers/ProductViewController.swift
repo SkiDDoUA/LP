@@ -28,7 +28,6 @@ class ProductViewController: UIViewController, UITextFieldDelegate, UICollection
     static var sizechartKeysToCell = [String]()
     private var database = Database()
     var favoriteButtonChosen = Bool()
-    var sortedKeys = [String]()
     var product: UserProduct!
     var viewPicker = UIPickerView()
     var arrayOfData = [ExpandedModel]()
@@ -184,15 +183,11 @@ extension ProductViewController: UIPickerViewDataSource {
     }
 
     func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let sizeKeys = [String](product.product!.details.sizes.keys)
-        let sizeOrder = ["No size", "One size", "XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL", "XXXXL"]
-        let stringSizeArray = sizeOrder.filter({sizeKeys.contains($0)})
-        sortedKeys = stringSizeArray
-        return sortedKeys[row]
+        return product.product?.details.sortedSizes[row].size
     }
 
     func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        sizePickerTextField.text = sortedKeys[row]
+        sizePickerTextField.text = product.product?.details.sortedSizes[row].size
     }
 }
 

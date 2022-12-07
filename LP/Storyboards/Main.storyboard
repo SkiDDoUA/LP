@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4x6-0u-djp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4x6-0u-djp">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -2103,7 +2103,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HHV-wf-HlB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-441" y="5053"/>
+            <point key="canvasLocation" x="-478" y="5052"/>
         </scene>
         <!--Настройки (администратор)-->
         <scene sceneID="igL-3t-1gZ">
@@ -3058,7 +3058,7 @@
                                                                                 </userDefinedRuntimeAttribute>
                                                                             </userDefinedRuntimeAttributes>
                                                                             <connections>
-                                                                                <action selector="quantityTextFieldDidEndEditing:" destination="liy-uU-RAw" eventType="editingDidEnd" id="JI5-21-5V5"/>
+                                                                                <action selector="dsds:" destination="liy-uU-RAw" eventType="valueChanged" id="dId-J3-7bI"/>
                                                                                 <outlet property="delegate" destination="6RL-E5-N7O" id="CaI-su-fxC"/>
                                                                             </connections>
                                                                         </textField>
@@ -6007,7 +6007,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="irA-ez-27y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1179.7101449275362" y="5153.5714285714284"/>
+            <point key="canvasLocation" x="1183" y="5153"/>
         </scene>
         <!--Бренды-->
         <scene sceneID="nCv-Mm-84i">
@@ -6466,7 +6466,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Vx-b1-Iqr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1932" y="5032"/>
+            <point key="canvasLocation" x="1951" y="5031"/>
         </scene>
         <!--Пользователи-->
         <scene sceneID="aLE-RH-m49">
@@ -6842,7 +6842,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vyx-8K-e7O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2726" y="5032"/>
+            <point key="canvasLocation" x="2745" y="5030"/>
         </scene>
     </scenes>
     <designables>
@@ -6867,7 +6867,7 @@
     </designables>
     <inferredMetricsTieBreakers>
         <segue reference="HYC-Wi-JqF"/>
-        <segue reference="KyF-WQ-O98"/>
+        <segue reference="h7J-nL-dBP"/>
         <segue reference="yLh-YQ-Olk"/>
     </inferredMetricsTieBreakers>
     <resources>

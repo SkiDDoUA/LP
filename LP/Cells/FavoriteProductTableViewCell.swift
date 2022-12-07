@@ -20,21 +20,17 @@ class FavoriteProductTableViewCell: UITableViewCell {
     
     private var database = Database()
     var viewPicker = UIPickerView()
-    var sizeKeys = [String : ProductSize]()
-    var sortedKeys = [String]()
-    var pickerKeys = [String]()
     var product: UserProduct!
     
     func configure(for favoriteProduct: UserProduct) {
+        print(favoriteProduct)
         self.product = favoriteProduct
         self.productBrandLabel.text = favoriteProduct.product!.brand.name.uppercased()
         self.productNameLabel.text = favoriteProduct.product!.name
         self.productPriceLabel.text = "₴\(favoriteProduct.product!.minPrice.description)"
         self.productImageView.kf.setImage(with: URL(string: favoriteProduct.product!.images[0]))
-        self.sizeKeys = favoriteProduct.product!.details.sizes
-        self.pickerKeys = [String](sizeKeys.keys)
         
-        if pickerKeys.contains(favoriteProduct.size!) {
+        if favoriteProduct.product!.details.sizeKeys.contains(favoriteProduct.size!) {
             sizePickerTextField.text = favoriteProduct.size
         } else {
             addToCartButton.isHidden = true
@@ -83,19 +79,15 @@ extension FavoriteProductTableViewCell: UIPickerViewDelegate {
 
 extension FavoriteProductTableViewCell: UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return sizeKeys.count
+        return product.product!.details.sizeKeys.count
     }
     
     func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let sizeOrder = ["No size", "One size", "XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL", "XXXXL"]
-        let stringSizeArray = sizeOrder.filter({pickerKeys.contains($0)})
-        let numberSizeArray = Array(Set(pickerKeys).subtracting(stringSizeArray)).sorted{$0 < $1}
-        sortedKeys = stringSizeArray + numberSizeArray
-        return sortedKeys[row]
+        return product.product!.details.sortedSizes[row].size
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        sizePickerTextField.text = sortedKeys[row]
+        sizePickerTextField.text = product.product!.details.sortedSizes[row].size
         addToCartButton.isHidden = false
         detailsConstraint.constant = 15
         stackViewHeight.constant = 135

@@ -20,12 +20,6 @@ class FavoritesTableViewController: UITableViewController {
        }
     }
     
-    func getFavorites() {
-        database.getUserProducts(collection: .favorites) {
-            products in self.products = products;
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTapGesture()
@@ -35,6 +29,13 @@ class FavoritesTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.title = "Избранное"
         navigationController?.addBottomLine()
+    }
+    
+    func getFavorites() {
+        database.getUserProducts(collection: .favorites) {
+            products in self.products = products;
+            print(products)
+        }
     }
 
     // MARK: - Table view data source

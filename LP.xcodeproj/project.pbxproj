@@ -56,6 +56,7 @@
 		3AE0CB5A27E7603300B406ED /* FilterSecondTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CB5927E7603300B406ED /* FilterSecondTableViewCell.swift */; };
 		3AEA10EA27A94B1200B2CEC0 /* DetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEA10E927A94B1200B2CEC0 /* DetailsTableViewCell.swift */; };
 		3AEB09F426E62D3E00F500F8 /* CustomTextFieldValidations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEB09F326E62D3E00F500F8 /* CustomTextFieldValidations.swift */; };
+		3AFB014C291E9850008D66F1 /* PublicFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFB014B291E9850008D66F1 /* PublicFunctions.swift */; };
 		3AFF82F328B4235E00A258AD /* PublicExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF82F228B4235E00A258AD /* PublicExtensions.swift */; };
 		860AF9D2AD4098B0F1CD453E /* Pods_LP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BFD58EBC17E1C696BC8440D /* Pods_LP.framework */; };
 /* End PBXBuildFile section */
@@ -135,6 +136,7 @@
 		3AE0CB5927E7603300B406ED /* FilterSecondTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSecondTableViewCell.swift; sourceTree = "<group>"; };
 		3AEA10E927A94B1200B2CEC0 /* DetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsTableViewCell.swift; sourceTree = "<group>"; };
 		3AEB09F326E62D3E00F500F8 /* CustomTextFieldValidations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldValidations.swift; sourceTree = "<group>"; };
+		3AFB014B291E9850008D66F1 /* PublicFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicFunctions.swift; sourceTree = "<group>"; };
 		3AFF82F228B4235E00A258AD /* PublicExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicExtensions.swift; sourceTree = "<group>"; };
 		7BFD58EBC17E1C696BC8440D /* Pods_LP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A96DFA11EBBEFB16AD1EDB07 /* Pods-LP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LP.release.xcconfig"; path = "Target Support Files/Pods-LP/Pods-LP.release.xcconfig"; sourceTree = "<group>"; };
@@ -295,6 +297,7 @@
 				3AC7ADB22795DFF20075187A /* CustomHeaderView.swift */,
 				3AFF82F228B4235E00A258AD /* PublicExtensions.swift */,
 				3AC9F67028FACB98004BAA19 /* SearchEngine.swift */,
+				3AFB014B291E9850008D66F1 /* PublicFunctions.swift */,
 			);
 			path = "Additonal Classes";
 			sourceTree = "<group>";
@@ -544,6 +547,7 @@
 				3A02128727C3E40F0069D447 /* AdditionalInfoViewController.swift in Sources */,
 				3A4BE9E4282973A9000B856C /* CustomFilterTableViewCell.swift in Sources */,
 				3A02128527C3E3F80069D447 /* SMSViewController.swift in Sources */,
+				3AFB014C291E9850008D66F1 /* PublicFunctions.swift in Sources */,
 				3AC7ADB32795DFF20075187A /* CustomHeaderView.swift in Sources */,
 				3AEA10EA27A94B1200B2CEC0 /* DetailsTableViewCell.swift in Sources */,
 				3A71B8A02718D88200D60E69 /* Schema.swift in Sources */,

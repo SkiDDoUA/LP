@@ -88,12 +88,11 @@ public struct Product: Identifiable, Codable {
     let details: ProductDetails
     let reference: DocumentReference
     
-    
     var minPrice: Int {
         get {
             var priceArray = [Int]()
             
-            details.sizes.values.forEach({ size in
+            details.sortedSizes.forEach({ size in
                 priceArray.append(size.price)
             })
             
@@ -113,15 +112,44 @@ public struct ProductBrand: Codable {
 public struct ProductDetails: Codable {
     let color: String
     let material: String
-    let sizes: [String : ProductSize]
     let stylecode: String
     let delivery: String
     let type: String
     let gender: String
+    let sizes: [Size]
+        
+    var sortedSizes: [Size] {
+        get {
+            return sortSizes(for: sizes)
+        }
+    }
+    
+    var sizeKeys: [String] {
+        get {
+            return sizes.map({$0.size})
+        }
+    }
+    
+    func sortSizes(for array: [Size]) -> [Size] {
+        var sortedArray = [Size]()
+        let sizeOrder = ["No size", "One size", "XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL", "XXXXL"]
+
+        let stringSizeArray = sizeOrder.filter({sizeKeys.contains($0)})
+        let numberSizeArray = Array(Set(sizeKeys).subtracting(stringSizeArray)).sorted{$0 < $1}
+        let sortedKeys = stringSizeArray + numberSizeArray
+
+        sortedKeys.forEach({ size in
+            let index = self.sizes.firstIndex(where: { $0.size == size })
+            sortedArray.append(self.sizes[index!])
+        })
+        
+        return sortedArray
+    }
 }
 
 // MARK: - ProductSize Structure
-public struct ProductSize: Codable {
+public struct Size: Codable {
+    let size: String
     let price: Int
     let quantity: Int
 }
@@ -234,6 +262,7 @@ public struct ProductFilter {
     var filterType: FilterTypes
     var filterData: [Filter]
     var priceRange: String?
+    
     var isUsed: Bool {
         get {
             if filterData.filter({$0.isChosen == true}).count != 0 {

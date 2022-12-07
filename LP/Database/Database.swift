@@ -112,6 +112,7 @@ class Database {
                         }
                         dataProduct!.product = try? dataLocal.data(as: Product.self)
                         productsArray.append(dataProduct!)
+//                        print(dataProduct!)
                         if productsArray.count == data.count {
                             handler(productsArray)
                         }
@@ -172,11 +173,11 @@ class Database {
         }
     }
     
-    func editUserProductCart(cartProduct: UserProduct, size: String, quantity: Int? = nil) {
+    func editUserProductCart(cartProduct: UserProduct, size: String? = nil, quantity: Int? = nil) {
         let docRef = db.collection("users").document(userID).collection("cart").document(cartProduct.cartProductID!)
         if let quantity {
             docRef.setData(["quantity": quantity], merge: true)
-        } else {
+        } else if let size {
             docRef.setData(["size": size], merge: true)
         }
     }
@@ -220,7 +221,6 @@ extension UserProduct {
                 userProducts.append(UserProduct(isFavorite: false, product: product))
             }
         }
-        
         return userProducts
     }
     
